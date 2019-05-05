@@ -18,19 +18,9 @@ namespace Rhythmic.Beatmap
 {
     public class BeatmapAPI : Component
     {
-        private Game game;
+        [Resolved]
+        private Game game { get; set; }
 
-        [BackgroundDependencyLoader]
-        private void load(Game game)
-        {
-            this.game = game;
-        }
-
-        //Storage
-        /*public BeatmapMeta[] GetAllBeatmaps()
-        {
-
-        }*/
 
         public void GetBeatmapFromZip(string path)
         {

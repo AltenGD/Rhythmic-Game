@@ -40,7 +40,9 @@ namespace Rhythmic
 
             dependencies.Cache(this);
             dependencies.Cache(storage);
-            dependencies.Cache(beatmaps);
+            dependencies.CacheAs(beatmaps);
+
+            dependencies.CacheAs(new BeatmapAPI());
 
             Resources.AddStore(new DllResourceStore(mainResourceFile));
         }
@@ -51,6 +53,7 @@ namespace Rhythmic
 
             if (beatmaps == null)
                 beatmaps = new BeatmapCollection();
+
             if (beatmaps.Beatmaps == null)
                 beatmaps.Beatmaps = new List<BeatmapMeta>();
 

@@ -13,11 +13,20 @@ namespace Rhythmic.Screens.MainMenu
         [Resolved]
         private BeatmapCollection collection { get; set; }
 
+        [Resolved]
+        private BeatmapAPI API { get; set; }
+
         protected override void LoadComplete()
         {
-            collection.Beatmaps = new List<BeatmapMeta>();
+            LoadAllBeatmaps();
+            System.Console.WriteLine(collection.Beatmaps.Count);
+
+            base.LoadAsyncComplete();
+        }
+
+        private void LoadAllBeatmaps()
+        {
             var path = GetFolderPath(SpecialFolder.ApplicationData) + @"\Rhythmic\Database\Beatmaps\";
-            var API = new BeatmapAPI();
 
             foreach (var file in Directory.EnumerateDirectories(path))
             {
@@ -26,10 +35,6 @@ namespace Rhythmic.Screens.MainMenu
                 var level = API.ParseBeatmap(File.ReadAllText(file + @"\level.json"));
                 collection.Beatmaps.Add(level);
             }
-
-            System.Console.WriteLine(collection.Beatmaps.Count);
-
-            base.LoadAsyncComplete();
         }
     }
 }
