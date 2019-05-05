@@ -1,0 +1,49 @@
+[
+    {
+        "Name": "Container 1",
+        "Type": "Container",
+        "Time": 0,
+        "Shape": "Square",
+        "Colour": [ 255, 255, 255, 255],
+        "Position": [ 0, 0 ],
+        "Scale": [ 1, 1],
+        "Rotation": 0,
+        "Anchor": "Center",
+        "Origin": "Center",
+        "Autokill": true,
+        "Masking": false,
+        "Children": [
+            {
+                "Name": "Container 1",
+                "Type": "Object",
+                "Time": 0,
+                "Shape": "Image",
+                "ImgUrl": "sb/Group.png",
+                "Colour": [ 255, 255, 255, 255],
+                "Position": [ -20, 0 ],
+                "Scale": [ 1, 1],
+                "Rotation": 0,
+                "Anchor": "Center",
+                "Origin": "Center",
+                "Autokill": true,
+                "MoveKeyframes": [
+                    {
+                        "Time": 0,
+                        "Position": [ -20, 0 ],
+                        "EaseType": "None"
+                    },
+                    {
+                        "Time": 0.5,
+                        "Position": [ 0, 0 ],
+                        "EaseType": "EaseOut"
+                    },
+                    {
+                        "Time": 3,
+                        "Position": [ 20, 0 ],
+                        "EaseType": "Linear"
+                    }
+                ]
+            }
+        ]
+    }
+]

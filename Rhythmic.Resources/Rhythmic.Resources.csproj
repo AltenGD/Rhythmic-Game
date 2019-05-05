@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Beatmap\NULCTRL\level.json" />
+    <None Remove="Beatmap\NULCTRL\sb\Group %402x.png" />
+    <None Remove="Beatmap\NULCTRL\sb\Group 2 %402x.png" />
+    <None Remove="Beatmap\NULCTRL\sb\Group 2.png" />
+    <None Remove="Beatmap\NULCTRL\sb\Group.png" />
+    <None Remove="Beatmap\NULCTRL\song.mp3" />
+    <None Remove="Beatmap\NULCTRL\storyboard.json" />
+    <None Remove="Fonts\Audiowide.bin" />
+    <None Remove="Fonts\Audiowide_0.png" />
+    <None Remove="Fonts\FontAwesome_1.png" />
+    <None Remove="Fonts\FontAwesome_2.png" />
+    <None Remove="Fonts\FontAwesome_3.png" />
+    <None Remove="Fonts\FontAwesome_4.png" />
+    <None Remove="Fonts\FontAwesome_5.png" />
+    <None Remove="Fonts\Neogrey Medium.bin" />
+    <None Remove="Fonts\Neogrey Medium_0.png" />
+    <None Remove="Fonts\Neogrey.bin" />
+    <None Remove="Fonts\Neogrey_0.png" />
+    <None Remove="Fonts\purista.fnt" />
+    <None Remove="Fonts\purista_0.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Beatmap\NULCTRL\level.json" />
+    <EmbeddedResource Include="Beatmap\NULCTRL\sb\Group 2 @2x.png" />
+    <EmbeddedResource Include="Beatmap\NULCTRL\sb\Group 2.png" />
+    <EmbeddedResource Include="Beatmap\NULCTRL\sb\Group @2x.png" />
+    <EmbeddedResource Include="Beatmap\NULCTRL\sb\Group.png" />
+    <EmbeddedResource Include="Beatmap\NULCTRL\song.mp3" />
+    <EmbeddedResource Include="Beatmap\NULCTRL\storyboard.json" />
+    <EmbeddedResource Include="Fonts\Audiowide.bin" />
+    <EmbeddedResource Include="Fonts\Audiowide_0.png" />
+    <EmbeddedResource Include="Fonts\Neogrey Medium.bin" />
+    <EmbeddedResource Include="Fonts\Neogrey Medium_0.png" />
+    <EmbeddedResource Include="Fonts\Neogrey.bin" />
+    <EmbeddedResource Include="Fonts\Neogrey_0.png" />
+    <EmbeddedResource Include="Fonts\purista.fnt" />
+    <EmbeddedResource Include="Fonts\purista_0.png" />
+  </ItemGroup>
+
+</Project>

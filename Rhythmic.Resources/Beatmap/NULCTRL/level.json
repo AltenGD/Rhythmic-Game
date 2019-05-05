@@ -1,0 +1,169 @@
+{
+  "Metadata": {
+    "Song": {
+      "Author": "Silentroom",
+      "AuthorUnicode": null,
+      "Name": "NULCTRL",
+      "NameUnicode": null
+    },
+    "Level": {
+      "LevelName": "NULCTRL",
+      "Creator": {
+        "Name": "Alten",
+        "ProfilePicture": "https://cdn.discordapp.com/avatars/184061887212814336/541efbba84566bdf7f4627e0a6786121.png"
+      }
+    }
+  },
+  "Level": {
+    "Prefabs": [],
+    "Level": [
+      {
+        "Name": "Object 1",
+        "Time": 500.0,
+        "Shape": 0,
+        "Type": 0,
+        "ImageUrl": "",
+        "Colour": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "Position": [
+          0,
+          0
+        ],
+        "Size": [
+          150,
+          150
+        ],
+        "Rotation": 0,
+        "Anchor": 18,
+        "Origin": 18,
+        "Autokill": false,
+        "Helper": false,
+        "Empty": false,
+        "Masking": false,
+        "Prefab": null,
+        "MoveKeyframes": [
+          {
+            "Time": 0.0,
+            "TimeUntilFinish": 0.0,
+            "Value": [
+              0.0,
+              -120.0
+            ],
+            "EaseType": 0
+          },
+          {
+            "Time": 2000.0,
+            "TimeUntilFinish": 5000.0,
+            "Value": [
+              0.0,
+              0.0
+            ],
+            "EaseType": 19
+          }
+        ],
+        "ScaleKeyframes": [
+          {
+            "Time": 0.0,
+            "TimeUntilFinish": 0.0,
+            "Value": [
+              0.0,
+              0.0
+            ],
+            "EaseType": 0
+          },
+          {
+            "Time": 2000.0,
+            "TimeUntilFinish": 5000.0,
+            "Value": [
+              150.0,
+              150.0
+            ],
+            "EaseType": 19
+          }
+        ],
+        "RotationKeyframes": null
+      },
+      {
+        "Name": "Object 2",
+        "Time": 1000.0,
+        "Shape": 0,
+        "Type": 0,
+        "ImageUrl": "",
+        "Colour": [
+          255,
+          0,
+          0,
+          255
+        ],
+        "Position": [
+          0,
+          0
+        ],
+        "Size": [
+          150,
+          150
+        ],
+        "Rotation": 0,
+        "Anchor": 18,
+        "Origin": 18,
+        "Autokill": false,
+        "Helper": false,
+        "Empty": false,
+        "Masking": false,
+        "Prefab": null,
+        "MoveKeyframes": [
+          {
+            "Time": 0.0,
+            "TimeUntilFinish": 0.0,
+            "Value": [
+              -20.0,
+              -120.0
+            ],
+            "EaseType": 0
+          },
+          {
+            "Time": 2000.0,
+            "TimeUntilFinish": 5000.0,
+            "Value": [
+              -20.0,
+              0.0
+            ],
+            "EaseType": 19
+          }
+        ],
+        "ScaleKeyframes": [
+          {
+            "Time": 0.0,
+            "TimeUntilFinish": 0.0,
+            "Value": [
+              0.0,
+              0.0
+            ],
+            "EaseType": 0
+          },
+          {
+            "Time": 2000.0,
+            "TimeUntilFinish": 5000.0,
+            "Value": [
+              150.0,
+              150.0
+            ],
+            "EaseType": 19
+          }
+        ],
+        "RotationKeyframes": null
+      }
+    ]
+  },
+  "Player": {
+    "Health": 3,
+    "Size": 20,
+    "Cooldown": 2,
+    "Colour":  [ 255, 255, 255, 255 ]
+  },
+  "SongUrl": "song.mp3",
+}
