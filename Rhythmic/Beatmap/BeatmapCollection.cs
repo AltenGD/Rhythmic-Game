@@ -6,6 +6,6 @@ namespace Rhythmic.Beatmap
 {
     public class BeatmapCollection : Component
     {
-        public List<BeatmapMeta> Beatmaps;
+        public List<DatabasedBeatmap> Beatmaps;
     }
 }

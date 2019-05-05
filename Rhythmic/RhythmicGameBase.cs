@@ -55,7 +55,7 @@ namespace Rhythmic
                 beatmaps = new BeatmapCollection();
 
             if (beatmaps.Beatmaps == null)
-                beatmaps.Beatmaps = new List<BeatmapMeta>();
+                beatmaps.Beatmaps = new List<DatabasedBeatmap>();
 
             CreateRequiredFiles();
             var config = new FrameworkConfigManager(storage);

@@ -19,7 +19,10 @@ namespace Rhythmic
             Add(new ScreenStack(new MainMenu
             {
                 RelativeSizeAxes = Axes.Both
-            }));
+            })
+            {
+                RelativeSizeAxes = Axes.Both
+            });
 
             var path = GetFolderPath(SpecialFolder.ApplicationData) + @"\Rhythmic\Database\Beatmaps";
             var API = new BeatmapAPI();
