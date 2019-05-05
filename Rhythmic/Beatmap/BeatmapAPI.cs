@@ -21,7 +21,6 @@ namespace Rhythmic.Beatmap
         [Resolved]
         private Game game { get; set; }
 
-
         public void GetBeatmapFromZip(string path)
         {
             if (!ZipUtils.IsZipArchive(path))
