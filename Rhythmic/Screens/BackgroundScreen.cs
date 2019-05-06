@@ -6,7 +6,7 @@ using osuTK;
 
 namespace Rhythmic.Screens
 {
-    public class BackgroundScreen : Screen, IEquatable<BackgroundScreen>
+    public abstract class BackgroundScreen : Screen, IEquatable<BackgroundScreen>
     {
         protected BackgroundScreen()
         {

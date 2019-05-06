@@ -74,8 +74,6 @@ namespace Rhythmic.Screens
 
         public ScreenWhiteBox()
         {
-            FillFlowContainer childModeButtons;
-
             InternalChildren = new Drawable[]
             {
                 boxContainer = new Container

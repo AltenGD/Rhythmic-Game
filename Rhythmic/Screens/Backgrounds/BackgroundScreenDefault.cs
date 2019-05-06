@@ -46,6 +46,7 @@ namespace Rhythmic.Screens.Backgrounds
             Background newBackground;
             newBackground = new Background(backgroundName);
             newBackground.Depth = currentDisplay;
+            newBackground.Alpha = 0.7f;
 
             return newBackground;
         }

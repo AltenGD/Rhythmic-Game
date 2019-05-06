@@ -10,7 +10,7 @@ namespace Rhythmic.Screens.Select
     {
         public SongSelect(BackgroundScreenDefault background)
         {
-            background.Next();
+            background?.Next();
         }
     }
 }
