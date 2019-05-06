@@ -23,6 +23,7 @@ using Rhythmic.Graphics.Drawables;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Sprites;
 using osu.Framework.Graphics.Effects;
+using osu.Framework.Extensions.Color4Extensions;
 
 namespace Rhythmic.Screens.MainMenu.Components
 {
@@ -32,6 +33,7 @@ namespace Rhythmic.Screens.MainMenu.Components
         private Color4 Hover;
         private Color4 Normal;
         private Action action;
+        private RhythmicRectangleFill shadow;
 
         public RhythmicRectangleButton(string Name, IconUsage Icon, Color4 AccentColor, Color4 AccentColorBrighter, Action Action)
         {
@@ -44,6 +46,13 @@ namespace Rhythmic.Screens.MainMenu.Components
 
             Children = new Drawable[]
             {
+                shadow = new RhythmicRectangleFill
+                {
+                    FillColor = Color4.Black.Opacity(0.5f),
+                    Origin = Anchor.Centre,
+                    Anchor = Anchor.Centre,
+                    Scale = new Vector2(0.3f),
+                },
                 new RhythmicRectangleFill
                 {
                     FillColor = Color4.White,
@@ -97,14 +106,14 @@ namespace Rhythmic.Screens.MainMenu.Components
 
         protected override bool OnHover(HoverEvent e)
         {
-            this.MoveTo(new Vector2(0, -70), 500, Easing.OutExpo);
+            shadow.MoveTo(new Vector2(0, 5), 500, Easing.OutExpo);
             outline.FadeColour(Hover, 500, Easing.OutExpo);
             return base.OnHover(e);
         }
 
         protected override void OnHoverLost(HoverLostEvent e)
         {
-            this.MoveTo(new Vector2(0, 0), 500, Easing.OutExpo);
+            shadow.MoveTo(new Vector2(0, 0), 500, Easing.OutExpo);
             outline.FadeColour(Normal, 500, Easing.OutExpo);
             base.OnHoverLost(e);
         }

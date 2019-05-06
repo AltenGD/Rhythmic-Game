@@ -23,6 +23,7 @@ namespace Rhythmic.Screens
 
         private readonly FillFlowContainer textContainer;
         private readonly Container boxContainer;
+        private SpriteText header;
 
         public override void OnEntering(IScreen last)
         {
@@ -44,6 +45,7 @@ namespace Rhythmic.Screens
                 boxContainer.RotateTo(0, transition_time / 2, Easing.OutQuint);
 
                 textContainer.MoveTo(Vector2.Zero, transition_time, Easing.OutExpo);
+                header.TransformSpacingTo(new Vector2(10, 0), transition_time * 2, Easing.Out);
                 this.FadeIn(transition_time, Easing.OutExpo);
             }
         }
@@ -51,6 +53,7 @@ namespace Rhythmic.Screens
         public override bool OnExiting(IScreen next)
         {
             textContainer.MoveTo(new Vector2(DrawSize.X / 16, 0), transition_time, Easing.OutExpo);
+            header.TransformSpacingTo(new Vector2(0, 0), transition_time, Easing.Out);
             this.FadeOut(transition_time, Easing.OutExpo);
 
             return base.OnExiting(next);
@@ -109,13 +112,13 @@ namespace Rhythmic.Screens
                                     Origin = Anchor.TopCentre,
                                     Size = new Vector2(50),
                                 },
-                                new SpriteText
+                                header = new SpriteText
                                 {
                                     Anchor = Anchor.TopCentre,
                                     Origin = Anchor.TopCentre,
                                     Text = GetType().Name,
                                     Colour = getColourFor(GetType()).Lighten(0.8f),
-                                    Font = RhythmicFont.GetFont(size: 70),
+                                    Font = RhythmicFont.GetFont(size: 70, italics:true),
                                 },
                                 new SpriteText
                                 {

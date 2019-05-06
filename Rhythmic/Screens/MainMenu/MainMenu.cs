@@ -20,6 +20,7 @@ using Rhythmic.Screens.Backgrounds;
 using Rhythmic.Other;
 using osuTK;
 using Rhythmic.Screens.Edit;
+using osu.Framework.Graphics.UserInterface;
 
 namespace Rhythmic.Screens.MainMenu
 {
@@ -47,6 +48,15 @@ namespace Rhythmic.Screens.MainMenu
                     RelativeSizeAxes = Axes.Both,
                     Children = new Drawable[]
                     {
+                        new Button
+                        {
+                            Size = new Vector2(190, 40),
+                            Text = "ChangeBeatmap",
+                            Action = () =>
+                            {
+                                collection.CurrentBeatmap.Value = collection.Beatmaps[0];
+                            }
+                        },
                         new Container
                         {
                             AutoSizeAxes = Axes.Both,

@@ -35,6 +35,8 @@ namespace Rhythmic
         private void load()
         {
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/purista"));
+            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/purista-bold"));
+            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/purista-Italic"));
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Neogrey Medium"));
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Neogrey"));
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Audiowide"));

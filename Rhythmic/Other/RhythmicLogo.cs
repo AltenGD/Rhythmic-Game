@@ -13,6 +13,7 @@ using osu.Framework.Audio.Sample;
 using Rhythmic.Visualizers;
 using osu.Framework.MathUtils;
 using Rhythmic.Screens.MainMenu;
+using osu.Framework.Extensions.Color4Extensions;
 
 namespace Rhythmic.Other
 {
@@ -80,34 +81,43 @@ namespace Rhythmic.Other
                                         },
                                         visualizer = new LinearVisualizer
                                         {
-                                            Anchor = Anchor.Centre,
-                                            Origin = Anchor.Centre,
+                                            Anchor = Anchor.BottomCentre,
+                                            Origin = Anchor.BottomCentre,
                                             BarsAmount = 9,
                                             BarWidth = 31,
                                             Spacing = 16,
                                             Rotation = -45,
-                                            ValueMultiplier = 10000,
-                                            Position = new Vector2(175)
+                                            ValueMultiplier = 2500,
+                                            Position = new Vector2(145, 0)
                                         },
                                         visualizer2 = new LinearVisualizer
                                         {
-                                            Anchor = Anchor.Centre,
-                                            Origin = Anchor.Centre,
+                                            Anchor = Anchor.BottomCentre,
+                                            Origin = Anchor.BottomCentre,
                                             BarsAmount = 9,
                                             BarWidth = 31,
                                             Spacing = 16,
                                             Rotation = -45,
-                                            ValueMultiplier = 10000,
+                                            ValueMultiplier = 2500,
                                             IsReversed = true,
-                                            Position = new Vector2(175)
+                                            Position = new Vector2(145, 0)
+                                        },
+                                        new Triangle
+                                        {
+                                            Anchor = Anchor.Centre,
+                                            Origin = Anchor.Centre,
+                                            Size = new Vector2(137, 127),
+                                            Rotation = 135,
+                                            Colour = Color4.Black.Opacity(0.3f),
+                                            Position = new Vector2(5)
                                         },
                                         tri = new Triangle
                                         {
                                             Anchor = Anchor.Centre,
                                             Origin = Anchor.Centre,
                                             Size = new Vector2(137, 127),
-                                            Rotation = 135
-                                        }
+                                            Rotation = 135,
+                                        },
                                     }
                                 },
                                 pulse = new Container

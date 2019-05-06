@@ -16,7 +16,10 @@ namespace Rhythmic.Graphics.Sprites
             switch (typeface)
             {
                 case Typeface.Purista:
-                    return "purista";
+                    if (weight == FontWeight.Bold)
+                        return "purista-bold";
+                    else
+                        return "purista";
                 case Typeface.Neogrey:
                     if (weight == FontWeight.Medium)
                         return "Neogrey Medium";
@@ -29,17 +32,17 @@ namespace Rhythmic.Graphics.Sprites
             return null;
         }
 
-        public enum Typeface
-        {
-            Purista,
-            Neogrey,
-            Audiowide,
-        }
-
-        public enum FontWeight
-        {
-            Regular,
-            Medium
-        }
+    }
+    public enum Typeface
+    {
+        Purista,
+        Neogrey,
+        Audiowide,
+    }
+    public enum FontWeight
+    {
+        Regular,
+        Medium,
+        Bold
     }
 }

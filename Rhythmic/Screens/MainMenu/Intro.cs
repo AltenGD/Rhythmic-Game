@@ -47,6 +47,22 @@ namespace Rhythmic.Screens.MainMenu
 
             collection.CurrentBeatmap.Value = introBeatmap;
 
+            collection.CurrentBeatmap.ValueChanged += delegate
+            {
+                track.Stop();
+                Console.WriteLine("Stop");
+                audio.UnregisterItem(track);
+                introBeatmap = collection.CurrentBeatmap.Value;
+                Console.WriteLine("Set");
+                restartTrack();
+                Console.WriteLine("Restart");
+            };
+
+            collection.CurrentBeatmap.Value.Song.Completed += delegate
+            {
+                Console.WriteLine("Completed!");
+            };
+
             AddInternal(intro = new RhythmicLogo
             {
                 Origin = Anchor.Centre,
@@ -104,6 +120,14 @@ namespace Rhythmic.Screens.MainMenu
             Game.FadeTo(0.01f, fadeOutTime);
 
             base.OnResuming(last);
+        }
+
+        private void restartTrack()
+        {
+            audio.AddItem(collection.CurrentBeatmap.Value.Song);
+            Console.WriteLine("Add");
+            collection.CurrentBeatmap.Value.Song.Start();
+            Console.WriteLine("Start CurrentBeatmap");
         }
     }
 }

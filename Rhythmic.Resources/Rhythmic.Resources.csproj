@@ -23,8 +23,13 @@
     <None Remove="Fonts\Neogrey Medium_0.png" />
     <None Remove="Fonts\Neogrey.bin" />
     <None Remove="Fonts\Neogrey_0.png" />
+    <None Remove="Fonts\purista-bold.fnt" />
+    <None Remove="Fonts\purista-bold_0.png" />
+    <None Remove="Fonts\purista-Italic.fnt" />
+    <None Remove="Fonts\purista-Italic_0.png" />
     <None Remove="Fonts\purista.fnt" />
     <None Remove="Fonts\purista_0.png" />
+    <None Remove="Fonts\purista_1.png" />
     <None Remove="Textures\Backgrounds\bg2.jpg" />
     <None Remove="Textures\Backgrounds\bg3.jpg" />
     <None Remove="Textures\Backgrounds\bg4.jpg" />
@@ -48,8 +53,13 @@
     <EmbeddedResource Include="Fonts\Neogrey Medium_0.png" />
     <EmbeddedResource Include="Fonts\Neogrey.bin" />
     <EmbeddedResource Include="Fonts\Neogrey_0.png" />
+    <EmbeddedResource Include="Fonts\purista-bold.fnt" />
+    <EmbeddedResource Include="Fonts\purista-bold_0.png" />
+    <EmbeddedResource Include="Fonts\purista-Italic.fnt" />
+    <EmbeddedResource Include="Fonts\purista-Italic_0.png" />
     <EmbeddedResource Include="Fonts\purista.fnt" />
     <EmbeddedResource Include="Fonts\purista_0.png" />
+    <EmbeddedResource Include="Fonts\purista_1.png" />
     <EmbeddedResource Include="Textures\Backgrounds\bg1.jpg" />
     <EmbeddedResource Include="Textures\Backgrounds\bg2.jpg" />
     <EmbeddedResource Include="Textures\Backgrounds\bg3.jpg" />

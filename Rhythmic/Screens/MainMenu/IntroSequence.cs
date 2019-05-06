@@ -96,7 +96,7 @@ namespace Rhythmic.Screens.MainMenu
                     Origin = Anchor.Centre,
                     Text = "welcome",
                     Padding = new MarginPadding { Bottom = 10 },
-                    Font = RhythmicFont.GetFont(size: 42),
+                    Font = RhythmicFont.GetFont(Typeface.Audiowide, 74),
                     Alpha = 0,
                     Spacing = new Vector2(5),
                 },
