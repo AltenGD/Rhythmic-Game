@@ -1,5 +1,6 @@
 ﻿using osu.Framework;
 using osu.Framework.Allocation;
+using osu.Framework.Bindables;
 using osu.Framework.Configuration;
 using osu.Framework.IO.Stores;
 using osu.Framework.Platform;
@@ -56,6 +57,9 @@ namespace Rhythmic
 
             if (beatmaps.Beatmaps == null)
                 beatmaps.Beatmaps = new List<DatabasedBeatmap>();
+
+            if (beatmaps.CurrentBeatmap == null)
+                beatmaps.CurrentBeatmap = new Bindable<DatabasedBeatmap>();
 
             CreateRequiredFiles();
             var config = new FrameworkConfigManager(storage);

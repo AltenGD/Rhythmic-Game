@@ -29,6 +29,9 @@
     <None Remove="Textures\Backgrounds\bg3.jpg" />
     <None Remove="Textures\Backgrounds\bg4.jpg" />
     <None Remove="Textures\Backgrounds\bg5.jpg" />
+    <None Remove="Tracks\Intro\bg.png" />
+    <None Remove="Tracks\Intro\level.json" />
+    <None Remove="Tracks\Intro\song.mp3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +55,9 @@
     <EmbeddedResource Include="Textures\Backgrounds\bg3.jpg" />
     <EmbeddedResource Include="Textures\Backgrounds\bg4.jpg" />
     <EmbeddedResource Include="Textures\Backgrounds\bg5.jpg" />
+    <EmbeddedResource Include="Tracks\Intro\bg.png" />
+    <EmbeddedResource Include="Tracks\Intro\level.json" />
+    <EmbeddedResource Include="Tracks\Intro\song.mp3" />
   </ItemGroup>
 
 </Project>

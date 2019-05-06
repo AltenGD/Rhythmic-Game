@@ -17,6 +17,8 @@ using osuTK.Graphics;
 using osu.Framework.Graphics.Containers;
 using Rhythmic.Screens.Select;
 using Rhythmic.Screens.Backgrounds;
+using Rhythmic.Other;
+using osuTK;
 
 namespace Rhythmic.Screens.MainMenu
 {
@@ -30,6 +32,8 @@ namespace Rhythmic.Screens.MainMenu
         [Resolved]
         private BeatmapAPI API { get; set; }
 
+        private RhythmicLogo logo;
+
         protected override BackgroundScreen CreateBackground() => background = new BackgroundScreenDefault();
 
         public MainMenu()
@@ -42,6 +46,21 @@ namespace Rhythmic.Screens.MainMenu
                     RelativeSizeAxes = Axes.Both,
                     Children = new Drawable[]
                     {
+                        new Container
+                        {
+                            AutoSizeAxes = Axes.Both,
+                            Margin = new MarginPadding(50),
+                            Anchor = Anchor.TopRight,
+                            Origin = Anchor.TopRight,
+                            Children = new Drawable[]
+                            {
+                                logo = new RhythmicLogo
+                                {
+                                    Scale = new Vector2(0.5f),
+                                    Alpha = 0
+                                },
+                            }
+                        },
                         new ButtonSystem
                         {
                             Anchor = Anchor.BottomLeft,
@@ -65,6 +84,13 @@ namespace Rhythmic.Screens.MainMenu
             base.OnResuming(last);
 
             (Background as BackgroundScreenDefault)?.Next();
+        }
+
+        public override void OnEntering(IScreen last)
+        {
+            logo.MoveToX(25).MoveToX(0, 1000, Easing.OutExpo);
+            logo.FadeIn(1000, Easing.OutExpo);
+            base.OnEntering(last);
         }
 
         private void LoadAllBeatmaps()

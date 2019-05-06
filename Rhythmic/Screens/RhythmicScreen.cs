@@ -7,6 +7,7 @@ using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Input.Bindings;
 using osu.Framework.Screens;
+using Rhythmic.Other;
 
 namespace Rhythmic.Screens
 {
@@ -28,14 +29,32 @@ namespace Rhythmic.Screens
         [Resolved(canBeNull: true)]
         private BackgroundScreenStack backgroundStack { get; set; }
 
+        [Resolved(canBeNull: true)]
+        private RhythmicLogo logo { get; set; }
+
         protected RhythmicScreen()
         {
             Anchor = Anchor.Centre;
             Origin = Anchor.Centre;
         }
 
+        public override void OnResuming(IScreen last)
+        {
+            applyArrivingDefaults(true);
+
+            base.OnResuming(last);
+        }
+
+        public override void OnSuspending(IScreen next)
+        {
+            base.OnSuspending(next);
+            onSuspendingLogo();
+        }
+
         public override void OnEntering(IScreen last)
         {
+            applyArrivingDefaults(false);
+
             backgroundStack?.Push(localBackground = CreateBackground());
 
             base.OnEntering(last);
@@ -43,6 +62,9 @@ namespace Rhythmic.Screens
 
         public override bool OnExiting(IScreen next)
         {
+            if (ValidForResume && logo != null)
+                onExitingLogo();
+
             if (base.OnExiting(next))
                 return true;
 
@@ -50,6 +72,59 @@ namespace Rhythmic.Screens
                 backgroundStack?.Exit();
 
             return false;
+        }
+
+        /// <summary>
+        /// Fired when this screen was entered or resumed and the logo state is required to be adjusted.
+        /// </summary>
+        protected virtual void LogoArriving(RhythmicLogo logo, bool resuming)
+        {
+            ApplyLogoArrivingDefaults(logo);
+        }
+
+        private void applyArrivingDefaults(bool isResuming)
+        {
+            logo?.AppendAnimatingAction(() =>
+            {
+                if (this.IsCurrentScreen()) LogoArriving(logo, isResuming);
+            }, true);
+        }
+
+        /// <summary>
+        /// Applies default animations to an arriving logo.
+        /// Todo: This should not exist.
+        /// </summary>
+        /// <param name="logo">The logo to apply animations to.</param>
+        public static void ApplyLogoArrivingDefaults(RhythmicLogo logo)
+        {
+            logo.FadeOut(300, Easing.OutQuint);
+            logo.Anchor = Anchor.TopLeft;
+            logo.Origin = Anchor.Centre;
+            logo.RelativePositionAxes = Axes.Both;
+        }
+
+        private void onExitingLogo()
+        {
+            logo?.AppendAnimatingAction(() => LogoExiting(logo), false);
+        }
+
+        /// <summary>
+        /// Fired when this screen was exited to add any outwards transition to the logo.
+        /// </summary>
+        protected virtual void LogoExiting(RhythmicLogo logo)
+        {
+        }
+
+        private void onSuspendingLogo()
+        {
+            logo?.AppendAnimatingAction(() => LogoSuspending(logo), false);
+        }
+
+        /// <summary>
+        /// Fired when this screen was suspended to add any outwards transition to the logo.
+        /// </summary>
+        protected virtual void LogoSuspending(RhythmicLogo logo)
+        {
         }
 
         /// <summary>
