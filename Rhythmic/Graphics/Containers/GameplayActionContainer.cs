@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using osu.Framework.Input.Bindings;
 
-namespace Rhythmic.Graphics.Container
+namespace Rhythmic.Graphics.Containers
 {
     public class GameplayActionContainer : KeyBindingContainer<GameplayAction>
     {

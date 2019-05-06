@@ -1,7 +1,7 @@
 ﻿using System;
 using osu.Framework.Graphics.Sprites;
 
-namespace Rhythmic.Graphics.Sprite
+namespace Rhythmic.Graphics.Sprites
 {
     public static class RhythmicFont
     {

@@ -21,7 +21,7 @@ using osu.Framework.Graphics.Lines;
 using osu.Framework.MathUtils;
 using Rhythmic.Graphics.Drawables;
 using Rhythmic.Graphics.Colors;
-using Rhythmic.Graphics.Sprite;
+using Rhythmic.Graphics.Sprites;
 using osu.Framework.Graphics.Effects;
 
 namespace Rhythmic.Screens.MainMenu.Components

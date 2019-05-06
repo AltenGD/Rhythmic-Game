@@ -25,6 +25,8 @@
     <None Remove="Fonts\Neogrey_0.png" />
     <None Remove="Fonts\purista.fnt" />
     <None Remove="Fonts\purista_0.png" />
+    <None Remove="Textures\Backgrounds\bg2.jpg" />
+    <None Remove="Textures\bg1.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +45,9 @@
     <EmbeddedResource Include="Fonts\Neogrey_0.png" />
     <EmbeddedResource Include="Fonts\purista.fnt" />
     <EmbeddedResource Include="Fonts\purista_0.png" />
+    <EmbeddedResource Include="Textures\Backgrounds\bg1.jpg" />
+    <EmbeddedResource Include="Textures\Backgrounds\bg2.jpg" />
+    <EmbeddedResource Include="Textures\bg1.jpg" />
   </ItemGroup>
 
 </Project>

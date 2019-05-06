@@ -1,6 +1,7 @@
 ﻿using osu.Framework.Graphics;
 using osu.Framework.Screens;
 using Rhythmic.Beatmap;
+using Rhythmic.Screens;
 using Rhythmic.Screens.MainMenu;
 using System.IO;
 using static System.Environment;
@@ -16,7 +17,7 @@ namespace Rhythmic
         {
             base.LoadComplete();
 
-            Add(new ScreenStack(new MainMenu
+            Add(new RhythmicScreenStack(new MainMenu
             {
                 RelativeSizeAxes = Axes.Both
             })

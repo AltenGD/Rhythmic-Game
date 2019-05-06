@@ -16,16 +16,21 @@ using osu.Framework.Graphics.Shapes;
 using osuTK.Graphics;
 using osu.Framework.Graphics.Containers;
 using Rhythmic.Screens.Select;
+using Rhythmic.Screens.Backgrounds;
 
 namespace Rhythmic.Screens.MainMenu
 {
-    public class MainMenu : Screen
+    public class MainMenu : RhythmicScreen
     {
+        private BackgroundScreenDefault background;
+
         [Resolved]
         private BeatmapCollection collection { get; set; }
 
         [Resolved]
         private BeatmapAPI API { get; set; }
+
+        protected override BackgroundScreen CreateBackground() => background = new BackgroundScreenDefault();
 
         public MainMenu()
         {
@@ -37,17 +42,12 @@ namespace Rhythmic.Screens.MainMenu
                     RelativeSizeAxes = Axes.Both,
                     Children = new Drawable[]
                     {
-                        new Box
-                        {
-                            RelativeSizeAxes = Axes.Both,
-                            Colour = RhythmicColors.Gray7
-                        },
                         new ButtonSystem
                         {
                             Anchor = Anchor.BottomLeft,
                             Origin = Anchor.BottomLeft,
                             Margin = new MarginPadding(50),
-                            OnPlay = () => this.Push(new SongSelect())
+                            OnPlay = () => this.Push(new SongSelect(background))
                         }
                     }
                 }
@@ -56,8 +56,8 @@ namespace Rhythmic.Screens.MainMenu
 
         protected override void LoadComplete()
         {
-            LoadAllBeatmaps();
             base.LoadAsyncComplete();
+            LoadAllBeatmaps();
         }
 
         private void LoadAllBeatmaps()

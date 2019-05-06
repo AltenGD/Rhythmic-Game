@@ -8,12 +8,12 @@ using osuTK.Graphics;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
-using Rhythmic.Graphics.Sprite;
+using Rhythmic.Graphics.Sprites;
 using Rhythmic.Graphics.UserInterface;
 
 namespace Rhythmic.Screens
 {
-    public class ScreenWhiteBox : Screen
+    public class ScreenWhiteBox : RhythmicScreen
     {
         private readonly BackButton popButton;
 
