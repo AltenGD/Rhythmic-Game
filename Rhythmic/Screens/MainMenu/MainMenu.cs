@@ -60,6 +60,13 @@ namespace Rhythmic.Screens.MainMenu
             LoadAllBeatmaps();
         }
 
+        public override void OnResuming(IScreen last)
+        {
+            base.OnResuming(last);
+
+            (Background as BackgroundScreenDefault)?.Next();
+        }
+
         private void LoadAllBeatmaps()
         {
             var path = GetFolderPath(SpecialFolder.ApplicationData) + @"\Rhythmic\Database\Beatmaps\";
