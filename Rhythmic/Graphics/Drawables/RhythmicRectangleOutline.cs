@@ -17,7 +17,6 @@ namespace Rhythmic.Graphics.Drawables
     {
         public delegate List<Vector2> ApproximatorFunc(ReadOnlySpan<Vector2> controlPoints);
         public float widthMin = 134, widthMax = 972;
-        public Color4 AccentColor;
 
         public RhythmicRectangleOutline(ApproximatorFunc approximator)
         {
@@ -32,12 +31,6 @@ namespace Rhythmic.Graphics.Drawables
 
             PathRadius = 2;
             Vertices = approximator(points);
-        }
-
-        protected override void LoadComplete()
-        {
-            base.LoadComplete();
-            Colour = AccentColor;
         }
     }
 }

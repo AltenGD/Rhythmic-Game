@@ -1,10 +1,12 @@
-﻿using System;
+﻿using osu.Framework.Screens;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Rhythmic.Screens.Select
 {
-    class SongSelect
+    public class SongSelect : ScreenWhiteBox
     {
+
     }
 }

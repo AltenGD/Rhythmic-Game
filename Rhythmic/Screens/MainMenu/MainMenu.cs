@@ -3,12 +3,19 @@ using osu.Framework.Audio.Track;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using osu.Framework.Screens;
+using osu.Framework.Graphics;
 using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties;
+using Rhythmic.Graphics.Colors;
+using Rhythmic.Screens.MainMenu.Components;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using static System.Environment;
+using osu.Framework.Graphics.Shapes;
+using osuTK.Graphics;
+using osu.Framework.Graphics.Containers;
+using Rhythmic.Screens.Select;
 
 namespace Rhythmic.Screens.MainMenu
 {
@@ -19,6 +26,33 @@ namespace Rhythmic.Screens.MainMenu
 
         [Resolved]
         private BeatmapAPI API { get; set; }
+
+        public MainMenu()
+        {
+            AddRangeInternal(new Drawable[]
+            {
+                new DrawSizePreservingFillContainer
+                {
+                    Strategy = DrawSizePreservationStrategy.Minimum,
+                    RelativeSizeAxes = Axes.Both,
+                    Children = new Drawable[]
+                    {
+                        new Box
+                        {
+                            RelativeSizeAxes = Axes.Both,
+                            Colour = RhythmicColors.Gray7
+                        },
+                        new ButtonSystem
+                        {
+                            Anchor = Anchor.BottomLeft,
+                            Origin = Anchor.BottomLeft,
+                            Margin = new MarginPadding(50),
+                            OnPlay = () => this.Push(new SongSelect())
+                        }
+                    }
+                }
+            });
+        }
 
         protected override void LoadComplete()
         {
