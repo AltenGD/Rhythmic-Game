@@ -34,7 +34,7 @@ namespace Rhythmic.Tests.Visual
                     Scale = new Vector2(0.4f),
                     Origin = Anchor.Centre,
                     Anchor = Anchor.Centre,
-                    AccentColor = RhythmicColors.HotPink
+                    Colour = RhythmicColors.HotPink
                 }
             });
         }

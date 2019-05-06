@@ -4,7 +4,7 @@ using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Testing;
 using Rhythmic.Graphics;
-using Rhythmic.Graphics.Sprite;
+using Rhythmic.Graphics.Sprites;
 
 namespace Rhythmic.Test.Visual
 {
