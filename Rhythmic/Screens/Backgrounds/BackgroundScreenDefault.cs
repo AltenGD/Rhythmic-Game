@@ -12,7 +12,7 @@ namespace Rhythmic.Screens.Backgrounds
         private Background background;
 
         private int currentDisplay;
-        private const int background_count = 2;
+        private const int background_count = 5;
 
         private string backgroundName => $@"Backgrounds/bg{currentDisplay % background_count + 1}";
 
