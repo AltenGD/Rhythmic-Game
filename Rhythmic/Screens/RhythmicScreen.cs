@@ -7,6 +7,7 @@ using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Input.Bindings;
 using osu.Framework.Screens;
+using osuTK;
 using Rhythmic.Other;
 
 namespace Rhythmic.Screens
@@ -57,6 +58,10 @@ namespace Rhythmic.Screens
 
             backgroundStack?.Push(localBackground = CreateBackground());
 
+            this.FadeIn(500, Easing.OutExpo);
+            this.MoveTo(new Vector2(10, 0));
+            this.MoveTo(new Vector2(0, 0), 500, Easing.OutExpo);
+
             base.OnEntering(last);
         }
 
@@ -67,6 +72,9 @@ namespace Rhythmic.Screens
 
             if (base.OnExiting(next))
                 return true;
+
+            this.FadeOut(500, Easing.OutExpo);
+            this.MoveTo(new Vector2(10, 0), 500, Easing.OutExpo);
 
             if (localBackground != null && backgroundStack?.CurrentScreen == localBackground)
                 backgroundStack?.Exit();

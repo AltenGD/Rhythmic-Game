@@ -19,6 +19,7 @@ using Rhythmic.Screens.Select;
 using Rhythmic.Screens.Backgrounds;
 using Rhythmic.Other;
 using osuTK;
+using Rhythmic.Screens.Edit;
 
 namespace Rhythmic.Screens.MainMenu
 {
@@ -66,7 +67,8 @@ namespace Rhythmic.Screens.MainMenu
                             Anchor = Anchor.BottomLeft,
                             Origin = Anchor.BottomLeft,
                             Margin = new MarginPadding(50),
-                            OnPlay = () => this.Push(new SongSelect(background))
+                            OnPlay = () => this.Push(new SongSelect(background)),
+                            OnEditor = () => this.Push(new Editor(background))
                         }
                     }
                 }
@@ -84,6 +86,8 @@ namespace Rhythmic.Screens.MainMenu
             base.OnResuming(last);
 
             (Background as BackgroundScreenDefault)?.Next();
+            logo.MoveToX(25).MoveToX(0, 1000, Easing.OutExpo);
+            logo.FadeIn(1000, Easing.OutExpo);
         }
 
         public override void OnEntering(IScreen last)
@@ -91,6 +95,13 @@ namespace Rhythmic.Screens.MainMenu
             logo.MoveToX(25).MoveToX(0, 1000, Easing.OutExpo);
             logo.FadeIn(1000, Easing.OutExpo);
             base.OnEntering(last);
+        }
+
+        public override bool OnExiting(IScreen next)
+        {
+            logo.MoveToX(25, 1000, Easing.InExpo);
+            logo.FadeOut(1000, Easing.OutExpo);
+            return base.OnExiting(next);
         }
 
         private void LoadAllBeatmaps()
