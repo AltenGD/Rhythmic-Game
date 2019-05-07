@@ -64,7 +64,6 @@ namespace Rhythmic
                 beatmaps.CurrentBeatmap = new Bindable<DatabasedBeatmap>();
 
             CreateRequiredFiles();
-            var config = new FrameworkConfigManager(storage);
         }
 
         private readonly List<ICanAcceptFiles> fileImporters = new List<ICanAcceptFiles>();
