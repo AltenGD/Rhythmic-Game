@@ -88,6 +88,7 @@ namespace Rhythmic.Other
                                             Spacing = 16,
                                             Rotation = -45,
                                             ValueMultiplier = 2500,
+                                            Smoothness = 260,
                                             Position = new Vector2(145, 0)
                                         },
                                         visualizer2 = new LinearVisualizer
@@ -100,6 +101,7 @@ namespace Rhythmic.Other
                                             Rotation = -45,
                                             ValueMultiplier = 2500,
                                             IsReversed = true,
+                                            Smoothness = 260,
                                             Position = new Vector2(145, 0)
                                         },
                                         new Triangle

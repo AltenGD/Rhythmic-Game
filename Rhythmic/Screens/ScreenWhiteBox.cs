@@ -45,7 +45,7 @@ namespace Rhythmic.Screens
                 boxContainer.RotateTo(0, transition_time / 2, Easing.OutQuint);
 
                 textContainer.MoveTo(Vector2.Zero, transition_time, Easing.OutExpo);
-                header.TransformSpacingTo(new Vector2(10, 0), transition_time * 2, Easing.Out);
+                header.TransformSpacingTo(new Vector2(5, 0), transition_time * 2, Easing.Out);
                 this.FadeIn(transition_time, Easing.OutExpo);
             }
         }

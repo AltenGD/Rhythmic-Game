@@ -109,7 +109,7 @@ namespace Rhythmic.Visualizers
         {
             for (int i = 0; i < BarsAmount; i++)
             {
-                var currentAmplitude = amplitudes[RealAmplitudeFor(i)];
+                var currentAmplitude = amplitudes[RealAmplitudeFor(i) + 10];
                 EqualizerBars[IsReversed ? BarsAmount - 1 - i : i].SetValue(currentAmplitude, ValueMultiplier, Smoothness, UpdateDelay);
             }
         }
