@@ -1,4 +1,5 @@
 ﻿using osu.Framework.Allocation;
+using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Logging;
@@ -43,6 +44,8 @@ namespace Rhythmic
 
         public float ToolbarOffset => Toolbar.Position.Y + Toolbar.DrawHeight;
 
+        public readonly Bindable<OverlayActivation> OverlayActivationMode = new Bindable<OverlayActivation>(OverlayActivation.All);
+
         /// <summary>Close all game-wide overlays.</summary>
         /// <param name="toolbar">Whether the toolbar should also be hidden.</param>
         public void CloseAllOverlays(bool toolbar = true)
@@ -71,10 +74,16 @@ namespace Rhythmic
         public RhythmicGame(string[] args)
         { }
 
+        [BackgroundDependencyLoader]
+        private void load()
+        {
+            dependencies.CacheAs(this);
+        }
+
         protected override void LoadComplete()
         {
             base.LoadComplete();
-
+            dependencies.Cache(this);
             AddRange(new Drawable[]
             {
                 screenContainer = new Container
@@ -89,7 +98,8 @@ namespace Rhythmic
                 topMostOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
             });
 
-            screenStack.Push(new Loader());
+            screenStack.ScreenPushed += screenPushed;
+            screenStack.ScreenExited += screenExited;
 
             loadComponentSingleFile(Toolbar = new Toolbar
             {
@@ -109,7 +119,14 @@ namespace Rhythmic
 
             Toolbar.ToggleVisibility();
 
+            screenStack.Push(new Loader());
+
             dependencies.Cache(musicController);
+
+            OverlayActivationMode.ValueChanged += mode =>
+            {
+                if (mode.NewValue != OverlayActivation.All) CloseAllOverlays();
+            };
         }
 
         private Task asyncLoadStream;
@@ -171,6 +188,34 @@ namespace Rhythmic
         {
             screenContainer.Padding = new MarginPadding { Top = ToolbarOffset };
             base.UpdateAfterChildren();
+        }
+
+        protected virtual void ScreenChanged(IScreen current, IScreen newScreen)
+        {
+            if (newScreen is IRhythmicScreen newRhythmicScreen)
+            {
+                OverlayActivationMode.Value = newRhythmicScreen.InitialOverlayActivationMode;
+
+                if (newRhythmicScreen.HideOverlaysOnEnter)
+                    CloseAllOverlays();
+                else
+                    Toolbar.State = Visibility.Visible;
+            }
+        }
+
+        private void screenPushed(IScreen lastScreen, IScreen newScreen)
+        {
+            ScreenChanged(lastScreen, newScreen);
+            Logger.Log($"Screen changed → {newScreen}");
+        }
+
+        private void screenExited(IScreen lastScreen, IScreen newScreen)
+        {
+            ScreenChanged(lastScreen, newScreen);
+            Logger.Log($"Screen changed ← {newScreen}");
+
+            if (newScreen == null)
+                Exit();
         }
     }
 }

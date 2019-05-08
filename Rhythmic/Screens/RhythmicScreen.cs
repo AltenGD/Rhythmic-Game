@@ -9,6 +9,7 @@ using osu.Framework.Input.Bindings;
 using osu.Framework.Screens;
 using osuTK;
 using Rhythmic.Other;
+using Rhythmic.Overlays;
 
 namespace Rhythmic.Screens
 {
@@ -23,6 +24,11 @@ namespace Rhythmic.Screens
 
         protected virtual bool AllowBackButton => true;
 
+        public virtual bool HideOverlaysOnEnter => false;
+
+        /// <summary>Whether overlays should be able to be opened once this screen is entered or resumed.</summary>
+        public virtual OverlayActivation InitialOverlayActivationMode => OverlayActivation.All;
+
         protected BackgroundScreen Background => backgroundStack?.CurrentScreen as BackgroundScreen;
 
         private BackgroundScreen localBackground;
@@ -32,6 +38,7 @@ namespace Rhythmic.Screens
 
         [Resolved(canBeNull: true)]
         private RhythmicLogo logo { get; set; }
+
 
         protected RhythmicScreen()
         {

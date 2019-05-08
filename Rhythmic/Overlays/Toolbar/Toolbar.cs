@@ -76,8 +76,8 @@ namespace Rhythmic.Overlays.Toolbar
                     State = Visibility.Hidden;
             };
 
-            //if (game != null)
-                //overlayActivationMode.BindTo(game.OverlayActivationMode);
+            if (game != null)
+                overlayActivationMode.BindTo(game.OverlayActivationMode);
         }
 
         public class ToolbarBackground : Container
