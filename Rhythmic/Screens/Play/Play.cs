@@ -31,8 +31,16 @@ namespace Rhythmic.Screens.Play
 
         public override bool HideOverlaysOnEnter => true;
 
+        public override float BackgroundParallaxAmount => 0f;
+
         [Resolved]
         private BeatmapCollection collection { get; set; }
+
+        protected override BackgroundScreen CreateBackground()
+        {
+            var background = new BackgroundScreenBeatmap(collection.CurrentBeatmap.Value);
+            return background;
+        }
 
         [BackgroundDependencyLoader]
         private void load()
