@@ -1,4 +1,6 @@
 ﻿using osu.Framework.Screens;
+using osu.Framework.Graphics;
+using Rhythmic.Overlays;
 using Rhythmic.Screens.Backgrounds;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,12 @@ namespace Rhythmic.Screens.Select
         public SongSelect(BackgroundScreenDefault background)
         {
             background?.Next();
+
+            MusicController cw;
+
+            AddInternal(cw = new MusicController());
+
+            cw.ToggleVisibility();
         }
     }
 }

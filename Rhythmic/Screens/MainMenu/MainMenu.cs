@@ -132,17 +132,17 @@ namespace Rhythmic.Screens.MainMenu
                 if (!beatmap.SongUrl.StartsWith(@"\"))
                     beatmap.SongUrl = Concat(@"\", beatmap.SongUrl);
 
-                //if (!beatmap.Metadata.LogoURL.StartsWith(@"\"))
-                //    beatmap.Metadata.LogoURL = Concat(@"\", beatmap.Metadata.LogoURL);
+                if (!beatmap.Metadata.LogoURL.StartsWith(@"\"))
+                    beatmap.Metadata.LogoURL = Concat(@"\", beatmap.Metadata.LogoURL);
 
-                //if (!beatmap.Metadata.BackgroundURL.StartsWith(@"\"))
-                //    beatmap.Metadata.BackgroundURL = Concat(@"\", beatmap.Metadata.BackgroundURL);
+                if (!beatmap.Metadata.BackgroundURL.StartsWith(@"\"))
+                    beatmap.Metadata.BackgroundURL = Concat(@"\", beatmap.Metadata.BackgroundURL);
 
                 var SongStream = File.OpenRead(file + beatmap.SongUrl);
 
                 beatmap.Song = new TrackBass(SongStream);
-                //beatmap.Logo = File.OpenRead(file + beatmap.SongUrl);
-                //beatmap.Background = File.OpenRead(file + beatmap.Metadata.BackgroundURL);
+                beatmap.Logo = File.OpenRead(file + beatmap.Metadata.LogoURL);
+                beatmap.Background = File.OpenRead(file + beatmap.Metadata.BackgroundURL);
 
                 collection.Beatmaps.Add(beatmap);
             }

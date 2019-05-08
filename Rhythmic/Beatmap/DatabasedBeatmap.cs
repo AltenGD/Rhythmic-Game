@@ -14,5 +14,7 @@ namespace Rhythmic.Beatmap
         public Stream Background { get; set; }
 
         public Track Song { get; set; }
+
+        public int ID { get; set; }
     }
 }
