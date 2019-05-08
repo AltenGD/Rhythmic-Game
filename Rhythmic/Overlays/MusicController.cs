@@ -20,12 +20,13 @@ using osuTK.Graphics;
 using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties.Metadata;
 using Rhythmic.Graphics.Colors;
+using Rhythmic.Graphics.Containers;
 using Rhythmic.Graphics.Sprites;
 using Rhythmic.Graphics.UserInterface;
 
 namespace Rhythmic.Overlays
 {
-    public class MusicController : FocusedOverlayContainer
+    public class MusicController : RhythmicFocusedOverlayContainer
     {
         private const float player_height = 130;
         private const float transition_length = 800;
@@ -256,7 +257,6 @@ namespace Rhythmic.Overlays
             if (playable != null)
             {
                 collection.CurrentBeatmap.Value = playable;
-                audio.AddItem(collection.CurrentBeatmap.Value.Song);
                 collection.CurrentBeatmap.Value.Song.Restart();
             }
         }
@@ -271,7 +271,6 @@ namespace Rhythmic.Overlays
             if (playable != null)
             {
                 collection.CurrentBeatmap.Value = playable;
-                audio.AddItem(collection.CurrentBeatmap.Value.Song);
                 collection.CurrentBeatmap.Value.Song.Restart();
             }
         }
@@ -311,18 +310,8 @@ namespace Rhythmic.Overlays
                 current.Song.Completed += currentTrackCompleted;
 
             updateDisplay(current, direction);
-            updateAudioAdjustments();
 
             queuedDirection = null;
-        }
-
-        private void updateAudioAdjustments()
-        {
-            var track = current?.Song;
-            if (track == null)
-                return;
-
-            track.ResetSpeedAdjustments();
         }
 
         private void currentTrackCompleted() => Schedule(() =>
@@ -442,8 +431,7 @@ namespace Rhythmic.Overlays
             [BackgroundDependencyLoader]
             private void load(TextureStore textures)
             {
-                sprite.Texture = textures.Get(beatmap?.Metadata.BackgroundURL) ?? textures.Get(@"Backgrounds/bg1");
-                //sprite.Texture = Texture.FromStream(beatmap?.Background) ?? textures.Get(@"Backgrounds/bg4");
+                sprite.Texture = Texture.FromStream(beatmap?.Background) ?? textures.Get(@"Backgrounds/bg4");
             }
         }
 

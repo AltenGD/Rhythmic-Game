@@ -11,9 +11,9 @@ namespace Rhythmic.Overlays.Toolbar
         }
 
         [BackgroundDependencyLoader(true)]
-        private void load()
+        private void load(MusicController overlay)
         {
-            
+            StateContainer = overlay;
         }
     }
 }

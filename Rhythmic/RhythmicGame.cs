@@ -4,14 +4,19 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Logging;
 using osu.Framework.Screens;
 using osu.Framework.Threading;
+using osuTK.Graphics;
 using Rhythmic.Beatmap;
+using Rhythmic.Graphics.Colors;
 using Rhythmic.Other;
+using Rhythmic.Overlays;
 using Rhythmic.Overlays.Toolbar;
 using Rhythmic.Screens;
 using Rhythmic.Screens.MainMenu;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using static System.Environment;
 
@@ -27,6 +32,10 @@ namespace Rhythmic
 
         private MainMenu menuScreen;
 
+        private MusicController musicController;
+
+        private readonly List<OverlayContainer> visibleBlockingOverlays = new List<OverlayContainer>();
+
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent) =>
             dependencies = new DependencyContainer(base.CreateChildDependencies(parent));
 
@@ -39,6 +48,22 @@ namespace Rhythmic
             //foreach (var overlay in overlays)
                 //overlay.State = Visibility.Hidden;
             if (toolbar) Toolbar.State = Visibility.Hidden;
+        }
+
+        private void updateBlockingOverlayFade() =>
+            screenContainer.FadeColour(visibleBlockingOverlays.Any() ? RhythmicColors.Gray(0.5f) : Color4.White, 500, Easing.OutQuint);
+
+        public void AddBlockingOverlay(OverlayContainer overlay)
+        {
+            if (!visibleBlockingOverlays.Contains(overlay))
+                visibleBlockingOverlays.Add(overlay);
+            updateBlockingOverlayFade();
+        }
+
+        public void RemoveBlockingOverlay(OverlayContainer overlay)
+        {
+            visibleBlockingOverlays.Remove(overlay);
+            updateBlockingOverlayFade();
         }
 
         public RhythmicGame(string[] args)
@@ -58,6 +83,7 @@ namespace Rhythmic
                         screenStack = new RhythmicScreenStack { RelativeSizeAxes = Axes.Both },
                     }
                 },
+                rightFloatingOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
                 topMostOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
             });
 
@@ -72,7 +98,16 @@ namespace Rhythmic
                 },
             }, topMostOverlayContent.Add);
 
+            loadComponentSingleFile(musicController = new MusicController
+            {
+                GetToolbarHeight = () => ToolbarOffset,
+                Anchor = Anchor.TopRight,
+                Origin = Anchor.TopRight,
+            }, rightFloatingOverlayContent.Add);
+
             Toolbar.ToggleVisibility();
+
+            dependencies.Cache(musicController);
         }
 
         private Task asyncLoadStream;
@@ -125,6 +160,8 @@ namespace Rhythmic
         }
 
         private Container topMostOverlayContent;
+
+        private Container rightFloatingOverlayContent;
 
         private Container screenContainer;
 

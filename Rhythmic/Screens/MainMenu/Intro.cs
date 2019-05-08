@@ -14,6 +14,7 @@ using osu.Framework;
 using System;
 using Rhythmic.Visualizers;
 using Rhythmic.Other;
+using Rhythmic.Beatmap.Properties.Metadata;
 
 namespace Rhythmic.Screens.MainMenu
 {
@@ -42,6 +43,12 @@ namespace Rhythmic.Screens.MainMenu
 
             introBeatmap.Background = game.Resources.GetStream(@"Tracks/Intro/bg.png");
             introBeatmap.Song = new TrackBass(game.Resources.GetStream(@"Tracks/Intro/song.mp3"));
+            introBeatmap.Metadata = new BeatmapMetadata();
+            introBeatmap.Metadata.Song = new SongMetadata
+            {
+                Author = "1788-L & Blanke",
+                Name = "D E S T I N Y"
+            };
 
             track = introBeatmap.Song;
 
@@ -50,17 +57,8 @@ namespace Rhythmic.Screens.MainMenu
             collection.CurrentBeatmap.ValueChanged += delegate
             {
                 track.Stop();
-                Console.WriteLine("Stop");
-                audio.UnregisterItem(track);
                 introBeatmap = collection.CurrentBeatmap.Value;
-                Console.WriteLine("Set");
                 restartTrack();
-                Console.WriteLine("Restart");
-            };
-
-            collection.CurrentBeatmap.Value.Song.Completed += delegate
-            {
-                Console.WriteLine("Completed!");
             };
 
             AddInternal(intro = new RhythmicLogo
@@ -125,9 +123,7 @@ namespace Rhythmic.Screens.MainMenu
         private void restartTrack()
         {
             audio.AddItem(collection.CurrentBeatmap.Value.Song);
-            Console.WriteLine("Add");
             collection.CurrentBeatmap.Value.Song.Start();
-            Console.WriteLine("Start CurrentBeatmap");
         }
     }
 }
