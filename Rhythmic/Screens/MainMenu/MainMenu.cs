@@ -146,6 +146,11 @@ namespace Rhythmic.Screens.MainMenu
 
                 collection.Beatmaps.Add(beatmap);
             }
+
+            for (var i = 0; i < collection.Beatmaps.Count; i++)
+            {
+                collection.Beatmaps[i].ID = i;
+            }
         }
 
         private string Concat(string string1, string string2)

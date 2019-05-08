@@ -47,7 +47,7 @@ namespace Rhythmic.Screens.MainMenu
             introBeatmap.Metadata.Song = new SongMetadata
             {
                 Author = "1788-L & Blanke",
-                Name = "D E S T I N Y"
+                Name = "hh"
             };
 
             track = introBeatmap.Song;

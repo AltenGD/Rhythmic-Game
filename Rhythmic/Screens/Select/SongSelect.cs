@@ -13,12 +13,6 @@ namespace Rhythmic.Screens.Select
         public SongSelect(BackgroundScreenDefault background)
         {
             background?.Next();
-
-            MusicController cw;
-
-            AddInternal(cw = new MusicController());
-
-            cw.ToggleVisibility();
         }
     }
 }

@@ -23,6 +23,7 @@ using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Containers;
 using Rhythmic.Graphics.Sprites;
 using Rhythmic.Graphics.UserInterface;
+using Rhythmic.Overlays.Music;
 
 namespace Rhythmic.Overlays
 {
@@ -40,6 +41,8 @@ namespace Rhythmic.Overlays
         private IconButton playlistButton;
 
         private SpriteText title, artist;
+
+        private PlaylistOverlay playlist;
 
         [Resolved]
         private BeatmapCollection collection { get; set; }
@@ -75,12 +78,12 @@ namespace Rhythmic.Overlays
                     AutoSizeAxes = Axes.Y,
                     Children = new Drawable[]
                     {
-                        /*playlist = new PlaylistOverlay
+                        playlist = new PlaylistOverlay
                         {
                             RelativeSizeAxes = Axes.X,
                             Y = player_height + 10,
                             OrderChanged = playlistOrderChanged
-                        },*/
+                        },
                         playerContainer = new Container
                         {
                             RelativeSizeAxes = Axes.X,
@@ -163,6 +166,7 @@ namespace Rhythmic.Overlays
                                             Anchor = Anchor.CentreRight,
                                             Position = new Vector2(-bottom_black_area_height / 2, 0),
                                             Icon = FontAwesome.Solid.Bars,
+                                            Action = () => playlist.ToggleVisibility(),
                                         },
                                     }
                                 }
@@ -172,7 +176,7 @@ namespace Rhythmic.Overlays
                 }
             };
 
-            //playlist.StateChanged += s => playlistButton.FadeColour(s == Visibility.Visible ? colours.Yellow : Color4.White, 200, Easing.OutQuint);
+            playlist.StateChanged += s => playlistButton.FadeColour(s == Visibility.Visible ? RhythmicColors.Orange : Color4.White, 200, Easing.OutQuint);
         }
 
         private ScheduledDelegate seekDelegate;
@@ -201,6 +205,9 @@ namespace Rhythmic.Overlays
 
         private void beatmapDisabledChanged(bool disabled)
         {
+            if (disabled)
+                playlist.Hide();
+
             playButton.Enabled.Value = !disabled;
             prevButton.Enabled.Value = !disabled;
             nextButton.Enabled.Value = !disabled;
@@ -267,9 +274,11 @@ namespace Rhythmic.Overlays
                 queuedDirection = TransformDirection.Next;
 
             var playable = collection.Beatmaps.SkipWhile(i => i.ID != current.ID).Skip(1).FirstOrDefault() ?? collection.Beatmaps.FirstOrDefault();
+            Console.WriteLine(playable.ID);
 
             if (playable != null)
             {
+                collection.CurrentBeatmap.Value.Song.Stop();
                 collection.CurrentBeatmap.Value = playable;
                 collection.CurrentBeatmap.Value.Song.Restart();
             }
@@ -376,6 +385,8 @@ namespace Rhythmic.Overlays
         protected override void PopOut()
         {
             base.PopOut();
+
+            playlist.State = Visibility.Hidden;
 
             this.FadeOut(transition_length, Easing.OutQuint);
             dragContainer.ScaleTo(0.9f, transition_length, Easing.OutQuint);
