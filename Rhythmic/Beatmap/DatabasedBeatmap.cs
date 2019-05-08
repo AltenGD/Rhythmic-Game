@@ -9,9 +9,9 @@ namespace Rhythmic.Beatmap
     /// <summary>Contains information like: BG, <see cref="LevelMeta"/>, etc</summary>
     public class DatabasedBeatmap : BeatmapMeta
     {
-        public Stream Logo { get; set; }
+        public Texture Logo { get; set; }
 
-        public Stream Background { get; set; }
+        public Texture Background { get; set; }
 
         public Track Song { get; set; }
 

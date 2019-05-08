@@ -15,6 +15,7 @@ using System;
 using Rhythmic.Visualizers;
 using Rhythmic.Other;
 using Rhythmic.Beatmap.Properties.Metadata;
+using osu.Framework.Graphics.Textures;
 
 namespace Rhythmic.Screens.MainMenu
 {
@@ -41,7 +42,7 @@ namespace Rhythmic.Screens.MainMenu
         {
             introBeatmap = new DatabasedBeatmap();
 
-            introBeatmap.Background = game.Resources.GetStream(@"Tracks/Intro/bg.png");
+            introBeatmap.Background = Texture.FromStream(game.Resources.GetStream(@"Tracks/Intro/bg.png"));
             introBeatmap.Song = new TrackBass(game.Resources.GetStream(@"Tracks/Intro/song.mp3"));
             introBeatmap.Metadata = new BeatmapMetadata();
             introBeatmap.Metadata.Song = new SongMetadata

@@ -34,6 +34,8 @@ namespace Rhythmic
 
         private MusicController musicController;
 
+        private readonly List<OverlayContainer> overlays = new List<OverlayContainer>();
+
         private readonly List<OverlayContainer> visibleBlockingOverlays = new List<OverlayContainer>();
 
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent) =>
@@ -45,8 +47,8 @@ namespace Rhythmic
         /// <param name="toolbar">Whether the toolbar should also be hidden.</param>
         public void CloseAllOverlays(bool toolbar = true)
         {
-            //foreach (var overlay in overlays)
-                //overlay.State = Visibility.Hidden;
+            foreach (var overlay in overlays)
+                overlay.State = Visibility.Hidden;
             if (toolbar) Toolbar.State = Visibility.Hidden;
         }
 

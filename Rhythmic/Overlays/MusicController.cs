@@ -35,6 +35,8 @@ namespace Rhythmic.Overlays
         private const float bottom_black_area_height = 55;
 
         private Drawable background;
+        private ProgressBar progressBar;
+
         private IconButton prevButton;
         private IconButton playButton;
         private IconButton nextButton;
@@ -169,6 +171,14 @@ namespace Rhythmic.Overlays
                                             Action = () => playlist.ToggleVisibility(),
                                         },
                                     }
+                                },
+                                progressBar = new ProgressBar
+                                {
+                                    Origin = Anchor.BottomCentre,
+                                    Anchor = Anchor.BottomCentre,
+                                    Height = progress_height,
+                                    FillColour = RhythmicColors.Orange,
+                                    OnSeek = attemptSeek
                                 }
                             },
                         },
@@ -226,14 +236,20 @@ namespace Rhythmic.Overlays
         {
             base.Update();
 
-            var track = current?.Song.IsLoaded ?? false ? current.Song : null;
+            var track = current?.Song?.IsLoaded ?? false ? current?.Song : null;
 
             if (track?.IsDummyDevice == false)
             {
+                progressBar.EndTime = track.Length;
+                progressBar.CurrentTime = track.CurrentTime;
+
                 playButton.Icon = track.IsRunning ? FontAwesome.Regular.PauseCircle : FontAwesome.Regular.PlayCircle;
             }
             else
             {
+                progressBar.CurrentTime = 0;
+                progressBar.EndTime = 1;
+
                 playButton.Icon = FontAwesome.Regular.PlayCircle;
             }
         }
@@ -263,6 +279,7 @@ namespace Rhythmic.Overlays
 
             if (playable != null)
             {
+                collection.CurrentBeatmap.Value.Song.Reset();
                 collection.CurrentBeatmap.Value = playable;
                 collection.CurrentBeatmap.Value.Song.Restart();
             }
@@ -274,11 +291,11 @@ namespace Rhythmic.Overlays
                 queuedDirection = TransformDirection.Next;
 
             var playable = collection.Beatmaps.SkipWhile(i => i.ID != current.ID).Skip(1).FirstOrDefault() ?? collection.Beatmaps.FirstOrDefault();
-            Console.WriteLine(playable.ID);
+            Console.WriteLine(playable);
 
             if (playable != null)
             {
-                collection.CurrentBeatmap.Value.Song.Stop();
+                collection.CurrentBeatmap.Value.Song.Reset();
                 collection.CurrentBeatmap.Value = playable;
                 collection.CurrentBeatmap.Value.Song.Restart();
             }
@@ -317,6 +334,8 @@ namespace Rhythmic.Overlays
 
             if (current != null)
                 current.Song.Completed += currentTrackCompleted;
+
+            progressBar.CurrentTime = 0;
 
             updateDisplay(current, direction);
 
@@ -427,6 +446,8 @@ namespace Rhythmic.Overlays
                         RelativeSizeAxes = Axes.Both,
                         Colour = RhythmicColors.Gray(150),
                         FillMode = FillMode.Fill,
+                        Anchor = Anchor.Centre,
+                        Origin = Anchor.Centre
                     },
                     new Box
                     {
@@ -442,7 +463,7 @@ namespace Rhythmic.Overlays
             [BackgroundDependencyLoader]
             private void load(TextureStore textures)
             {
-                sprite.Texture = Texture.FromStream(beatmap?.Background) ?? textures.Get(@"Backgrounds/bg4");
+                sprite.Texture = beatmap?.Background ?? textures.Get(@"Backgrounds/bg4");
             }
         }
 

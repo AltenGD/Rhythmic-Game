@@ -141,8 +141,8 @@ namespace Rhythmic.Screens.MainMenu
                 var SongStream = File.OpenRead(file + beatmap.SongUrl);
 
                 beatmap.Song = new TrackBass(SongStream);
-                beatmap.Logo = File.OpenRead(file + beatmap.Metadata.LogoURL);
-                beatmap.Background = File.OpenRead(file + beatmap.Metadata.BackgroundURL);
+                beatmap.Logo = Texture.FromStream(File.OpenRead(file + beatmap.Metadata.LogoURL));
+                beatmap.Background = Texture.FromStream(File.OpenRead(file + beatmap.Metadata.BackgroundURL));
 
                 collection.Beatmaps.Add(beatmap);
             }
