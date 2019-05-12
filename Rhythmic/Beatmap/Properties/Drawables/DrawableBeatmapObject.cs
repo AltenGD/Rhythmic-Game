@@ -5,21 +5,33 @@ using osu.Framework.Graphics.Containers;
 using osuTK.Graphics;
 using osuTK;
 using System.Linq;
+using Rhythmic.Screens.Play;
+using osu.Framework.Timing;
+using osu.Framework.Allocation;
+using System;
+using Object = Rhythmic.Beatmap.Properties.Level.Object.Object;
 
 namespace Rhythmic.Beatmap.Properties.Drawables
 {
     public class DrawableBeatmapObject : CompositeDrawable
     {
-        private Level.Object.Object obj;
+        private Object obj;
 
-        public DrawableBeatmapObject(Level.Object.Object obj)
-            => this.obj = obj;
+        private Player player;
+
+        public DrawableBeatmapObject(Object obj, Player player = null)
+        {
+            this.obj = obj;
+            this.player = player;
+        }
+
+        private Drawable drawable;
 
         protected override void LoadComplete()
         {
             base.LoadComplete();
 
-            var drawable = this as Drawable;
+            drawable = this as Drawable;
 
             Size = new Vector2(obj?.Size[0] ?? 0, obj?.Size[1] ?? 0);
             Position = new Vector2(obj?.Position[0] ?? 0, obj?.Position[1] ?? 0);
@@ -181,6 +193,16 @@ namespace Rhythmic.Beatmap.Properties.Drawables
                 });
             }
             #endregion
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+
+            if (drawable.ScreenSpaceDrawQuad.AABBFloat.IntersectsWith(player.player.ScreenSpaceDrawQuad.AABBFloat))
+            {
+                player.TakeDamage();
+            }
         }
     }
 }

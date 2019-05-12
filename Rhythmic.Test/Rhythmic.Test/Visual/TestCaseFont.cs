@@ -10,8 +10,8 @@ namespace Rhythmic.Test.Visual
 {
     public class TestCaseFont : TestCase
     {
-        private RhythmicFont.FontWeight Weight = RhythmicFont.FontWeight.Regular;
-        private RhythmicFont.Typeface TypeFace = RhythmicFont.Typeface.Purista;
+        private FontWeight Weight = FontWeight.Regular;
+        private Typeface TypeFace = Typeface.Purista;
 
         private FillFlowContainer flow;
 
@@ -38,31 +38,31 @@ namespace Rhythmic.Test.Visual
             #region Steps
             AddStep("Purista", () =>
             {
-                TypeFace = RhythmicFont.Typeface.Purista;
+                TypeFace = Typeface.Purista;
                 Refresh();
             });
 
             AddStep("Neogrey", () =>
             {
-                TypeFace = RhythmicFont.Typeface.Neogrey;
+                TypeFace = Typeface.Neogrey;
                 Refresh();
             });
 
             AddStep("AudioWide", () =>
             {
-                TypeFace = RhythmicFont.Typeface.Audiowide;
+                TypeFace = Typeface.Audiowide;
                 Refresh();
             });
 
             AddStep("Regular", () =>
             {
-                Weight = RhythmicFont.FontWeight.Regular;
+                Weight = FontWeight.Regular;
                 Refresh();
             });
 
             AddStep("Medium", () =>
             {
-                Weight = RhythmicFont.FontWeight.Medium;
+                Weight = FontWeight.Medium;
                 Refresh();
             });
             #endregion
