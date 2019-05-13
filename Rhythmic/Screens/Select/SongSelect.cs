@@ -9,15 +9,15 @@ using osu.Framework.Graphics.UserInterface;
 
 namespace Rhythmic.Screens.Select
 {
-    public class SongSelect : ScreenWhiteBox
+    public class SongSelect : RhythmicScreen
     {
-        public SongSelect(BackgroundScreenDefault background)
-        {
-            background?.Next();
+        protected override BackgroundScreen CreateBackground() => new BackgroundScreenBeatmap();
 
+        public SongSelect()
+        {
             AddInternal(new Button
             {
-                Size = new osuTK.Vector2(120, 80),
+                Size = new osuTK.Vector2(150, 40),
                 Action = delegate
                 {
                     this.Push(new Play.Play());

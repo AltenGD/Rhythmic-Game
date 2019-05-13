@@ -139,6 +139,7 @@ namespace Rhythmic.Screens.Play
 
         public int Retries
         {
+            get => retries;
             set
             {
                 if (value == retries)

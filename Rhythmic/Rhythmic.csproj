@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Rhythmic.Resources\Rhythmic.Resources.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Screens\Select\Beatmaps\" />
+  </ItemGroup>
+
 </Project>

@@ -39,12 +39,6 @@ namespace Rhythmic.Screens.Play
         [Resolved]
         private BeatmapCollection collection { get; set; }
 
-        protected override BackgroundScreen CreateBackground()
-        {
-            var background = new BackgroundScreenBeatmap(collection.CurrentBeatmap.Value);
-            return background;
-        }
-
         protected override void LoadComplete()
         {
             PlayableContainer container;
@@ -82,6 +76,8 @@ namespace Rhythmic.Screens.Play
                             collection.CurrentBeatmap.Value.Song.Stop();
                         };
                     };
+
+                    failOverlay.Retries++;
                 }
             });
 

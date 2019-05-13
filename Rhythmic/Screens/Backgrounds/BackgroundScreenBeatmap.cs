@@ -25,9 +25,11 @@ namespace Rhythmic.Screens.Backgrounds
 
         protected virtual UserDimContainer CreateFadeContainer() => new UserDimContainer { RelativeSizeAxes = Axes.Both };
 
-        public BackgroundScreenBeatmap(DatabasedBeatmap beatmap = null)
+        [Resolved]
+        private BeatmapCollection collection { get; set; }
+
+        public BackgroundScreenBeatmap()
         {
-            Beatmap = beatmap;
             InternalChild = fadeContainer = CreateFadeContainer();
             fadeContainer.EnableUserDim.BindTo(EnableUserDim);
             fadeContainer.BlurAmount.BindTo(BlurAmount);
@@ -36,6 +38,16 @@ namespace Rhythmic.Screens.Backgrounds
         [BackgroundDependencyLoader]
         private void load()
         {
+            Beatmap = collection.CurrentBeatmap.Value;
+
+            collection.CurrentBeatmap.ValueChanged += beatmap =>
+            {
+                Beatmap = beatmap.NewValue;
+                var bg = new BeatmapBackground(this.beatmap);
+                LoadComponent(bg);
+                switchBackground(bg);
+            };
+
             var background = new BeatmapBackground(beatmap);
             LoadComponent(background);
             switchBackground(background);
