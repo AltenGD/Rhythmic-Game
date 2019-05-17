@@ -4,7 +4,6 @@ using Rhythmic.Beatmap.Properties.Level;
 using Rhythmic.Beatmap.Properties.Level.Object;
 using Rhythmic.Beatmap.Properties.Level.Keyframe;
 using Rhythmic.Beatmap.Properties.Metadata;
-using Rhythmic.Beatmap.Properties.Metadata.User;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Testing;
@@ -63,11 +62,8 @@ namespace Rhythmic.Test.Visual.TestCaseBeatmap
                     },
                     Level = new LevelMetadata
                     {
-                        Creator = new UserMetadata
-                        {
-                            Name = "Alten",
-                            ProfilePicture = "https://cdn.discordapp.com/avatars/184061887212814336/541efbba84566bdf7f4627e0a6786121.png"
-                        },
+                        CreatorID = 0,
+                        CreatorName = "Alten",
                         LevelName = "NULCTRL"
                     }
                 },

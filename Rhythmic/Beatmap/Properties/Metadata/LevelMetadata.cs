@@ -1,4 +1,4 @@
-﻿using Rhythmic.Beatmap.Properties.Metadata.User;
+﻿using Newtonsoft.Json;
 
 namespace Rhythmic.Beatmap.Properties.Metadata
 {
@@ -6,6 +6,9 @@ namespace Rhythmic.Beatmap.Properties.Metadata
     {
         public string LevelName { get; set; }
 
-        public UserMetadata Creator { get; set; }
+        public ulong CreatorID { get; set; }
+
+        [JsonIgnore]
+        public string CreatorName { get; set; }
     }
 }

@@ -5,7 +5,6 @@ using osu.Framework.Testing;
 using osu.Framework.Allocation;
 using Rhythmic.Beatmap.Properties.Drawables;
 using Rhythmic.Beatmap.Properties.Metadata;
-using Rhythmic.Beatmap.Properties.Metadata.User;
 using Rhythmic.Beatmap.Properties.Level.Object;
 using System.Collections.Generic;
 using Rhythmic.Beatmap.Properties.Level;
@@ -29,11 +28,8 @@ namespace Rhythmic.Test.Visual.TestCaseBeatmap
                 {
                     Level = new LevelMetadata
                     {
-                        Creator = new UserMetadata
-                        {
-                            Name = "Alten",
-                            ProfilePicture = "https://cdn.discordapp.com/avatars/184061887212814336/18d03287ffa32855b018b13b5cb582a3.png?size=2048"
-                        },
+                        CreatorID = 0,
+                        CreatorName = "Alten",
                         LevelName = "NULCTRL"
                     },
                     Song = new SongMetadata

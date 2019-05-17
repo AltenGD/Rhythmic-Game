@@ -2,7 +2,6 @@
 using Rhythmic.Beatmap.Properties.Level;
 using Rhythmic.Beatmap.Properties.Level.Object;
 using Rhythmic.Beatmap.Properties.Metadata;
-using Rhythmic.Beatmap.Properties.Metadata.User;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using Newtonsoft.Json;
@@ -61,7 +60,6 @@ namespace Rhythmic.Beatmap
             Beatmap.Level.Prefabs = new List<Prefab>();
             Beatmap.Metadata = new BeatmapMetadata();
             Beatmap.Metadata.Level = new LevelMetadata();
-            Beatmap.Metadata.Level.Creator = new UserMetadata();
             Beatmap.Metadata.Song = new SongMetadata();
             Beatmap.Player = new PlayerMeta ();
 
