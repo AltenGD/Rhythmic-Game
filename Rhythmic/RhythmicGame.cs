@@ -39,6 +39,8 @@ namespace Rhythmic
 
         private readonly List<OverlayContainer> visibleBlockingOverlays = new List<OverlayContainer>();
 
+        private readonly List<OverlayContainer> toolbarElements = new List<OverlayContainer>();
+
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent) =>
             dependencies = new DependencyContainer(base.CreateChildDependencies(parent));
 
@@ -46,13 +48,51 @@ namespace Rhythmic
 
         public readonly Bindable<OverlayActivation> OverlayActivationMode = new Bindable<OverlayActivation>(OverlayActivation.All);
 
+        private ScheduledDelegate performFromMainMenuTask;
+
+        /// <summary>Perform an action only after returning to the main menu.
+        /// Eagerly tries to exit the current screen until it succeeds.</summary>
+        /// <param name="action">The action to perform once we are in the correct state.</param>
+        /// <param name="taskName">The task name to display in a notification (if we can't immediately reach the main menu state).</param>
+        /// <param name="targetScreen">An optional target screen type. If this screen is already current we can immediately perform the action without returning to the menu.</param>
+        private void performFromMainMenu(Action action, string taskName, Type targetScreen = null)
+        {
+            performFromMainMenuTask?.Cancel();
+
+            CloseAllOverlays(false);
+
+            // we may already be at the target screen type.
+            if (targetScreen != null && screenStack.CurrentScreen?.GetType() == targetScreen)
+            {
+                action();
+                return;
+            }
+
+            // all conditions have been met to continue with the action.
+            if (menuScreen?.IsCurrentScreen() == true)
+            {
+                action();
+                return;
+            }
+
+            // menuScreen may not be initialised yet (null check required).
+            menuScreen?.MakeCurrent();
+
+            performFromMainMenuTask = Schedule(() => performFromMainMenu(action, taskName));
+        }
+
         /// <summary>Close all game-wide overlays.</summary>
-        /// <param name="toolbar">Whether the toolbar should also be hidden.</param>
-        public void CloseAllOverlays(bool toolbar = true)
+        /// <param name="hideToolbarElements">Whether the toolbar (and accompanying controls) should also be hidden.</param>
+        public void CloseAllOverlays(bool hideToolbarElements = true)
         {
             foreach (var overlay in overlays)
                 overlay.State = Visibility.Hidden;
-            if (toolbar) Toolbar.State = Visibility.Hidden;
+
+            if (hideToolbarElements)
+            {
+                foreach (var overlay in toolbarElements)
+                    overlay.State = Visibility.Hidden;
+            }
         }
 
         private void updateBlockingOverlayFade() =>
@@ -74,16 +114,13 @@ namespace Rhythmic
         public RhythmicGame(string[] args)
         { }
 
-        [BackgroundDependencyLoader]
-        private void load()
-        {
-            dependencies.CacheAs(this);
-        }
-
         protected override void LoadComplete()
         {
             base.LoadComplete();
             dependencies.Cache(this);
+
+            dependencies.Cache(menuScreen = new MainMenu());
+
             AddRange(new Drawable[]
             {
                 screenContainer = new Container
@@ -107,8 +144,13 @@ namespace Rhythmic
                 {
                     CloseAllOverlays(false);
                     menuScreen?.MakeCurrent();
+                    Console.WriteLine(menuScreen);
                 },
-            }, topMostOverlayContent.Add);
+            }, d =>
+            {
+                topMostOverlayContent.Add(d);
+                toolbarElements.Add(d);
+            });
 
             loadComponentSingleFile(musicController = new MusicController
             {

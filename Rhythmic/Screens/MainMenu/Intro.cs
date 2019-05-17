@@ -23,7 +23,8 @@ namespace Rhythmic.Screens.MainMenu
     {
         public bool DidLoadMenu;
 
-        private MainMenu mainMenu;
+        [Resolved]
+        private MainMenu mainMenu { get; set; }
 
         [Resolved]
         private AudioManager audio { get; set; }
@@ -37,9 +38,13 @@ namespace Rhythmic.Screens.MainMenu
         private DatabasedBeatmap introBeatmap;
         private RhythmicLogo intro;
 
-        [BackgroundDependencyLoader]
-        private void load(Game game, BeatmapCollection collection)
+        [Resolved]
+        private Game game { get; set; }
+
+        protected override void LoadComplete()
         {
+            base.LoadComplete();
+
             introBeatmap = new DatabasedBeatmap();
 
             introBeatmap.Background = Texture.FromStream(game.Resources.GetStream(@"Tracks/Intro/bg.png"));
@@ -77,8 +82,6 @@ namespace Rhythmic.Screens.MainMenu
                 audio.AddItem(track);
                 track.Seek(TimeSpan.FromSeconds(162.7).TotalMilliseconds);
                 track.Start();
-
-                LoadComponentAsync(mainMenu = new MainMenu());
 
                 Scheduler.AddDelayed(() =>
                 {
