@@ -8,6 +8,11 @@ namespace Rhythmic.Graphics.Sprites
         /// <summary>The default font size.</summary>
         public const float DEFAULT_FONT_SIZE = 30;
 
+        /// <summary>The default font.</summary>
+        public static FontUsage Default => GetFont();
+
+        public static FontUsage Numeric => GetFont(Typeface.ZeroOneDigitall);
+
         public static FontUsage GetFont(Typeface typeface = Typeface.Purista, float size = DEFAULT_FONT_SIZE, FontWeight weight = FontWeight.Regular, bool italics = false, bool fixedWidth = false)
             => new FontUsage(GetFamilyString(typeface, weight), size, null, italics, fixedWidth);
 
@@ -17,16 +22,11 @@ namespace Rhythmic.Graphics.Sprites
             {
                 case Typeface.Purista:
                     if (weight == FontWeight.Bold)
-                        return "purista-bold";
+                        return "Purista-Bold";
                     else
-                        return "purista";
-                case Typeface.Neogrey:
-                    if (weight == FontWeight.Medium)
-                        return "Neogrey Medium";
-                    else
-                        return "Neogrey";
-                case Typeface.Audiowide:
-                    return "Audiowide";
+                        return "Purista";
+                case Typeface.ZeroOneDigitall:
+                    return "01 Digitall";
             }
 
             return null;
@@ -36,8 +36,7 @@ namespace Rhythmic.Graphics.Sprites
     public enum Typeface
     {
         Purista,
-        Neogrey,
-        Audiowide,
+        ZeroOneDigitall
     }
     public enum FontWeight
     {

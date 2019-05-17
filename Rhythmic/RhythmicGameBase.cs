@@ -34,12 +34,11 @@ namespace Rhythmic
         [BackgroundDependencyLoader]
         private void load()
         {
-            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/purista"));
-            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/purista-bold"));
-            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/purista-Italic"));
-            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Neogrey Medium"));
-            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Neogrey"));
-            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Audiowide"));
+            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Purista/Purista"));
+            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Purista/Purista-Bold"));
+            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Purista/Purista-Italic"));
+            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Purista/Purista-BoldItalic"));
+            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/01 Digitall/01 Digitall"));
 
             dependencies.Cache(this);
             dependencies.Cache(storage);
