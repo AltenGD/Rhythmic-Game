@@ -2,16 +2,10 @@
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
-using osu.Framework.Graphics.Textures;
-using osu.Framework.Input.Events;
 using osuTK;
 using osuTK.Graphics;
 using osuTK.Input;
-using osu.Framework.Allocation;
-using osu.Framework.Graphics.Sprites;
-using osu.Framework.Audio.Sample;
 using Rhythmic.Visualizers;
-using osu.Framework.MathUtils;
 using Rhythmic.Screens.MainMenu;
 using osu.Framework.Extensions.Color4Extensions;
 

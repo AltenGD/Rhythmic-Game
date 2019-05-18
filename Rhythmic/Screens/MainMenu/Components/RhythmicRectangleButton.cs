@@ -1,28 +1,13 @@
-﻿using osu.Framework.Allocation;
-using osu.Framework.Audio.Track;
-using osu.Framework.Graphics.Sprites;
-using osu.Framework.Graphics.Textures;
-using osu.Framework.Screens;
-using Rhythmic.Beatmap;
-using Rhythmic.Beatmap.Properties;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using static System.Environment;
+﻿using osu.Framework.Graphics.Sprites;
 using System;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Shapes;
 using osu.Framework.Input.Events;
-using osu.Framework.Testing;
 using osuTK;
 using osuTK.Graphics;
-using osu.Framework.Graphics.Lines;
 using osu.Framework.MathUtils;
 using Rhythmic.Graphics.Drawables;
-using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Sprites;
-using osu.Framework.Graphics.Effects;
 using osu.Framework.Extensions.Color4Extensions;
 
 namespace Rhythmic.Screens.MainMenu.Components

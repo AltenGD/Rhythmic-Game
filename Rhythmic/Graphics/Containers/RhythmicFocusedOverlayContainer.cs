@@ -1,11 +1,8 @@
 ﻿using osu.Framework.Allocation;
-using osu.Framework.Audio;
-using osu.Framework.Audio.Sample;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics.Containers;
-using osuTK;
-using osu.Framework.Input.Bindings;
 using osu.Framework.Input.Events;
+using osuTK;
 using Rhythmic.Overlays;
 
 namespace Rhythmic.Graphics.Containers

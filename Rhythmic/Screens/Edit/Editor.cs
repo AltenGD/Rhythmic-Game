@@ -1,8 +1,4 @@
-﻿using osu.Framework.Screens;
-using Rhythmic.Screens.Backgrounds;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Rhythmic.Screens.Backgrounds;
 
 namespace Rhythmic.Screens.Edit
 {

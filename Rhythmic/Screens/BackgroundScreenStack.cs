@@ -16,8 +16,6 @@ namespace Rhythmic.Screens
             Origin = Anchor.Centre;
         }
 
-        //public float ParallaxAmount { set => parallax.ParallaxAmount = ParallaxContainer.DEFAULT_PARALLAX_AMOUNT * value; }
-
         public void Push(BackgroundScreen screen)
         {
             if (screen == null)

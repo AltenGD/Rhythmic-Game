@@ -2,7 +2,6 @@
 using osu.Framework.Graphics.Textures;
 using Rhythmic.Beatmap.Properties;
 using Rhythmic.Beatmap.Properties.Level;
-using System.IO;
 
 namespace Rhythmic.Beatmap
 {

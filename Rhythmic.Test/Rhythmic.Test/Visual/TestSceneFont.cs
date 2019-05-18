@@ -1,21 +1,19 @@
 ﻿using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Testing;
-using Rhythmic.Graphics;
 using Rhythmic.Graphics.Sprites;
 
 namespace Rhythmic.Test.Visual
 {
-    public class TestCaseFont : TestCase
+    public class TestSceneFont : TestScene
     {
         private FontWeight Weight = FontWeight.Regular;
         private Typeface TypeFace = Typeface.Purista;
 
         private FillFlowContainer flow;
 
-        public TestCaseFont()
+        public TestSceneFont()
         {
             Children = new Drawable[]
             {
@@ -39,18 +37,6 @@ namespace Rhythmic.Test.Visual
             AddStep("Purista", () =>
             {
                 TypeFace = Typeface.Purista;
-                Refresh();
-            });
-
-            AddStep("Neogrey", () =>
-            {
-                TypeFace = Typeface.Neogrey;
-                Refresh();
-            });
-
-            AddStep("AudioWide", () =>
-            {
-                TypeFace = Typeface.Audiowide;
                 Refresh();
             });
 

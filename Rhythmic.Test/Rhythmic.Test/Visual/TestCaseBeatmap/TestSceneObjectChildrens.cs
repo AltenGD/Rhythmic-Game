@@ -12,7 +12,7 @@ using Rhythmic.Beatmap.Properties.Level.Keyframe;
 
 namespace Rhythmic.Test.Visual.TestCaseBeatmap
 {
-    public class TestCaseObjectChildrens : TestCase
+    public class TestSceneObjectChildrens : TestScene
     {
         private BeatmapMeta TestLevel;
         private BeatmapAPI API;

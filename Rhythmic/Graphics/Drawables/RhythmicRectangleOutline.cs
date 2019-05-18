@@ -1,15 +1,7 @@
-﻿using System;
-using osu.Framework.Graphics;
-using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Shapes;
-using osu.Framework.Graphics.Sprites;
-using osu.Framework.Input.Events;
-using osu.Framework.Testing;
-using osuTK;
-using osuTK.Graphics;
+﻿using osuTK;
+using System;
 using osu.Framework.Graphics.Lines;
 using System.Collections.Generic;
-using osu.Framework.MathUtils;
 
 namespace Rhythmic.Graphics.Drawables
 {

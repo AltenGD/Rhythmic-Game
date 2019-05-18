@@ -2,20 +2,12 @@
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
-using osu.Framework.Graphics.Sprites;
-using osu.Framework.Input.Events;
-using osu.Framework.Testing;
 using osuTK;
 using osuTK.Graphics;
-using osu.Framework.Graphics.Lines;
-using System.Collections.Generic;
-using osu.Framework.MathUtils;
-using Rhythmic.Graphics.Drawables;
-using Rhythmic.Graphics.Colors;
 
 namespace Rhythmic.Graphics.Drawables
 {
-    public class RhythmicRectangleFill : osu.Framework.Graphics.Containers.Container
+    public class RhythmicRectangleFill : Container
     {
         public Color4 FillColor;
 

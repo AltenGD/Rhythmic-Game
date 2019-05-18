@@ -8,18 +8,14 @@ using osu.Framework.Allocation;
 using osu.Framework.Development;
 using osu.Framework.Logging;
 using osu.Framework.Platform;
-using Rhythmic.Beatmap;
 using Rhythmic.IPC;
 using static System.Environment;
 
 namespace Rhythmic
 {
-    //To be crossplatform, soon:tm:
+    //To be crossplatform
     public static class Program
     {
-        [Cached]
-        private static BeatmapCollection beatmaps { get; set; }
-
         [STAThread]
         public static void Main(string[] args)
         {
@@ -55,9 +51,7 @@ namespace Rhythmic
 
         private static int allowableExceptions = DebugUtils.IsDebugBuild ? 0 : 1;
 
-        /// <summary>
-        /// Allow a maximum of one unhandled exception, per second of execution.
-        /// </summary>
+        /// <summary>Allow a maximum of one unhandled exception, per second of execution.</summary>
         /// <param name="arg"></param>
         /// <returns></returns>
         private static bool handleException(Exception arg)

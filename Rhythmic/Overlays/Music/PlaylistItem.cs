@@ -9,8 +9,6 @@ using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Events;
 using osu.Framework.Localisation;
 using Rhythmic.Beatmap;
-using Rhythmic.Graphics;
-using Rhythmic.Graphics.Containers;
 using osuTK;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Sprites;

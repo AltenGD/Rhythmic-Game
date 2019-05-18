@@ -10,7 +10,7 @@ using Rhythmic.Beatmap.Properties.Drawables;
 
 namespace Rhythmic.Test.Visual.TestCaseBeatmap
 {
-    public class TestCaseBeatmapObject : TestCase
+    public class TestSceneBeatmapObject : TestScene
     {
         private BeatmapMeta TestLevel;
         private BeatmapAPI API;

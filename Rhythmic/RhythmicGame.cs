@@ -6,9 +6,7 @@ using osu.Framework.Logging;
 using osu.Framework.Screens;
 using osu.Framework.Threading;
 using osuTK.Graphics;
-using Rhythmic.Beatmap;
 using Rhythmic.Graphics.Colors;
-using Rhythmic.Other;
 using Rhythmic.Overlays;
 using Rhythmic.Overlays.Toolbar;
 using Rhythmic.Screens;
@@ -16,10 +14,8 @@ using Rhythmic.Screens.MainMenu;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using static System.Environment;
 
 namespace Rhythmic
 {

@@ -1,11 +1,6 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Internal;
+﻿using Microsoft.EntityFrameworkCore.Internal;
 using osu.Framework.Allocation;
-using osu.Framework.Audio;
-using osu.Framework.Audio.Sample;
-using osu.Framework.Bindables;
 using osu.Framework.Graphics;
-using osu.Framework.Input.Bindings;
 using osu.Framework.Screens;
 using osuTK;
 using Rhythmic.Other;
@@ -89,9 +84,7 @@ namespace Rhythmic.Screens
             return false;
         }
 
-        /// <summary>
-        /// Fired when this screen was entered or resumed and the logo state is required to be adjusted.
-        /// </summary>
+        /// <summary>Fired when this screen was entered or resumed and the logo state is required to be adjusted.</summary>
         protected virtual void LogoArriving(RhythmicLogo logo, bool resuming)
         {
             ApplyLogoArrivingDefaults(logo);
@@ -105,10 +98,8 @@ namespace Rhythmic.Screens
             }, true);
         }
 
-        /// <summary>
-        /// Applies default animations to an arriving logo.
-        /// Todo: This should not exist.
-        /// </summary>
+        /// <summary>Applies default animations to an arriving logo.
+        /// Todo: This should not exist.</summary>
         /// <param name="logo">The logo to apply animations to.</param>
         public static void ApplyLogoArrivingDefaults(RhythmicLogo logo)
         {
@@ -123,9 +114,7 @@ namespace Rhythmic.Screens
             logo?.AppendAnimatingAction(() => LogoExiting(logo), false);
         }
 
-        /// <summary>
-        /// Fired when this screen was exited to add any outwards transition to the logo.
-        /// </summary>
+        /// <summary>Fired when this screen was exited to add any outwards transition to the logo.</summary>
         protected virtual void LogoExiting(RhythmicLogo logo)
         {
         }
@@ -135,17 +124,13 @@ namespace Rhythmic.Screens
             logo?.AppendAnimatingAction(() => LogoSuspending(logo), false);
         }
 
-        /// <summary>
-        /// Fired when this screen was suspended to add any outwards transition to the logo.
-        /// </summary>
+        /// <summary>Fired when this screen was suspended to add any outwards transition to the logo.</summary>
         protected virtual void LogoSuspending(RhythmicLogo logo)
         {
         }
 
-        /// <summary>
-        /// Override to create a BackgroundMode for the current screen.
-        /// Note that the instance created may not be the used instance if it matches the BackgroundMode equality clause.
-        /// </summary>
+        /// <summary>Override to create a BackgroundMode for the current screen.
+        /// Note that the instance created may not be the used instance if it matches the BackgroundMode equality clause.</summary>
         protected virtual BackgroundScreen CreateBackground() => null;
     }
 }

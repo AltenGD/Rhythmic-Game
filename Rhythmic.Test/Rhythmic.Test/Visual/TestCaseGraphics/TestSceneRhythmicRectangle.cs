@@ -1,25 +1,17 @@
-﻿using System;
-using osu.Framework.Graphics;
-using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Shapes;
-using osu.Framework.Graphics.Sprites;
-using osu.Framework.Input.Events;
+﻿using osu.Framework.Graphics;
 using osu.Framework.Testing;
 using osuTK;
-using osuTK.Graphics;
-using osu.Framework.Graphics.Lines;
-using System.Collections.Generic;
 using osu.Framework.MathUtils;
 using Rhythmic.Graphics.Drawables;
 using Rhythmic.Graphics.Colors;
 
 namespace Rhythmic.Tests.Visual
 {
-    public class TestCaseRhythmicRectangle : TestCase
+    public class TestSceneRhythmicRectangle : TestScene
     {
         private RhythmicRectangleOutline rec;
 
-        public TestCaseRhythmicRectangle()
+        public TestSceneRhythmicRectangle()
         {
             AddRange(new Drawable[]
             {

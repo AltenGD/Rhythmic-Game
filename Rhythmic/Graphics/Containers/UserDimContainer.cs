@@ -21,9 +21,9 @@ namespace Rhythmic.Graphics.Containers
         /// <summary>The amount of blur to be applied to the background in addition to user-specified blur.</summary>
         public readonly Bindable<float> BlurAmount = new Bindable<float>();
 
-        private Bindable<double> userDimLevel { get; set; }
+        private Bindable<double> userDimLevel { get; set; } = new Bindable<double>(0.5);
 
-        private Bindable<double> userBlurLevel { get; set; }
+        private Bindable<double> userBlurLevel { get; set; } = new Bindable<double>(20);
 
         protected Container DimContainer { get; }
 

@@ -17,7 +17,7 @@ using osu.Framework;
 
 namespace Rhythmic.Test.Visual.TestCaseBeatmap
 {
-    public class TestCaseBeatmapParsing : TestCase
+    public class TestSceneBeatmapParsing : TestScene
     {
         private FillFlowContainer Container;
         private BeatmapMeta TestLevel;
@@ -26,7 +26,7 @@ namespace Rhythmic.Test.Visual.TestCaseBeatmap
 
         private int index = 1;
 
-        public TestCaseBeatmapParsing()
+        public TestSceneBeatmapParsing()
         {
             API = new BeatmapAPI();
 

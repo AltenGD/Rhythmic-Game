@@ -6,9 +6,6 @@ using osuTK.Graphics;
 using osuTK;
 using System.Linq;
 using Rhythmic.Screens.Play;
-using osu.Framework.Timing;
-using osu.Framework.Allocation;
-using System;
 using Object = Rhythmic.Beatmap.Properties.Level.Object.Object;
 
 namespace Rhythmic.Beatmap.Properties.Drawables

@@ -1,11 +1,9 @@
 ﻿using osu.Framework;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
-using osu.Framework.Configuration;
 using osu.Framework.IO.Stores;
 using osu.Framework.Platform;
 using Rhythmic.Beatmap;
-using Rhythmic.Beatmap.Properties;
 using Rhythmic.Database;
 using System.Collections.Generic;
 using System.IO;

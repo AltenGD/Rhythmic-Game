@@ -14,7 +14,7 @@ namespace Rhythmic.Overlays.Toolbar
     {
         protected override Anchor TooltipAnchor => Anchor.TopRight;
 
-        public BindableInt NotificationCount = new BindableInt();
+        public BindableInt NotificationCount = new BindableInt(int.MaxValue);
 
         private readonly CountCircle countDisplay;
 

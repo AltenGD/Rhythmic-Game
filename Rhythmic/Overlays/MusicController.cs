@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using osu.Framework.Allocation;
 using osu.Framework.Audio;
 using osu.Framework.Bindables;
@@ -63,7 +61,6 @@ namespace Rhythmic.Overlays
             Width = 400;
             Margin = new MarginPadding(10);
 
-            // required to let MusicController handle beatmap cycling.
             AlwaysPresent = true;
         }
 
