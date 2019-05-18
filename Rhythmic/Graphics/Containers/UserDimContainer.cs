@@ -23,7 +23,7 @@ namespace Rhythmic.Graphics.Containers
 
         private Bindable<double> userDimLevel { get; set; } = new Bindable<double>(0.5);
 
-        private Bindable<double> userBlurLevel { get; set; } = new Bindable<double>(20);
+        private Bindable<double> userBlurLevel { get; set; } = new Bindable<double>(0.2);
 
         protected Container DimContainer { get; }
 

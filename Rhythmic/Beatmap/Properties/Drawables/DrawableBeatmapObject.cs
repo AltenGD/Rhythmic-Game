@@ -68,12 +68,11 @@ namespace Rhythmic.Beatmap.Properties.Drawables
             var DelayTillExpire = 0f;
 
             drawable.Name = obj?.Name ?? "";
-            drawable.Colour = new Color4(obj?.Colour[0] ?? 255, obj?.Colour[1] ?? 255, obj?.Colour[2] ?? 255, 255);
-            drawable.Size = new Vector2(obj?.Size[0] ?? 0, obj?.Size[1] ?? 0);
+            drawable.Colour = new Color4(obj?.Colour[0] ?? 255, obj?.Colour[1] ?? 255, obj?.Colour[2] ?? 255, obj.Helper ? obj?.Colour[3] ?? 1 : 1);
+            drawable.Size = new Vector2(obj?.Size[0] ?? 0, obj?.Size[1] ?? 0); 
             drawable.Anchor = obj?.Anchor ?? Anchor.TopLeft;
             drawable.Origin = obj?.Origin ?? Anchor.TopLeft;
             drawable.RelativeSizeAxes = obj?.RelativeSizeAxes ?? Axes.None;
-            drawable.Alpha = obj.Helper ? obj?.Colour[3] ?? 255 / 2 : obj?.Colour[3] ?? 255;
 
             AddInternal(drawable);
 
@@ -196,7 +195,7 @@ namespace Rhythmic.Beatmap.Properties.Drawables
         {
             base.Update();
 
-            if (drawable.ScreenSpaceDrawQuad.AABBFloat.IntersectsWith(player.player.ScreenSpaceDrawQuad.AABBFloat))
+            if (drawable.ScreenSpaceDrawQuad.AABBFloat.IntersectsWith(player.player.ScreenSpaceDrawQuad.AABBFloat) && !obj.Helper && !obj.Empty)
             {
                 player.TakeDamage();
             }

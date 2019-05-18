@@ -19,7 +19,7 @@ namespace Rhythmic.Screens.Backgrounds
         public readonly Bindable<bool> EnableUserDim = new Bindable<bool>(true);
 
         /// <summary>The amount of blur to be applied in addition to user-specified blur.</summary>
-        public readonly Bindable<float> BlurAmount = new Bindable<float>(25);
+        public readonly Bindable<float> BlurAmount = new Bindable<float>();
 
         private readonly UserDimContainer fadeContainer;
 
