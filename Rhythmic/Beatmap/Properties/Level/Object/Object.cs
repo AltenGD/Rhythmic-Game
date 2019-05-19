@@ -22,6 +22,8 @@ namespace Rhythmic.Beatmap.Properties.Level.Object
 
         public float[] Size { get; set; } = new float[] { 25, 25 };
 
+        public float[] Shear { get; set; } = new float[] { 0, 0 };
+
         public float Rotation { get; set; } = 0f;
 
         public float Depth { get; set; } = 0;

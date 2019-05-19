@@ -73,6 +73,7 @@ namespace Rhythmic.Beatmap.Drawables
             drawable.Anchor = obj?.Anchor ?? Anchor.TopLeft;
             drawable.Origin = obj?.Origin ?? Anchor.TopLeft;
             drawable.RelativeSizeAxes = obj?.RelativeSizeAxes ?? Axes.None;
+            drawable.Shear = new Vector2(obj.Shear[0], obj.Shear[1]);
 
             AddInternal(drawable);
 
