@@ -1,5 +1,6 @@
 ﻿using Rhythmic.Beatmap.Properties.Level;
 using Rhythmic.Beatmap.Properties.Metadata;
+using System;
 
 //TODO: Implement storyboards
 namespace Rhythmic.Beatmap.Properties
@@ -13,5 +14,9 @@ namespace Rhythmic.Beatmap.Properties
         public PlayerMeta Player { get; set; }
 
         public string SongUrl { get; set; }
+
+        public DateTime DownloadedAt { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using Rhythmic.Beatmap.Properties;
 using osu.Framework.Graphics;
 using osu.Framework.Testing;
 using osu.Framework.Allocation;
-using Rhythmic.Beatmap.Properties.Drawables;
+using Rhythmic.Beatmap.Drawables;
 using Rhythmic.Beatmap.Properties.Metadata;
 using Rhythmic.Beatmap.Properties.Level.Object;
 using System.Collections.Generic;

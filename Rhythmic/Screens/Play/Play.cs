@@ -4,7 +4,7 @@ using osu.Framework.Graphics;
 using Rhythmic.Beatmap;
 using osu.Framework.Graphics.Containers;
 using Rhythmic.Overlays;
-using Rhythmic.Beatmap.Properties.Drawables;
+using Rhythmic.Beatmap.Drawables;
 
 namespace Rhythmic.Screens.Play
 {

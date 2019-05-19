@@ -8,7 +8,7 @@ using System.Linq;
 using Rhythmic.Screens.Play;
 using Object = Rhythmic.Beatmap.Properties.Level.Object.Object;
 
-namespace Rhythmic.Beatmap.Properties.Drawables
+namespace Rhythmic.Beatmap.Drawables
 {
     public class DrawableBeatmapObject : CompositeDrawable
     {

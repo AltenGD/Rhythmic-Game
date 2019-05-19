@@ -6,7 +6,7 @@ using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
 using osu.Framework;
 using System.IO;
-using Rhythmic.Beatmap.Properties.Drawables;
+using Rhythmic.Beatmap.Drawables;
 
 namespace Rhythmic.Test.Visual.TestCaseBeatmap
 {
