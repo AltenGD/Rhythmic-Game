@@ -53,14 +53,17 @@ namespace Rhythmic.Screens.Select.Components
         private void load()
         {
             foreach (var beatmap in collection.Beatmaps)
-                beatmapContainer.Add(new BeatmapCard(beatmap)
-                {
-                    Action = delegate
+            {
+                if (beatmap.Level != null && beatmap.Level.Level != null)
+                    beatmapContainer.Add(new BeatmapCard(beatmap)
                     {
-                        collection.CurrentBeatmap.Value = beatmap;
-                        selectedBeatmap?.Invoke();
-                    }
-                });
+                        Action = delegate
+                        {
+                            collection.CurrentBeatmap.Value = beatmap;
+                            selectedBeatmap?.Invoke();
+                        }
+                    });
+            }
         }
     }
 }
