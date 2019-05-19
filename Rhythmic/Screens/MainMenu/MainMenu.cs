@@ -21,12 +21,6 @@ namespace Rhythmic.Screens.MainMenu
     {
         private BackgroundScreenDefault background;
 
-        [Resolved]
-        private BeatmapCollection collection { get; set; }
-
-        [Resolved]
-        private BeatmapAPI API { get; set; }
-
         private RhythmicLogo logo;
 
         protected override BackgroundScreen CreateBackground() => background = new BackgroundScreenDefault();
@@ -69,12 +63,6 @@ namespace Rhythmic.Screens.MainMenu
             });
         }
 
-        protected override void LoadComplete()
-        {
-            base.LoadAsyncComplete();
-            LoadAllBeatmaps();
-        }
-
         public override void OnResuming(IScreen last)
         {
             base.OnResuming(last);
@@ -96,53 +84,6 @@ namespace Rhythmic.Screens.MainMenu
             logo.MoveToX(25, 1000, Easing.InExpo);
             logo.FadeOut(1000, Easing.OutExpo);
             return base.OnExiting(next);
-        }
-
-        private void LoadAllBeatmaps()
-        {
-            var path = GetFolderPath(SpecialFolder.ApplicationData) + @"\Rhythmic\Database\Beatmaps\";
-
-            foreach (var file in Directory.EnumerateDirectories(path))
-            {
-                API.GetBeatmapFromZip(file);
-                var level = API.ParseBeatmap(File.ReadAllText(file + @"\level.json"));
-
-                var beatmap = new DatabasedBeatmap();
-                beatmap.Level = level.Level;
-                beatmap.Metadata = level.Metadata;
-                beatmap.Player = level.Player;
-                beatmap.SongUrl = level.SongUrl;
-
-                if (!beatmap.SongUrl.StartsWith(@"\"))
-                    beatmap.SongUrl = Concat(@"\", beatmap.SongUrl);
-
-                if (!beatmap.Metadata.LogoURL.StartsWith(@"\"))
-                    beatmap.Metadata.LogoURL = Concat(@"\", beatmap.Metadata.LogoURL);
-
-                if (!beatmap.Metadata.BackgroundURL.StartsWith(@"\"))
-                    beatmap.Metadata.BackgroundURL = Concat(@"\", beatmap.Metadata.BackgroundURL);
-
-                var SongStream = File.OpenRead(file + beatmap.SongUrl);
-
-                beatmap.Song = new TrackBass(SongStream);
-                beatmap.Logo = Texture.FromStream(File.OpenRead(file + beatmap.Metadata.LogoURL));
-                beatmap.Background = Texture.FromStream(File.OpenRead(file + beatmap.Metadata.BackgroundURL));
-
-                collection.Beatmaps.Add(beatmap);
-            }
-
-            for (var i = 0; i < collection.Beatmaps.Count; i++)
-            {
-                collection.Beatmaps[i].ID = i;
-            }
-        }
-
-        private string Concat(string string1, string string2)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(string1);
-            sb.Append(string2);
-            return sb.ToString();
         }
     }
 }
