@@ -6,6 +6,9 @@ using osuTK.Graphics;
 using osuTK;
 using System.Linq;
 using Rhythmic.Screens.Play;
+using osu.Framework.Graphics.UserInterface;
+using osu.Framework.Bindables;
+using static osu.Framework.Graphics.UserInterface.CircularProgress;
 using Object = Rhythmic.Beatmap.Properties.Level.Object.Object;
 
 namespace Rhythmic.Beatmap.Drawables
@@ -55,6 +58,9 @@ namespace Rhythmic.Beatmap.Drawables
                 case Shape.CircularContainer:
                     CreateDrawable(drawable = new Container());
                     break;
+                case Shape.CircularProgress:
+                    CreateDrawable(drawable = new CircularProgress());
+                    break;
                 case Shape.Image:
                     break;
                 default:
@@ -77,10 +83,8 @@ namespace Rhythmic.Beatmap.Drawables
 
             AddInternal(drawable);
 
-            if (drawable is Container)
+            if (drawable is Container container)
             {
-                var container = drawable as Container;
-
                 container.BorderColour = new Color4(obj?.BorderColour[0] ?? 255, obj?.BorderColour[1] ?? 255, obj?.BorderColour[2] ?? 255, obj?.BorderColour[3] ?? 255);
                 container.BorderThickness = obj?.BorderThickness ?? 0f;
                 container.Masking = obj?.Masking ?? false;
@@ -119,6 +123,46 @@ namespace Rhythmic.Beatmap.Drawables
                 foreach (var children in obj.Childrens)
                 {
                     container.Add(new DrawableBeatmapObject(children));
+                }
+            }
+
+            if (drawable is CircularProgress progress)
+            {
+                progress.Current = new Bindable<double>(obj.Fill);
+                progress.InnerRadius = obj.InnerRadius;
+
+                //Fill
+                if (obj.FillKeyframes != null && obj.FillKeyframes.Any())
+                {
+                    obj.FillKeyframes.ForEach(t =>
+                    {
+                        DelayTillExpire += (float)t.Time;
+                        DelayTillExpire += (float)t.TimeUntilFinish;
+
+                        progress
+                            .Delay(t.Time)
+                            .TransformTo(nameof(progress.Current.Value),
+                                         t.Value,
+                                         t.TimeUntilFinish,
+                                         t.EaseType);
+                    });
+                }
+
+                //InnerRadius
+                if (obj.InnerRadiusKeyframes != null && obj.InnerRadiusKeyframes.Any())
+                {
+                    obj.InnerRadiusKeyframes.ForEach(t =>
+                    {
+                        DelayTillExpire += (float)t.Time;
+                        DelayTillExpire += (float)t.TimeUntilFinish;
+
+                        progress
+                            .Delay(t.Time)
+                            .TransformTo(nameof(progress.InnerRadius),
+                                         t.Value,
+                                         t.TimeUntilFinish,
+                                         t.EaseType);
+                    });
                 }
             }
 

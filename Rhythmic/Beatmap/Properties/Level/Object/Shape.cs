@@ -9,6 +9,7 @@
         Object,
         Container,
         CircularContainer,
+        CircularProgress,
         Image
     }
 }

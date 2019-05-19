@@ -24,6 +24,10 @@ namespace Rhythmic.Beatmap.Properties.Level.Object
 
         public float[] Shear { get; set; } = new float[] { 0, 0 };
 
+        public double Fill { get; set; } = 1;
+
+        public float InnerRadius { get; set; } = 1;
+
         public float Rotation { get; set; } = 0f;
 
         public float Depth { get; set; } = 0;
@@ -53,6 +57,12 @@ namespace Rhythmic.Beatmap.Properties.Level.Object
         public List<Keyframe<float[]>> ColourKeyframes { get; set; } = new List<Keyframe<float[]>>();
 
         public List<Keyframe<float[]>> BorderColourKeyframes { get; set; } = new List<Keyframe<float[]>>();
+
+        public List<Keyframe<double>> FillKeyframes { get; set; } = new List<Keyframe<double>>();
+
+        public List<Keyframe<float>> InnerRadiusKeyframes { get; set; } = new List<Keyframe<float>>();
+
+        public List<Keyframe<float[]>> ShearKeyframes { get; set; } = new List<Keyframe<float[]>>();
 
         public List<Keyframe<double[]>> MoveKeyframes { get; set; } = new List<Keyframe<double[]>>();
 
