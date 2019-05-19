@@ -1,6 +1,10 @@
 ﻿using osu.Framework.Screens;
 using Rhythmic.Screens.Backgrounds;
 using osu.Framework.Graphics.UserInterface;
+using osu.Framework.Graphics;
+using Rhythmic.Screens.Select.Components;
+using osu.Framework.Allocation;
+using Rhythmic.Beatmap;
 
 namespace Rhythmic.Screens.Select
 {
@@ -10,13 +14,16 @@ namespace Rhythmic.Screens.Select
 
         public SongSelect()
         {
-            AddInternal(new Button
+            AddRangeInternal(new Drawable[]
             {
-                Size = new osuTK.Vector2(150, 40),
-                Action = delegate
+                new BeatmapLevelListing
                 {
-                    this.Push(new Play.Play());
-                }
+                    RelativeSizeAxes = Axes.Both,
+                    selectedBeatmap = delegate
+                    {
+                        this.Push(new Play.Play());
+                    }
+                },
             });
         }
     }

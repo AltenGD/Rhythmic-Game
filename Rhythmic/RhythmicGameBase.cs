@@ -55,7 +55,7 @@ namespace Rhythmic
                 beatmaps = new BeatmapCollection();
 
             if (beatmaps.Beatmaps == null)
-                beatmaps.Beatmaps = new List<DatabasedBeatmap>();
+                beatmaps.Beatmaps = new BindableList<DatabasedBeatmap>();
 
             if (beatmaps.CurrentBeatmap == null)
                 beatmaps.CurrentBeatmap = new Bindable<DatabasedBeatmap>();
