@@ -16,7 +16,6 @@ namespace Rhythmic.Beatmap.Drawables
     public class BeatmapCard : ClickableContainer, IHasFilterTerms
     {
         private Vector2 size = new Vector2(330, 150);
-        private BeatmapUsecase beatmapUseCase;
 
         public DatabasedBeatmap Beatmap;
 
@@ -101,7 +100,7 @@ namespace Rhythmic.Beatmap.Drawables
                         }
                     }
                 },
-                beatmapUseCase = new BeatmapUsecase(beatmap)
+                new BeatmapUsecase(beatmap)
                 {
                     Origin = Anchor.BottomLeft,
                     Anchor = Anchor.BottomLeft,

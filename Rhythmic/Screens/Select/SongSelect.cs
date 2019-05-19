@@ -1,10 +1,7 @@
 ﻿using osu.Framework.Screens;
 using Rhythmic.Screens.Backgrounds;
-using osu.Framework.Graphics.UserInterface;
 using osu.Framework.Graphics;
 using Rhythmic.Screens.Select.Components;
-using osu.Framework.Allocation;
-using Rhythmic.Beatmap;
 
 namespace Rhythmic.Screens.Select
 {
