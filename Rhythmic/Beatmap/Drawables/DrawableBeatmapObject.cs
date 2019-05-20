@@ -37,6 +37,7 @@ namespace Rhythmic.Beatmap.Drawables
             Position = new Vector2(obj?.Position[0] ?? 0, obj?.Position[1] ?? 0);
             Anchor = obj?.Anchor ?? Anchor.TopLeft;
             Origin = obj?.Origin ?? Anchor.TopLeft;
+            Blending = obj.BlendingParameters;
 
             switch (obj.Shape)
             {

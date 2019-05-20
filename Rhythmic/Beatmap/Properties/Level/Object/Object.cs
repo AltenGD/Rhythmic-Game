@@ -43,6 +43,8 @@ namespace Rhythmic.Beatmap.Properties.Level.Object
 
         public Axes AutoSizeAxes { get; set; } = Axes.None;
 
+        public BlendingParameters BlendingParameters { get; set; }
+
         public bool Autokill { get; set; } = true;
 
         public bool Helper { get; set; } = false;
