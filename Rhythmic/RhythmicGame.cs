@@ -7,6 +7,7 @@ using osu.Framework.Screens;
 using osu.Framework.Threading;
 using osuTK.Graphics;
 using Rhythmic.Graphics.Colors;
+using Rhythmic.Graphics.Containers;
 using Rhythmic.Overlays;
 using Rhythmic.Overlays.Toolbar;
 using Rhythmic.Screens;
@@ -119,16 +120,23 @@ namespace Rhythmic
 
             AddRange(new Drawable[]
             {
-                screenContainer = new Container
+                new GlobalActionContainer
                 {
                     RelativeSizeAxes = Axes.Both,
                     Children = new Drawable[]
                     {
-                        screenStack = new RhythmicScreenStack { RelativeSizeAxes = Axes.Both },
+                        screenContainer = new Container
+                        {
+                            RelativeSizeAxes = Axes.Both,
+                            Children = new Drawable[]
+                            {
+                                screenStack = new RhythmicScreenStack { RelativeSizeAxes = Axes.Both },
+                            }
+                        },
+                        rightFloatingOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
+                        topMostOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
                     }
-                },
-                rightFloatingOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
-                topMostOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
+                }
             });
 
             screenStack.ScreenPushed += screenPushed;

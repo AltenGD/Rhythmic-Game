@@ -1,14 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore.Internal;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
+using osu.Framework.Input.Bindings;
 using osu.Framework.Screens;
 using osuTK;
+using Rhythmic.Graphics.Containers;
 using Rhythmic.Other;
 using Rhythmic.Overlays;
 
 namespace Rhythmic.Screens
 {
-    public abstract class RhythmicScreen : Screen, IRhythmicScreen
+    public abstract class RhythmicScreen : Screen, IRhythmicScreen, IKeyBindingHandler<GlobalAction>
     {
         /// <summary>A user-facing title for this screen. </summary>
         public virtual string Title => GetType().ShortDisplayName();
@@ -132,5 +134,20 @@ namespace Rhythmic.Screens
         /// <summary>Override to create a BackgroundMode for the current screen.
         /// Note that the instance created may not be the used instance if it matches the BackgroundMode equality clause.</summary>
         protected virtual BackgroundScreen CreateBackground() => null;
+
+        public bool OnPressed(GlobalAction action)
+        {
+            if (!this.IsCurrentScreen()) return false;
+
+            if (action == GlobalAction.Exit && AllowBackButton)
+            {
+                this.Exit();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool OnReleased(GlobalAction action) => action == GlobalAction.Exit && AllowBackButton;
     }
 }
