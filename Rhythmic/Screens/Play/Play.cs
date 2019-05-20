@@ -110,7 +110,7 @@ namespace Rhythmic.Screens.Play
                 {
                     Scheduler.AddDelayed(() =>
                     {
-                        Add(new DrawableBeatmapObject(obj, player));
+                        Add(new DrawableBeatmapObject(obj, player) { Depth = obj.Depth });
                     }, obj.Time);
                 }
 

@@ -240,7 +240,7 @@ namespace Rhythmic.Beatmap.Drawables
         {
             base.Update();
 
-            if (drawable.ScreenSpaceDrawQuad.AABBFloat.IntersectsWith(player.player.ScreenSpaceDrawQuad.AABBFloat) && !obj.Helper && !obj.Empty)
+            if (player != null && drawable.ScreenSpaceDrawQuad.AABBFloat.IntersectsWith(player.player.ScreenSpaceDrawQuad.AABBFloat) && !obj.Helper && !obj.Empty)
             {
                 player.TakeDamage();
             }

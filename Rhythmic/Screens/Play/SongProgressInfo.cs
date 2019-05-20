@@ -48,30 +48,42 @@ namespace Rhythmic.Screens.Play
                 {
                     Origin = Anchor.BottomLeft,
                     Anchor = Anchor.BottomLeft,
-                    Colour = RhythmicColors.BlueLighter,
-                    Font = RhythmicFont.Default,
+                    Colour = RhythmicColors.Blue,
+                    Font = RhythmicFont.Numeric,
                     Margin = new MarginPadding
                     {
                         Left = margin,
                     },
+                    Blending = new BlendingParameters
+                    {
+                        Mode = BlendingMode.Additive
+                    }
                 },
                 progress = new SpriteText
                 {
                     Origin = Anchor.BottomCentre,
                     Anchor = Anchor.BottomCentre,
-                    Colour = RhythmicColors.BlueLighter,
-                    Font = RhythmicFont.Default,
+                    Colour = RhythmicColors.Blue,
+                    Font = RhythmicFont.Numeric,
+                    Blending = new BlendingParameters
+                    {
+                        Mode = BlendingMode.Additive
+                    }
                 },
                 timeLeft = new SpriteText
                 {
                     Origin = Anchor.BottomRight,
                     Anchor = Anchor.BottomRight,
-                    Colour = RhythmicColors.BlueLighter,
-                    Font = RhythmicFont.Default,
+                    Colour = RhythmicColors.Blue,
+                    Font = RhythmicFont.Numeric,
                     Margin = new MarginPadding
                     {
                         Right = margin,
                     },
+                    Blending = new BlendingParameters
+                    {
+                        Mode = BlendingMode.Additive
+                    }
                 }
             };
         }
