@@ -10,58 +10,56 @@ namespace Rhythmic.Screens.Play
 {
     public class Play : RhythmicScreen
     {
-        private FailOverlay failOverlay;
-
         public override OverlayActivation InitialOverlayActivationMode => OverlayActivation.Disabled;
 
         public override bool HideOverlaysOnEnter => true;
 
         public override float BackgroundParallaxAmount => 0f;
 
+        private FailOverlay failOverlay;
+
         [Resolved]
         private BeatmapCollection collection { get; set; }
+
+        protected GameplayClockContainer GameplayClockContainer { get; private set; }
 
         protected override void LoadComplete()
         {
             PlayableContainer container;
 
-            AddInternal(container = new PlayableContainer
-            {
-                Anchor = Anchor.Centre,
-                Origin = Anchor.Centre,
-            });
+            InternalChild = GameplayClockContainer = new GameplayClockContainer(collection.CurrentBeatmap.Value, 0);
 
-            AddInternal(failOverlay = new FailOverlay
+            GameplayClockContainer.Children = new Drawable[]
             {
-                Depth = -100,
-                RelativeSizeAxes = Axes.Both,
-                OnQuit = () => { this.Exit(); container.Expire(); collection.CurrentBeatmap.Value.Song.Restart(); },
-                OnRetry = () =>
+                container = new PlayableContainer
                 {
-                    container.Clear();
-
-                    AddInternal(container = new PlayableContainer
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                },
+                failOverlay = new FailOverlay
+                {
+                    Depth = -100,
+                    RelativeSizeAxes = Axes.Both,
+                    OnQuit = () => { this.Exit(); container.Expire(); collection.CurrentBeatmap.Value.Song.Restart(); },
+                    OnRetry = () =>
                     {
-                        Anchor = Anchor.Centre,
-                        Origin = Anchor.Centre,
-                        Depth = 1
-                    });
+                        GameplayClockContainer.Restart();
+                        container.Restart();
 
-                    container.OnLoadComplete += delegate
-                    {
                         container.player.Health.Value = collection.CurrentBeatmap.Value.Player.Health;
                         collection.CurrentBeatmap.Value.Song.Restart();
                         container.player.OnDeath = () =>
                         {
                             container.Stop();
+                            GameplayClockContainer.Stop();
                             failOverlay.ToggleVisibility();
                             collection.CurrentBeatmap.Value.Song.Stop();
                         };
-                    };
 
-                    failOverlay.Retries++;
+                        failOverlay.Retries++;
+                    }
                 }
-            });
+            };
 
             container.OnLoadComplete += delegate
             {
@@ -69,6 +67,7 @@ namespace Rhythmic.Screens.Play
                 container.player.OnDeath = () =>
                 {
                     container.Stop();
+                    GameplayClockContainer.Stop();
                     failOverlay.ToggleVisibility();
                     collection.CurrentBeatmap.Value.Song.Stop();
                 };
@@ -108,6 +107,44 @@ namespace Rhythmic.Screens.Play
             {
                 Scheduler.CancelDelayedTasks();
             }
+
+            public void Restart()
+            {
+                Clear();
+
+                Add(player = new Player
+                {
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    RelativeSizeAxes = Axes.Both,
+                });
+
+                foreach (var obj in collection.CurrentBeatmap.Value.Level.Level)
+                {
+                    Scheduler.AddDelayed(() =>
+                    {
+                        Add(new DrawableBeatmapObject(obj, player));
+                    }, obj.Time);
+                }
+            }
+        }
+
+        public override void OnEntering(IScreen last)
+        {
+            base.OnEntering(last);
+
+            Alpha = 0;
+            this
+                .ScaleTo(0.7f)
+                .ScaleTo(1, 750, Easing.OutQuint)
+                .Delay(250)
+                .FadeIn(250);
+        }
+
+        public override bool OnExiting(IScreen next)
+        {
+            GameplayClockContainer.ResetLocalAdjustments();
+            return base.OnExiting(next);
         }
     }
 }
