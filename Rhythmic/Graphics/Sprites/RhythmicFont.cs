@@ -25,7 +25,7 @@ namespace Rhythmic.Graphics.Sprites
                     else
                         return "Purista";
                 case Typeface.ZeroOneDigitall:
-                    return "01 Digitall";
+                    return "01Digitall";
             }
 
             return null;

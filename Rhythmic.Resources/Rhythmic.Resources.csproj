@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Fonts\01 Digitall\**" />
+    <EmbeddedResource Remove="Fonts\01 Digitall\**" />
+    <None Remove="Fonts\01 Digitall\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Beatmap\NULCTRL\level.json" />
     <None Remove="Beatmap\NULCTRL\sb\Group %402x.png" />
     <None Remove="Beatmap\NULCTRL\sb\Group 2 %402x.png" />
@@ -12,8 +18,8 @@
     <None Remove="Beatmap\NULCTRL\sb\Group.png" />
     <None Remove="Beatmap\NULCTRL\song.mp3" />
     <None Remove="Beatmap\NULCTRL\storyboard.json" />
-    <None Remove="Fonts\01 Digitall\01 Digitall.bin" />
-    <None Remove="Fonts\01 Digitall\01 Digitall_0.png" />
+    <None Remove="Fonts\01Digitall\01Digitall.bin" />
+    <None Remove="Fonts\01Digitall\01Digitall_0.png" />
     <None Remove="Fonts\Audiowide.bin" />
     <None Remove="Fonts\Audiowide_0.png" />
     <None Remove="Fonts\FontAwesome_1.png" />
@@ -59,8 +65,8 @@
     <EmbeddedResource Include="Beatmap\NULCTRL\sb\Group.png" />
     <EmbeddedResource Include="Beatmap\NULCTRL\song.mp3" />
     <EmbeddedResource Include="Beatmap\NULCTRL\storyboard.json" />
-    <EmbeddedResource Include="Fonts\01 Digitall\01 Digitall.bin" />
-    <EmbeddedResource Include="Fonts\01 Digitall\01 Digitall_0.png" />
+    <EmbeddedResource Include="Fonts\01Digitall\01Digitall.bin" />
+    <EmbeddedResource Include="Fonts\01Digitall\01Digitall_0.png" />
     <EmbeddedResource Include="Fonts\Purista\Purista-Bold.bin" />
     <EmbeddedResource Include="Fonts\Purista\Purista-BoldItalic.bin" />
     <EmbeddedResource Include="Fonts\Purista\Purista-BoldItalic_0.png" />

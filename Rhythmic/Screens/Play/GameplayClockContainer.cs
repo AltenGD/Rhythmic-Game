@@ -28,10 +28,10 @@ namespace Rhythmic.Screens.Play
 
         private readonly double gameplayStartTime;
 
-        public readonly Bindable<double> UserPlaybackRate = new BindableDouble(1)
+        public Bindable<double> UserPlaybackRate = new BindableDouble(1)
         {
             Default = 1,
-            MinValue = 0.5,
+            MinValue = 0.1,
             MaxValue = 2,
             Precision = 0.1,
         };

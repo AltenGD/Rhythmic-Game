@@ -5,6 +5,7 @@ using Rhythmic.Beatmap;
 using osu.Framework.Graphics.Containers;
 using Rhythmic.Overlays;
 using Rhythmic.Beatmap.Drawables;
+using osu.Framework.Bindables;
 
 namespace Rhythmic.Screens.Play
 {
@@ -15,6 +16,8 @@ namespace Rhythmic.Screens.Play
         public override bool HideOverlaysOnEnter => true;
 
         public override float BackgroundParallaxAmount => 0f;
+
+        public readonly SongProgress Progress;
 
         private FailOverlay failOverlay;
 
@@ -28,6 +31,8 @@ namespace Rhythmic.Screens.Play
             PlayableContainer container;
 
             InternalChild = GameplayClockContainer = new GameplayClockContainer(collection.CurrentBeatmap.Value, 0);
+
+            GameplayClockContainer.UserPlaybackRate = new Bindable<double>(0.1);
 
             GameplayClockContainer.Children = new Drawable[]
             {
@@ -58,8 +63,17 @@ namespace Rhythmic.Screens.Play
 
                         failOverlay.Retries++;
                     }
+                },
+                new SongProgress
+                {
+                    Anchor = Anchor.BottomLeft,
+                    Origin = Anchor.BottomLeft,
+                    RelativeSizeAxes = Axes.X,
+                    Objects = collection.CurrentBeatmap.Value.Level.Level
                 }
             };
+
+            GameplayClockContainer.Start();
 
             container.OnLoadComplete += delegate
             {

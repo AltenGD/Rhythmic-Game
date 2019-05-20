@@ -1,6 +1,7 @@
 ﻿using Rhythmic.Beatmap.Properties.Level.Keyframe;
 using osu.Framework.Graphics;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Rhythmic.Beatmap.Properties.Level.Object
 {
@@ -51,6 +52,79 @@ namespace Rhythmic.Beatmap.Properties.Level.Object
         public bool Masking { get; set; } = false;
 
         public bool IsPartOfStoryBoard { get; set; } = false;
+
+        public float TotalTime
+        {
+            get
+            {
+                var time = 0f;
+
+                if (ColourKeyframes.Any())
+                    foreach (var t in ColourKeyframes)
+                    {
+                        time += (float)t.Time;
+                        time += (float)t.TimeUntilFinish;
+                    }
+
+                if (BorderColourKeyframes.Any())
+                    foreach (var t in BorderColourKeyframes)
+                    {
+                        time += (float)t.Time;
+                        time += (float)t.TimeUntilFinish;
+                    }
+
+                if (FillKeyframes.Any())
+                    foreach (var t in FillKeyframes)
+                    {
+                        time += (float)t.Time;
+                        time += (float)t.TimeUntilFinish;
+                    }
+
+                if (InnerRadiusKeyframes.Any())
+                    foreach (var t in InnerRadiusKeyframes)
+                    {
+                        time += (float)t.Time;
+                        time += (float)t.TimeUntilFinish;
+                    }
+
+                if (ShearKeyframes.Any())
+                    foreach (var t in ShearKeyframes)
+                    {
+                        time += (float)t.Time;
+                        time += (float)t.TimeUntilFinish;
+                    }
+
+                if (MoveKeyframes.Any())
+                    foreach (var t in MoveKeyframes)
+                    {
+                        time += (float)t.Time;
+                        time += (float)t.TimeUntilFinish;
+                    }
+
+                if (RotationKeyframes.Any())
+                    foreach (var t in RotationKeyframes)
+                    {
+                        time += (float)t.Time;
+                        time += (float)t.TimeUntilFinish;
+                    }
+
+                if (ScaleKeyframes.Any())
+                    foreach (var t in ScaleKeyframes)
+                    {
+                        time += (float)t.Time;
+                        time += (float)t.TimeUntilFinish;
+                    }
+
+                if (BorderThicknessKeyframes.Any())
+                    foreach (var t in BorderThicknessKeyframes)
+                    {
+                        time += (float)t.Time;
+                        time += (float)t.TimeUntilFinish;
+                    }
+
+                return time;
+            }
+        }
 
         public List<Object> Childrens { get; set; } = new List<Object>();
 
