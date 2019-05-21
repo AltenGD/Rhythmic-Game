@@ -18,7 +18,7 @@ namespace Rhythmic.Screens.Select
                     RelativeSizeAxes = Axes.Both,
                     selectedBeatmap = delegate
                     {
-                        this.Push(new Play.Play());
+                        this.Push(new InfoScreen());
                     }
                 },
             });
