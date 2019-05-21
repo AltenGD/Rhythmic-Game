@@ -9,6 +9,8 @@ namespace Rhythmic.Screens.Select
     {
         protected override BackgroundScreen CreateBackground() => new BackgroundScreenBeatmap();
 
+        public override bool DisableBeatmapOnEnter => false;
+
         public SongSelect()
         {
             AddRangeInternal(new Drawable[]

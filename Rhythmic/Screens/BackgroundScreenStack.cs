@@ -8,7 +8,7 @@ namespace Rhythmic.Screens
     public class BackgroundScreenStack : ScreenStack
     {
         public BackgroundScreenStack()
-            : base(false)
+            : base()
         {
             Scale = new Vector2(1.06f);
             RelativeSizeAxes = Axes.Both;

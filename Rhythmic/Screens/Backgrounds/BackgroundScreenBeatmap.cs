@@ -85,7 +85,6 @@ namespace Rhythmic.Screens.Backgrounds
                 newDepth = Background.Depth + 1;
                 Background.FinishTransforms();
                 Background.FadeOut(250);
-                Background.Expire();
             }
 
             b.Depth = newDepth;
