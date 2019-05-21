@@ -5,6 +5,7 @@ using osu.Framework.Allocation;
 using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Drawables;
 using System;
+using osu.Framework.Bindables;
 
 namespace Rhythmic.Screens.Select.Components
 {
@@ -59,6 +60,7 @@ namespace Rhythmic.Screens.Select.Components
                     {
                         Action = delegate
                         {
+                            collection.CurrentBeatmap.Value.Song.Stop();
                             collection.CurrentBeatmap.Value = beatmap;
                             selectedBeatmap?.Invoke();
                         }
