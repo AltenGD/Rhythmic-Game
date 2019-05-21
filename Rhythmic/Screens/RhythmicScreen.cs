@@ -4,6 +4,7 @@ using osu.Framework.Graphics;
 using osu.Framework.Input.Bindings;
 using osu.Framework.Screens;
 using osuTK;
+using Rhythmic.Beatmap;
 using Rhythmic.Graphics.Containers;
 using Rhythmic.Other;
 using Rhythmic.Overlays;
@@ -23,6 +24,8 @@ namespace Rhythmic.Screens
 
         public virtual bool HideOverlaysOnEnter => false;
 
+        public virtual bool DisableBeatmapOnEnter => false;
+
         /// <summary>Whether overlays should be able to be opened once this screen is entered or resumed.</summary>
         public virtual OverlayActivation InitialOverlayActivationMode => OverlayActivation.All;
 
@@ -36,11 +39,22 @@ namespace Rhythmic.Screens
         [Resolved(canBeNull: true)]
         private RhythmicLogo logo { get; set; }
 
+        [Resolved(canBeNull: true)]
+        private BeatmapCollection collection { get; set; }
 
         protected RhythmicScreen()
         {
             Anchor = Anchor.Centre;
             Origin = Anchor.Centre;
+        }
+
+        [BackgroundDependencyLoader]
+        private void load()
+        {
+            if (DisableBeatmapOnEnter)
+                collection.CurrentBeatmap.Disabled = true;
+            else
+                collection.CurrentBeatmap.Disabled = false;
         }
 
         public override void OnResuming(IScreen last)

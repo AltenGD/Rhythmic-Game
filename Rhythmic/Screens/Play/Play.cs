@@ -34,13 +34,14 @@ namespace Rhythmic.Screens.Play
 
             GameplayClockContainer.UserPlaybackRate = new Bindable<double>(0.1);
 
+            LoadComponentAsync(container = new PlayableContainer
+            {
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+            }, GameplayClockContainer.Add);
+
             GameplayClockContainer.Children = new Drawable[]
             {
-                container = new PlayableContainer
-                {
-                    Anchor = Anchor.Centre,
-                    Origin = Anchor.Centre,
-                },
                 failOverlay = new FailOverlay
                 {
                     Depth = -100,

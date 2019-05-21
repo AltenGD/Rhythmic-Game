@@ -6,6 +6,7 @@ using osu.Framework.Logging;
 using osu.Framework.Screens;
 using osu.Framework.Threading;
 using osuTK.Graphics;
+using Rhythmic.Beatmap;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Containers;
 using Rhythmic.Overlays;
@@ -148,7 +149,6 @@ namespace Rhythmic
                 {
                     CloseAllOverlays(false);
                     menuScreen?.MakeCurrent();
-                    Console.WriteLine(menuScreen);
                 },
             }, d =>
             {
@@ -161,7 +161,11 @@ namespace Rhythmic
                 GetToolbarHeight = () => ToolbarOffset,
                 Anchor = Anchor.TopRight,
                 Origin = Anchor.TopRight,
-            }, rightFloatingOverlayContent.Add);
+            }, m => 
+            {
+                rightFloatingOverlayContent.Add(m);
+                overlays.Add(m);
+            });
 
             Toolbar.ToggleVisibility();
 
