@@ -1,6 +1,7 @@
 ﻿using osu.Framework;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
+using osu.Framework.Configuration;
 using osu.Framework.Graphics;
 using osu.Framework.IO.Stores;
 using osu.Framework.Platform;
@@ -32,7 +33,7 @@ namespace Rhythmic
         }
 
         [BackgroundDependencyLoader]
-        private void load()
+        private void load(FrameworkConfigManager frameworkConfig)
         {
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Purista/Purista"));
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Purista/Purista-Bold"));
@@ -47,6 +48,8 @@ namespace Rhythmic
             dependencies.CacheAs(new BeatmapAPI());
 
             Resources.AddStore(new DllResourceStore(mainResourceFile));
+
+
         }
 
         public override void SetHost(GameHost host)
