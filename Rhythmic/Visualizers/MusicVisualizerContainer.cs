@@ -37,7 +37,6 @@ namespace Rhythmic.Visualizers
             collection.CurrentBeatmap.ValueChanged += delegate 
             {
                 beatmap.Value = collection.CurrentBeatmap.Value;
-                System.Console.WriteLine("Changed!");
                 Restart();
             };
         }
