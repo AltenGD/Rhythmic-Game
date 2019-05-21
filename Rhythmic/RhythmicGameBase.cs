@@ -49,7 +49,7 @@ namespace Rhythmic
 
             Resources.AddStore(new DllResourceStore(mainResourceFile));
 
-
+            frameworkConfig.Set(FrameworkSetting.FrameSync, FrameSync.Unlimited);
         }
 
         public override void SetHost(GameHost host)
