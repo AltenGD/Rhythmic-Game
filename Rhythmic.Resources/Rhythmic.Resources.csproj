@@ -22,6 +22,8 @@
     <None Remove="Fonts\Digitall\01Digitall_0.png" />
     <None Remove="Fonts\Audiowide.bin" />
     <None Remove="Fonts\Audiowide_0.png" />
+    <None Remove="Fonts\Digitall\Digitall.fnt" />
+    <None Remove="Fonts\Digitall\Digitall_0.png" />
     <None Remove="Fonts\FontAwesome_1.png" />
     <None Remove="Fonts\FontAwesome_2.png" />
     <None Remove="Fonts\FontAwesome_3.png" />
@@ -65,8 +67,8 @@
     <EmbeddedResource Include="Beatmap\NULCTRL\sb\Group.png" />
     <EmbeddedResource Include="Beatmap\NULCTRL\song.mp3" />
     <EmbeddedResource Include="Beatmap\NULCTRL\storyboard.json" />
-    <EmbeddedResource Include="Fonts\Digitall\01Digitall.bin" />
-    <EmbeddedResource Include="Fonts\Digitall\01Digitall_0.png" />
+    <EmbeddedResource Include="Fonts\Digitall\Digitall.fnt" />
+    <EmbeddedResource Include="Fonts\Digitall\Digitall_0.png" />
     <EmbeddedResource Include="Fonts\Purista\Purista-Bold.bin" />
     <EmbeddedResource Include="Fonts\Purista\Purista-BoldItalic.bin" />
     <EmbeddedResource Include="Fonts\Purista\Purista-BoldItalic_0.png" />

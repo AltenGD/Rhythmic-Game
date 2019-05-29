@@ -10,7 +10,7 @@ namespace Rhythmic.Graphics.Sprites
         /// <summary>The default font.</summary>
         public static FontUsage Default => GetFont();
 
-        public static FontUsage Numeric => GetFont(Typeface.ZeroOneDigitall);
+        public static FontUsage Numeric => GetFont(Typeface.Digitall);
 
         public static FontUsage GetFont(Typeface typeface = Typeface.Purista, float size = DEFAULT_FONT_SIZE, FontWeight weight = FontWeight.Regular, bool italics = false, bool fixedWidth = false)
             => new FontUsage(GetFamilyString(typeface, weight), size, null, italics, fixedWidth);
@@ -24,8 +24,8 @@ namespace Rhythmic.Graphics.Sprites
                         return "Purista-Bold";
                     else
                         return "Purista";
-                case Typeface.ZeroOneDigitall:
-                    return "01Digitall";
+                case Typeface.Digitall:
+                    return "Digitall";
             }
 
             return null;
@@ -35,7 +35,7 @@ namespace Rhythmic.Graphics.Sprites
     public enum Typeface
     {
         Purista,
-        ZeroOneDigitall
+        Digitall
     }
     public enum FontWeight
     {
