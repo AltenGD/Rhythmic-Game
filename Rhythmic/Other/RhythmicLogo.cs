@@ -15,15 +15,11 @@ namespace Rhythmic.Other
     {
         public Key triggerKey;
 
-        private Triangle tri;
-        private Container ring, pulse, logoHoverContainer, logoBounceContainer;
-        private LinearVisualizer visualizer, visualizer2;
+        private Container logoHoverContainer, logoBounceContainer;
 
         private readonly IntroSequence intro;
 
         public bool IsTracking { get; set; }
-
-        private readonly Box flashLayer;
 
         public RhythmicLogo()
         {
@@ -55,7 +51,7 @@ namespace Rhythmic.Other
                             Origin = Anchor.Centre,
                             Children = new Drawable[]
                             {
-                                ring = new Container
+                                new Container
                                 {
                                     RelativeSizeAxes = Axes.Both,
                                     Anchor = Anchor.Centre,
@@ -65,15 +61,13 @@ namespace Rhythmic.Other
                                     Masking = true,
                                     Children = new Drawable[]
                                     {
-                                        flashLayer = new Box
+                                        new Box
                                         {
                                             RelativeSizeAxes = Axes.Both,
-                                            Blending = BlendingMode.Additive,
-                                            Colour = Color4.White,
                                             Alpha = 0,
                                             AlwaysPresent = true
                                         },
-                                        visualizer = new LinearVisualizer
+                                        new LinearVisualizer
                                         {
                                             Anchor = Anchor.BottomCentre,
                                             Origin = Anchor.BottomCentre,
@@ -85,7 +79,7 @@ namespace Rhythmic.Other
                                             Smoothness = 260,
                                             Position = new Vector2(145, 0)
                                         },
-                                        visualizer2 = new LinearVisualizer
+                                        new LinearVisualizer
                                         {
                                             Anchor = Anchor.BottomCentre,
                                             Origin = Anchor.BottomCentre,
@@ -107,7 +101,7 @@ namespace Rhythmic.Other
                                             Colour = Color4.Black.Opacity(0.3f),
                                             Position = new Vector2(5)
                                         },
-                                        tri = new Triangle
+                                        new Triangle
                                         {
                                             Anchor = Anchor.Centre,
                                             Origin = Anchor.Centre,
@@ -116,7 +110,7 @@ namespace Rhythmic.Other
                                         },
                                     }
                                 },
-                                pulse = new Container
+                                new Container
                                 {
                                     Size = new Vector2(190, 190),
                                     Anchor = Anchor.Centre,
