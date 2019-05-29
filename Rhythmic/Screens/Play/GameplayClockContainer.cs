@@ -10,13 +10,14 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Timing;
 using Rhythmic.Beatmap;
+using Rhythmic.Beatmap.Properties;
 
 namespace Rhythmic.Screens.Play
 {
     /// <summary>Encapsulates gameplay timing logic and provides a <see cref="Play.GameplayClock"/> for children.</summary>
     public class GameplayClockContainer : Container
     {
-        private readonly DatabasedBeatmap beatmap;
+        private readonly BeatmapMeta beatmap;
 
         /// <summary>The original source (usually a <see cref="DatabasedBeatmap"/>'s track).</summary>
         private readonly IAdjustableClock sourceClock;
@@ -46,7 +47,7 @@ namespace Rhythmic.Screens.Play
 
         private readonly FramedOffsetClock platformOffsetClock;
 
-        public GameplayClockContainer(DatabasedBeatmap beatmap, double gameplayStartTime)
+        public GameplayClockContainer(BeatmapMeta beatmap, double gameplayStartTime)
         {
             this.beatmap = beatmap;
             this.gameplayStartTime = gameplayStartTime;

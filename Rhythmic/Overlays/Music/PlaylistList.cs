@@ -7,13 +7,14 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Input.Events;
 using osuTK;
 using Rhythmic.Beatmap;
+using Rhythmic.Beatmap.Properties;
 
 namespace Rhythmic.Overlays.Music
 {
     public class PlaylistList : CompositeDrawable
     {
-        public Action<DatabasedBeatmap> Selected;
-        public Action<DatabasedBeatmap, int> OrderChanged;
+        public Action<BeatmapMeta> Selected;
+        public Action<BeatmapMeta, int> OrderChanged;
 
         private readonly ItemsScrollContainer items;
 
@@ -33,14 +34,14 @@ namespace Rhythmic.Overlays.Music
             set => base.Padding = value;
         }
 
-        public DatabasedBeatmap FirstVisibleSet => items.FirstVisibleSet;
+        public BeatmapMeta FirstVisibleSet => items.FirstVisibleSet;
 
         public void Filter(string searchTerm) => items.SearchTerm = searchTerm;
 
         private class ItemsScrollContainer : ScrollContainer
         {
-            public Action<DatabasedBeatmap> Selected;
-            public Action<DatabasedBeatmap, int> OrderChanged;
+            public Action<BeatmapMeta> Selected;
+            public Action<BeatmapMeta, int> OrderChanged;
 
             private readonly SearchContainer search;
             private readonly FillFlowContainer<PlaylistItem> items;
@@ -77,7 +78,7 @@ namespace Rhythmic.Overlays.Music
                 base.LoadComplete();
             }
 
-            private void addBeatmapSet(DatabasedBeatmap obj, bool existing) => Schedule(() =>
+            private void addBeatmapSet(BeatmapMeta obj, bool existing) => Schedule(() =>
             {
                 if (existing)
                     return;
@@ -100,7 +101,7 @@ namespace Rhythmic.Overlays.Music
                 set => search.SearchTerm = value;
             }
 
-            public DatabasedBeatmap FirstVisibleSet => items.FirstOrDefault(i => i.MatchingFilter)?.Beatmap;
+            public BeatmapMeta FirstVisibleSet => items.FirstOrDefault(i => i.MatchingFilter)?.Beatmap;
 
             private Vector2 nativeDragPosition;
             private PlaylistItem draggedItem;

@@ -2,6 +2,7 @@
 using osu.Framework.Bindables;
 using osu.Framework.Graphics.Containers;
 using Rhythmic.Beatmap;
+using Rhythmic.Beatmap.Properties;
 
 namespace Rhythmic.Visualizers
 {
@@ -10,7 +11,7 @@ namespace Rhythmic.Visualizers
         [Resolved]
         private BeatmapCollection collection { get; set; }
 
-        private readonly Bindable<DatabasedBeatmap> beatmap = new Bindable<DatabasedBeatmap>();
+        private readonly Bindable<BeatmapMeta> beatmap = new Bindable<BeatmapMeta>();
 
         private int updateDelay = 1;
         public int UpdateDelay

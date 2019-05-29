@@ -4,6 +4,7 @@ using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Textures;
 using Rhythmic.Beatmap;
+using Rhythmic.Beatmap.Properties;
 using Rhythmic.Graphics;
 using Rhythmic.Graphics.Containers;
 
@@ -13,7 +14,7 @@ namespace Rhythmic.Screens.Backgrounds
     {
         protected Background Background;
 
-        private DatabasedBeatmap beatmap;
+        private BeatmapMeta beatmap;
 
         /// <summary>Whether or not user dim settings should be applied to this Background.</summary>
         public readonly Bindable<bool> EnableUserDim = new Bindable<bool>(true);
@@ -55,7 +56,7 @@ namespace Rhythmic.Screens.Backgrounds
 
         private CancellationTokenSource cancellationSource;
 
-        public DatabasedBeatmap Beatmap
+        public BeatmapMeta Beatmap
         {
             get => beatmap;
             set
@@ -100,9 +101,9 @@ namespace Rhythmic.Screens.Backgrounds
 
         protected class BeatmapBackground : Background
         {
-            public readonly DatabasedBeatmap Beatmap;
+            public readonly BeatmapMeta Beatmap;
 
-            public BeatmapBackground(DatabasedBeatmap beatmap)
+            public BeatmapBackground(BeatmapMeta beatmap)
             {
                 Beatmap = beatmap;
             }

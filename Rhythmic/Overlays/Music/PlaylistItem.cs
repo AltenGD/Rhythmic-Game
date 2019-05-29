@@ -12,6 +12,7 @@ using Rhythmic.Beatmap;
 using osuTK;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Sprites;
+using Rhythmic.Beatmap.Properties;
 
 namespace Rhythmic.Overlays.Music
 {
@@ -28,9 +29,9 @@ namespace Rhythmic.Overlays.Music
         private ILocalisedBindableString titleBind;
         private ILocalisedBindableString artistBind;
 
-        public readonly DatabasedBeatmap Beatmap;
+        public readonly BeatmapMeta Beatmap;
 
-        public Action<DatabasedBeatmap> OnSelect;
+        public Action<BeatmapMeta> OnSelect;
 
         public bool IsDraggable { get; private set; }
 
@@ -63,7 +64,7 @@ namespace Rhythmic.Overlays.Music
             }
         }
 
-        public PlaylistItem(DatabasedBeatmap setInfo)
+        public PlaylistItem(BeatmapMeta setInfo)
         {
             Beatmap = setInfo;
 

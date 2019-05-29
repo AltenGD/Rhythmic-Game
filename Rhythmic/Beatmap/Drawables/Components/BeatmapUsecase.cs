@@ -3,6 +3,7 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osuTK.Graphics;
+using Rhythmic.Beatmap.Properties;
 using Rhythmic.Graphics.Sprites;
 
 namespace Rhythmic.Beatmap.Drawables.Components
@@ -11,7 +12,7 @@ namespace Rhythmic.Beatmap.Drawables.Components
     {
         private TextFlowContainer textContainer;
 
-        public BeatmapUsecase(DatabasedBeatmap beatmap)
+        public BeatmapUsecase(BeatmapMeta beatmap)
         {
             Children = new Drawable[]
             {

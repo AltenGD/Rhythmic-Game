@@ -10,6 +10,7 @@ using System;
 using Rhythmic.Other;
 using Rhythmic.Beatmap.Properties.Metadata;
 using osu.Framework.Graphics.Textures;
+using Rhythmic.Beatmap.Properties;
 
 namespace Rhythmic.Screens.MainMenu
 {
@@ -29,7 +30,7 @@ namespace Rhythmic.Screens.MainMenu
         protected override BackgroundScreen CreateBackground() => new BackgroundScreenBlack();
 
         private Track track;
-        private DatabasedBeatmap introBeatmap;
+        private BeatmapMeta introBeatmap;
         private RhythmicLogo intro;
 
         [Resolved]
@@ -39,7 +40,7 @@ namespace Rhythmic.Screens.MainMenu
         {
             base.LoadComplete();
 
-            introBeatmap = new DatabasedBeatmap();
+            introBeatmap = new BeatmapMeta();
 
             introBeatmap.Background = Texture.FromStream(game.Resources.GetStream(@"Tracks/Intro/bg.png"));
             introBeatmap.Song = new TrackBass(game.Resources.GetStream(@"Tracks/Intro/song.mp3"));

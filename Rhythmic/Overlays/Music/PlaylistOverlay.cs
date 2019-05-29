@@ -9,6 +9,7 @@ using osu.Framework.Graphics.Shapes;
 using osuTK;
 using osuTK.Graphics;
 using Rhythmic.Beatmap;
+using Rhythmic.Beatmap.Properties;
 using Rhythmic.Graphics.Colors;
 
 namespace Rhythmic.Overlays.Music
@@ -20,7 +21,7 @@ namespace Rhythmic.Overlays.Music
 
         /// <summary>Invoked when the order of an item in the list has changed.
         /// The second parameter indicates the new index of the item.</summary>
-        public Action<DatabasedBeatmap, int> OrderChanged;
+        public Action<BeatmapMeta, int> OrderChanged;
 
         [Resolved]
         private BeatmapCollection collection { get; set; }
@@ -74,7 +75,7 @@ namespace Rhythmic.Overlays.Music
             this.FadeOut(transition_duration);
         }
 
-        private void itemSelected(DatabasedBeatmap set)
+        private void itemSelected(BeatmapMeta set)
         {
             if (set.ID == (collection.CurrentBeatmap.Value?.ID ?? -1))
             {

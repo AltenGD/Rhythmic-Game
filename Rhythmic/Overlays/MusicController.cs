@@ -16,6 +16,7 @@ using osu.Framework.Threading;
 using osuTK;
 using osuTK.Graphics;
 using Rhythmic.Beatmap;
+using Rhythmic.Beatmap.Properties;
 using Rhythmic.Beatmap.Properties.Metadata;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Containers;
@@ -197,7 +198,7 @@ namespace Rhythmic.Overlays
             });
         }
 
-        private void playlistOrderChanged(DatabasedBeatmap beatmap, int index)
+        private void playlistOrderChanged(BeatmapMeta beatmap, int index)
         {
             collection.Beatmaps.Remove(beatmap);
             collection.Beatmaps.Insert(index, beatmap);
@@ -298,10 +299,10 @@ namespace Rhythmic.Overlays
             }
         }
 
-        private DatabasedBeatmap current;
+        private BeatmapMeta current;
         private TransformDirection? queuedDirection;
 
-        private void beatmapChanged(ValueChangedEvent<DatabasedBeatmap> beatmap)
+        private void beatmapChanged(ValueChangedEvent<BeatmapMeta> beatmap)
         {
             TransformDirection direction = TransformDirection.None;
 
@@ -347,7 +348,7 @@ namespace Rhythmic.Overlays
 
         private ScheduledDelegate pendingBeatmapSwitch;
 
-        private void updateDisplay(DatabasedBeatmap beatmap, TransformDirection direction)
+        private void updateDisplay(BeatmapMeta beatmap, TransformDirection direction)
         {
             pendingBeatmapSwitch?.Cancel();
 
@@ -427,9 +428,9 @@ namespace Rhythmic.Overlays
         private class Background : BufferedContainer
         {
             private readonly Sprite sprite;
-            private readonly DatabasedBeatmap beatmap;
+            private readonly BeatmapMeta beatmap;
 
-            public Background(DatabasedBeatmap beatmap = null)
+            public Background(BeatmapMeta beatmap = null)
             {
                 this.beatmap = beatmap;
                 CacheDrawnFrameBuffer = true;

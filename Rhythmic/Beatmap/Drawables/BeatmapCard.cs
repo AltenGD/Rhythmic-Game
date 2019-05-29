@@ -8,6 +8,7 @@ using osu.Framework.Graphics.Sprites;
 using osuTK;
 using osuTK.Graphics;
 using Rhythmic.Beatmap.Drawables.Components;
+using Rhythmic.Beatmap.Properties;
 using Rhythmic.Graphics.Sprites;
 using System.Collections.Generic;
 
@@ -17,7 +18,7 @@ namespace Rhythmic.Beatmap.Drawables
     {
         private Vector2 size = new Vector2(330, 150);
 
-        public DatabasedBeatmap Beatmap;
+        public BeatmapMeta Beatmap;
 
         public IEnumerable<string> FilterTerms => new[]
         {
@@ -29,7 +30,7 @@ namespace Rhythmic.Beatmap.Drawables
             Beatmap.Metadata.Song.Author,
         };
 
-        public BeatmapCard(DatabasedBeatmap beatmap)
+        public BeatmapCard(BeatmapMeta beatmap)
         {
             Beatmap = beatmap;
             Size = size;
