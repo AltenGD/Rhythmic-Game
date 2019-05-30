@@ -10,6 +10,7 @@ using osu.Framework.Allocation;
 using osu.Framework.Audio.Track;
 using osu.Framework.Graphics.Textures;
 using System.Text;
+using Rhythmic.Beatmap.Properties;
 
 namespace Rhythmic.Screens
 {
@@ -84,7 +85,7 @@ namespace Rhythmic.Screens
                 API.GetBeatmapFromZip(file);
                 var level = API.ParseBeatmap(File.ReadAllText(file + @"\level.json"));
 
-                var beatmap = new DatabasedBeatmap();
+                var beatmap = new BeatmapMeta();
                 beatmap.Level = level.Level;
                 beatmap.Metadata = level.Metadata;
                 beatmap.Player = level.Player;

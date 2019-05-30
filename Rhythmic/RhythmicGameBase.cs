@@ -5,6 +5,7 @@ using osu.Framework.Configuration;
 using osu.Framework.IO.Stores;
 using osu.Framework.Platform;
 using Rhythmic.Beatmap;
+using Rhythmic.Beatmap.Properties;
 using Rhythmic.Database;
 using System.Collections.Generic;
 using System.IO;
@@ -58,10 +59,10 @@ namespace Rhythmic
                 beatmaps = new BeatmapCollection();
 
             if (beatmaps.Beatmaps == null)
-                beatmaps.Beatmaps = new BindableList<DatabasedBeatmap>();
+                beatmaps.Beatmaps = new BindableList<BeatmapMeta>();
 
             if (beatmaps.CurrentBeatmap == null)
-                beatmaps.CurrentBeatmap = new Bindable<DatabasedBeatmap>();
+                beatmaps.CurrentBeatmap = new Bindable<BeatmapMeta>();
 
             CreateRequiredFiles();
         }
