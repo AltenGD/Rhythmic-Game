@@ -18,6 +18,8 @@ using Rhythmic.Graphics.UserInterface;
 using osu.Framework.Graphics.Sprites;
 using osuTK.Graphics;
 using Rhythmic.Overlays.Toolbar;
+using Rhythmic.Screens.Select.Components.Panels;
+using osu.Framework.Graphics.Shapes;
 
 namespace Rhythmic.Screens.Select
 {
@@ -31,36 +33,69 @@ namespace Rhythmic.Screens.Select
         [BackgroundDependencyLoader]
         private void load()
         {
-            AddInternal(new Container
+            AddRangeInternal(new Drawable[]
             {
-                Size = new Vector2(150),
-                Margin = new MarginPadding
+                new Container
                 {
-                    Top = Toolbar.HEIGHT + 150,
-                    Left = 100
-                },
-                Children = new Drawable[]
-                {
-                    new ClickableContainer
+                    Size = new Vector2(150),
+                    Margin = new MarginPadding
                     {
-                        Origin = Anchor.BottomLeft,
-                        Masking = true,
-                        BorderColour = Color4.White,
-                        BorderThickness = 5,
-                        Size = new Vector2(150),
-                        Rotation = 45,
-                        Action = () => this.Push(new Play.Play()),
-                        Children = new Drawable[]
+                        Top = Toolbar.HEIGHT + 150,
+                        Left = 100
+                    },
+                    Children = new Drawable[]
+                    {
+                        new ClickableContainer
                         {
-                            new Sprite
+                            Origin = Anchor.BottomLeft,
+                            Masking = true,
+                            BorderColour = Color4.White,
+                            BorderThickness = 5,
+                            Size = new Vector2(150),
+                            Rotation = 45,
+                            Action = () => this.Push(new Play.Play()),
+                            Children = new Drawable[]
                             {
-                                Rotation = -45,
-                                Texture = collection.CurrentBeatmap.Value.Logo,
-                                Position = new Vector2(-75, 75),
-                                Anchor = Anchor.BottomRight,
-                                Origin = Anchor.BottomLeft,
-                                Size = new Vector2(215), // Strange precision
+                                new Sprite
+                                {
+                                    Rotation = -45,
+                                    Texture = collection.CurrentBeatmap.Value.Logo,
+                                    Position = new Vector2(-75, 75),
+                                    Anchor = Anchor.BottomRight,
+                                    Origin = Anchor.BottomLeft,
+                                    Size = new Vector2(215), // Strange precision
+                                }
                             }
+                        },
+                    }
+                },
+                new FillFlowContainer
+                {
+                    RelativeSizeAxes = Axes.Both,
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    Direction = FillDirection.Full,
+                    Padding = new MarginPadding
+                    {
+                        Top = 200,
+                        Left = 200,
+                        Bottom = 50,
+                        Right = 50
+                    },
+                    Children = new Drawable[]
+                    {
+                        new CommentsPanel
+                        {
+                            Size = new Vector2(550, 450),
+                            Anchor = Anchor.BottomLeft,
+                            Origin = Anchor.BottomLeft
+                        },
+                        new BeatmapInfoPanel
+                        {
+                            Objects = collection.CurrentBeatmap.Value.Level.Level,
+                            Size = new Vector2(530, 450),
+                            Anchor = Anchor.BottomLeft,
+                            Origin = Anchor.BottomLeft
                         }
                     }
                 }

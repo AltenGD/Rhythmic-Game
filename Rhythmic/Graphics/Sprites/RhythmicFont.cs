@@ -5,7 +5,7 @@ namespace Rhythmic.Graphics.Sprites
     public static class RhythmicFont
     {
         /// <summary>The default font size.</summary>
-        public const float DEFAULT_FONT_SIZE = 30;
+        public const float DEFAULT_FONT_SIZE = 40;
 
         /// <summary>The default font.</summary>
         public static FontUsage Default => GetFont();
