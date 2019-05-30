@@ -14,7 +14,7 @@ namespace Rhythmic.Overlays.Toolbar
     {
         protected override Anchor TooltipAnchor => Anchor.TopRight;
 
-        public BindableInt NotificationCount = new BindableInt(int.MaxValue);
+        public BindableInt NotificationCount = new BindableInt();
 
         private readonly CountCircle countDisplay;
 
@@ -35,12 +35,12 @@ namespace Rhythmic.Overlays.Toolbar
         }
 
         [BackgroundDependencyLoader(true)]
-        private void load()
+        private void load(NotificationOverlay notificationOverlay)
         {
-            //StateContainer = notificationOverlay;
+            StateContainer = notificationOverlay;
 
-            //if (notificationOverlay != null)
-            //    NotificationCount.BindTo(notificationOverlay.UnreadCount);
+            if (notificationOverlay != null)
+                NotificationCount.BindTo(notificationOverlay.UnreadCount);
 
             NotificationCount.ValueChanged += count =>
             {

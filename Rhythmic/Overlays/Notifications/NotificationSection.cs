@@ -100,13 +100,13 @@ namespace Rhythmic.Overlays.Notifications
                                 titleText = new SpriteText
                                 {
                                     Text = title.ToUpperInvariant(),
-                                    Font = RhythmicFont.GetFont(weight: FontWeight.Bold)
+                                    Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.Bold)
                                 },
                                 countText = new SpriteText
                                 {
                                     Text = "3",
                                     Colour = RhythmicColors.Orange,
-                                    Font = RhythmicFont.GetFont(weight: FontWeight.Bold)
+                                    Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.Bold)
                                 },
                             }
                         },

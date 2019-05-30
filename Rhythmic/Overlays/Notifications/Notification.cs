@@ -228,8 +228,7 @@ namespace Rhythmic.Overlays.Notifications
                 }
             }
 
-            [BackgroundDependencyLoader]
-            private void load()
+            public NotificationLight()
             {
                 Size = new Vector2(6, 15);
 

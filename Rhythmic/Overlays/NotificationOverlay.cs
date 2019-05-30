@@ -43,8 +43,7 @@ namespace Rhythmic.Overlays
                 new ScrollContainer
                 {
                     Masking = true,
-                    RelativeSizeAxes = Axes.X,
-                    AutoSizeAxes = Axes.Y,
+                    RelativeSizeAxes = Axes.Both,
                     Children = new Drawable[]
                     {
                         sections = new FillFlowContainer<NotificationSection>

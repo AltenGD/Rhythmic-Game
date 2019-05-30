@@ -23,6 +23,8 @@ namespace Rhythmic.Screens.MainMenu
 
         private RhythmicLogo logo;
 
+        public override bool AllowExternalScreenChange => true;
+
         protected override BackgroundScreen CreateBackground() => background = new BackgroundScreenDefault();
 
         public MainMenu()

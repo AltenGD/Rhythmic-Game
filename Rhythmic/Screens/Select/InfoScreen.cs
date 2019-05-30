@@ -30,6 +30,8 @@ namespace Rhythmic.Screens.Select
 
         public override bool DisableBeatmapOnEnter => true;
 
+        public override bool AllowExternalScreenChange => true;
+
         [BackgroundDependencyLoader]
         private void load()
         {

@@ -22,6 +22,8 @@ namespace Rhythmic.Screens
 
         protected virtual bool AllowBackButton => true;
 
+        public virtual bool AllowExternalScreenChange => false;
+
         public virtual bool HideOverlaysOnEnter => false;
 
         public virtual bool DisableBeatmapOnEnter => false;

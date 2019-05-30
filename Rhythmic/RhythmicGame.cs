@@ -2,6 +2,7 @@
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Sprites;
 using osu.Framework.Logging;
 using osu.Framework.Screens;
 using osu.Framework.Threading;
@@ -10,6 +11,7 @@ using Rhythmic.Beatmap;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Containers;
 using Rhythmic.Overlays;
+using Rhythmic.Overlays.Notifications;
 using Rhythmic.Overlays.Toolbar;
 using Rhythmic.Screens;
 using Rhythmic.Screens.MainMenu;
@@ -17,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Rhythmic
@@ -24,6 +27,8 @@ namespace Rhythmic
     public class RhythmicGame : RhythmicGameBase
     {
         public Toolbar Toolbar;
+
+        private NotificationOverlay notifications;
 
         private RhythmicScreenStack screenStack;
 
@@ -39,6 +44,11 @@ namespace Rhythmic
 
         private readonly List<OverlayContainer> toolbarElements = new List<OverlayContainer>();
 
+        public RhythmicGame(string[] args = null)
+        {
+            forwardLoggedErrorsToNotifications();
+        }
+
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent) =>
             dependencies = new DependencyContainer(base.CreateChildDependencies(parent));
 
@@ -53,9 +63,25 @@ namespace Rhythmic
         /// <param name="action">The action to perform once we are in the correct state.</param>
         /// <param name="taskName">The task name to display in a notification (if we can't immediately reach the main menu state).</param>
         /// <param name="targetScreen">An optional target screen type. If this screen is already current we can immediately perform the action without returning to the menu.</param>
-        private void performFromMainMenu(Action action, string taskName, Type targetScreen = null)
+        private void performFromMainMenu(Action action, string taskName, Type targetScreen = null, bool bypassScreenAllowChecks = false)
         {
             performFromMainMenuTask?.Cancel();
+
+            // if the current screen does not allow screen changing, give the user an option to try again later.
+            if (!bypassScreenAllowChecks && (screenStack.CurrentScreen as IRhythmicScreen)?.AllowExternalScreenChange == false)
+            {
+                notifications.Post(new SimpleNotification
+                {
+                    Text = $"Click here to {taskName}",
+                    Activated = () =>
+                    {
+                        performFromMainMenu(action, taskName, targetScreen, true);
+                        return true;
+                    }
+                });
+
+                return;
+            }
 
             CloseAllOverlays(false);
 
@@ -108,9 +134,6 @@ namespace Rhythmic
             visibleBlockingOverlays.Remove(overlay);
             updateBlockingOverlayFade();
         }
-
-        public RhythmicGame(string[] args)
-        { }
 
         protected override void LoadComplete()
         {
@@ -167,15 +190,71 @@ namespace Rhythmic
                 overlays.Add(m);
             });
 
+            loadComponentSingleFile(notifications = new NotificationOverlay
+            {
+                GetToolbarHeight = () => ToolbarOffset,
+                Anchor = Anchor.TopRight,
+                Origin = Anchor.TopRight,
+            }, n =>
+            {
+                rightFloatingOverlayContent.Add(n);
+                overlays.Add(n);
+            });
+
             Toolbar.ToggleVisibility();
 
             screenStack.Push(new Loader());
 
             dependencies.Cache(musicController);
+            dependencies.Cache(notifications);
 
             OverlayActivationMode.ValueChanged += mode =>
             {
                 if (mode.NewValue != OverlayActivation.All) CloseAllOverlays();
+            };
+
+            notifications.Post(new SimpleNotification
+            {
+                Text = "Test Notification"
+            });
+        }
+
+        private void forwardLoggedErrorsToNotifications()
+        {
+            int recentLogCount = 0;
+
+            const double debounce = 5000;
+
+            Logger.NewEntry += entry =>
+            {
+                if (entry.Level < LogLevel.Important || entry.Target == null) return;
+
+                const int short_term_display_limit = 3;
+
+                if (recentLogCount < short_term_display_limit)
+                {
+                    Schedule(() => notifications.Post(new SimpleNotification
+                    {
+                        Icon = entry.Level == LogLevel.Important ? FontAwesome.Solid.ExclamationCircle : FontAwesome.Solid.Bomb,
+                        Text = entry.Message + (entry.Exception != null && IsDeployedBuild ? "\n\nThis error has been automatically reported to the devs." : string.Empty),
+                    }));
+                }
+                else if (recentLogCount == short_term_display_limit)
+                {
+                    Schedule(() => notifications.Post(new SimpleNotification
+                    {
+                        Icon = FontAwesome.Solid.EllipsisH,
+                        Text = "Subsequent messages have been logged. Click to view log files.",
+                        Activated = () =>
+                        {
+                            Host.Storage.GetStorageForDirectory("logs").OpenInNativeExplorer();
+                            return true;
+                        }
+                    }));
+                }
+
+                Interlocked.Increment(ref recentLogCount);
+                Scheduler.AddDelayed(() => Interlocked.Decrement(ref recentLogCount), debounce);
             };
         }
 
@@ -233,6 +312,8 @@ namespace Rhythmic
         private Container rightFloatingOverlayContent;
 
         private Container screenContainer;
+
+        private bool IsDeployedBuild = true;
 
         protected override void UpdateAfterChildren()
         {

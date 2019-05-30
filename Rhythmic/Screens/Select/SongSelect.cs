@@ -7,6 +7,8 @@ namespace Rhythmic.Screens.Select
 {
     public class SongSelect : RhythmicScreen
     {
+        public override bool AllowExternalScreenChange => true;
+
         protected override BackgroundScreen CreateBackground() => new BackgroundScreenBeatmap();
 
         public override bool DisableBeatmapOnEnter => false;
