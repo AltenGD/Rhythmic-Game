@@ -20,7 +20,6 @@ namespace Rhythmic.Screens.Play
         public readonly SongProgress Progress;
 
         private FailOverlay failOverlay;
-        private SongProgress songProgress;
 
         [Resolved]
         private BeatmapCollection collection { get; set; }
@@ -66,7 +65,7 @@ namespace Rhythmic.Screens.Play
                         failOverlay.Retries++;
                     }
                 },
-                songProgress = new SongProgress
+                new SongProgress
                 {
                     Anchor = Anchor.BottomLeft,
                     Origin = Anchor.BottomLeft,
