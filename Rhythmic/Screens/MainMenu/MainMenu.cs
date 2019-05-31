@@ -58,7 +58,7 @@ namespace Rhythmic.Screens.MainMenu
                             Origin = Anchor.BottomLeft,
                             Margin = new MarginPadding(50),
                             OnPlay = () => this.Push(new SongSelect()),
-                            OnEditor = () => this.Push(new Editor(background))
+                            OnEditor = () => this.Push(new Editor())
                         }
                     }
                 }

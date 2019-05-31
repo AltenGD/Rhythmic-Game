@@ -1,12 +1,17 @@
-﻿using Rhythmic.Screens.Backgrounds;
+﻿using Rhythmic.Beatmap.Properties;
+using Rhythmic.Screens.Backgrounds;
 
 namespace Rhythmic.Screens.Edit
 {
-    public class Editor : ScreenWhiteBox
+    public class Editor : RhythmicScreen
     {
-        public Editor(BackgroundScreenDefault background)
+        protected override BackgroundScreen CreateBackground() => new BackgroundScreenBeatmap();
+
+        public override bool HideOverlaysOnEnter => true;
+
+        public Editor()
         {
-            background?.Next();
+
         }
     }
 }

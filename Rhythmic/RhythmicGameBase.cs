@@ -21,8 +21,6 @@ namespace Rhythmic
         private DependencyContainer dependencies;
         private Storage storage;
 
-        public BeatmapCollection beatmaps { get; set; }
-
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent) =>
             dependencies = new DependencyContainer(base.CreateChildDependencies(parent));
 
@@ -42,7 +40,6 @@ namespace Rhythmic
 
             dependencies.Cache(this);
             dependencies.Cache(storage);
-            dependencies.CacheAs(beatmaps);
 
             dependencies.CacheAs(new BeatmapAPI());
 
@@ -55,19 +52,10 @@ namespace Rhythmic
         {
             base.SetHost(host);
 
-            if (beatmaps == null)
-                beatmaps = new BeatmapCollection();
-
-            if (beatmaps.Beatmaps == null)
-                beatmaps.Beatmaps = new BindableList<BeatmapMeta>();
-
-            if (beatmaps.CurrentBeatmap == null)
-                beatmaps.CurrentBeatmap = new Bindable<BeatmapMeta>();
-
             CreateRequiredFiles();
         }
 
-        private readonly List<ICanAcceptFiles> fileImporters = new List<ICanAcceptFiles>();
+        public readonly List<ICanAcceptFiles> fileImporters = new List<ICanAcceptFiles>();
 
         public void Import(params string[] paths)
         {

@@ -1,4 +1,5 @@
 ﻿using osu.Framework.Allocation;
+using osu.Framework.Audio.Track;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -8,16 +9,21 @@ using osu.Framework.Screens;
 using osu.Framework.Threading;
 using osuTK.Graphics;
 using Rhythmic.Beatmap;
+using Rhythmic.Beatmap.Properties;
+using Rhythmic.Beatmap.Properties.Metadata;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Containers;
 using Rhythmic.Overlays;
 using Rhythmic.Overlays.Notifications;
 using Rhythmic.Overlays.Toolbar;
 using Rhythmic.Screens;
+using Rhythmic.Screens.Edit;
+using Rhythmic.Screens.Edit.Componets;
 using Rhythmic.Screens.MainMenu;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,6 +44,8 @@ namespace Rhythmic
 
         private MusicController musicController;
 
+        private BeatmapCollection beatmaps { get; set; }
+
         private readonly List<OverlayContainer> overlays = new List<OverlayContainer>();
 
         private readonly List<OverlayContainer> visibleBlockingOverlays = new List<OverlayContainer>();
@@ -47,6 +55,15 @@ namespace Rhythmic
         public RhythmicGame(string[] args = null)
         {
             forwardLoggedErrorsToNotifications();
+
+            if (beatmaps == null)
+                beatmaps = new BeatmapCollection();
+
+            if (beatmaps.Beatmaps == null)
+                beatmaps.Beatmaps = new BindableList<BeatmapMeta>();
+
+            if (beatmaps.CurrentBeatmap == null)
+                beatmaps.CurrentBeatmap = new Bindable<BeatmapMeta>();
         }
 
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent) =>
@@ -166,6 +183,8 @@ namespace Rhythmic
             screenStack.ScreenPushed += screenPushed;
             screenStack.ScreenExited += screenExited;
 
+            dependencies.Cache(beatmaps);
+
             loadComponentSingleFile(Toolbar = new Toolbar
             {
                 OnHome = delegate
@@ -213,10 +232,68 @@ namespace Rhythmic
                 if (mode.NewValue != OverlayActivation.All) CloseAllOverlays();
             };
 
-            notifications.Post(new SimpleNotification
+            EditorBeatmapManager editorBeatmapManager;
+
+            dependencies.Cache(editorBeatmapManager = new EditorBeatmapManager());
+
+            Add(editorBeatmapManager);
+
+            fileImporters.Add(editorBeatmapManager);
+
+            editorBeatmapManager.PushToEditor += b =>
             {
-                Text = "Test Notification"
-            });
+                var notification = new ProgressNotification { State = ProgressNotificationState.Active };
+
+                var convertedBeatmap = Import(notification, b);
+
+                if (convertedBeatmap != null)
+                {
+                    beatmaps.CurrentBeatmap.Value = convertedBeatmap;
+                    screenStack.Push(new Editor());
+                }
+            };
+
+            BeatmapMeta Import(ProgressNotification notification, string songPath)
+            {
+                notification.Progress = 0;
+                notification.Text = "Import is initialising...";
+
+                int current = 0;
+
+                if (notification.State == ProgressNotificationState.Cancelled)
+                    return null;
+
+                try
+                {
+                    var text = "Importing " + Path.GetFileNameWithoutExtension(songPath);
+
+                    notification.Text = text;
+
+                    var file = File.OpenRead(songPath);
+
+                    var beatmap = new BeatmapMeta
+                    {
+                        Song = new TrackBass(file),
+                        SongUrl = songPath,
+                        Metadata = new BeatmapMetadata
+                        {
+                            Song = new SongMetadata(),
+                            Level = new LevelMetadata()
+                        }
+                    };
+
+                    beatmaps.Beatmaps.Add(beatmap);
+
+                    return beatmap;
+                }
+                catch (Exception e)
+                {
+                    e = e.InnerException ?? e;
+                    Logger.Error(e, $@"Could not import ({Path.GetFileName(songPath)})");
+                }
+
+                return null;
+            }
         }
 
         private void forwardLoggedErrorsToNotifications()
