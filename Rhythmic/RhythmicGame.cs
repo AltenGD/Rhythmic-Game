@@ -258,8 +258,6 @@ namespace Rhythmic
                 notification.Progress = 0;
                 notification.Text = "Import is initialising...";
 
-                int current = 0;
-
                 if (notification.State == ProgressNotificationState.Cancelled)
                     return null;
 

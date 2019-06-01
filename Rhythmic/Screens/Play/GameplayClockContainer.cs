@@ -41,8 +41,6 @@ namespace Rhythmic.Screens.Play
         [Cached]
         public readonly GameplayClock GameplayClock;
 
-        private Bindable<double> userAudioOffset;
-
         private readonly FramedOffsetClock userOffsetClock;
 
         private readonly FramedOffsetClock platformOffsetClock;

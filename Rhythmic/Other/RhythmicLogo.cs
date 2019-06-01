@@ -75,7 +75,7 @@ namespace Rhythmic.Other
                                             BarWidth = 31,
                                             Spacing = 16,
                                             Rotation = -45,
-                                            ValueMultiplier = 2500,
+                                            ValueMultiplier = 3500,
                                             Smoothness = 260,
                                             Position = new Vector2(145, 0)
                                         },
@@ -87,7 +87,7 @@ namespace Rhythmic.Other
                                             BarWidth = 31,
                                             Spacing = 16,
                                             Rotation = -45,
-                                            ValueMultiplier = 2500,
+                                            ValueMultiplier = 3500,
                                             IsReversed = true,
                                             Smoothness = 260,
                                             Position = new Vector2(145, 0)
