@@ -6,6 +6,9 @@ using osu.Framework.Graphics.Containers;
 using Rhythmic.Overlays;
 using Rhythmic.Beatmap.Drawables;
 using osu.Framework.Bindables;
+using osu.Framework.Graphics.Sprites;
+using Rhythmic.Graphics.Sprites;
+using System;
 
 namespace Rhythmic.Screens.Play
 {
@@ -20,6 +23,7 @@ namespace Rhythmic.Screens.Play
         public readonly SongProgress Progress;
 
         private FailOverlay failOverlay;
+        private SpriteText trackTimer;
 
         [Resolved]
         private BeatmapCollection collection { get; set; }
@@ -32,31 +36,33 @@ namespace Rhythmic.Screens.Play
 
             InternalChild = GameplayClockContainer = new GameplayClockContainer(collection.CurrentBeatmap.Value, 0);
 
-            GameplayClockContainer.UserPlaybackRate = new Bindable<double>(0.1);
-
-            LoadComponentAsync(container = new PlayableContainer
-            {
-                Anchor = Anchor.Centre,
-                Origin = Anchor.Centre,
-            }, GameplayClockContainer.Add);
+            GameplayClockContainer.UserPlaybackRate = new Bindable<double>(1);
 
             GameplayClockContainer.Children = new Drawable[]
             {
+                container = new PlayableContainer
+                {
+                    Clock = GameplayClockContainer.GameplayClock,
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                },
                 failOverlay = new FailOverlay
                 {
                     Depth = -100,
                     RelativeSizeAxes = Axes.Both,
                     OnQuit = () => { this.Exit(); container.Expire(); collection.CurrentBeatmap.Value.Song.Restart(); },
+                    //Currently doesnt work
                     OnRetry = () =>
                     {
+                        GameplayClockContainer.Start();
                         GameplayClockContainer.Restart();
                         container.Restart();
 
                         container.player.Health.Value = collection.CurrentBeatmap.Value.Player.Health;
-                        collection.CurrentBeatmap.Value.Song.Restart();
+                        collection.CurrentBeatmap.Value.Song.Reset();
+
                         container.player.OnDeath = () =>
                         {
-                            container.Stop();
                             GameplayClockContainer.Stop();
                             failOverlay.ToggleVisibility();
                             collection.CurrentBeatmap.Value.Song.Stop();
@@ -71,6 +77,10 @@ namespace Rhythmic.Screens.Play
                     Origin = Anchor.BottomLeft,
                     RelativeSizeAxes = Axes.X,
                     Objects = collection.CurrentBeatmap.Value.Level.Level,
+                },
+                trackTimer = new SpriteText
+                {
+                    Font = RhythmicFont.Default
                 }
             };
 
@@ -81,14 +91,28 @@ namespace Rhythmic.Screens.Play
                 collection.CurrentBeatmap.Value.Song.Restart();
                 container.player.OnDeath = () =>
                 {
-                    container.Stop();
                     GameplayClockContainer.Stop();
                     failOverlay.ToggleVisibility();
                     collection.CurrentBeatmap.Value.Song.Stop();
                 };
             };
 
+            /*Scheduler.AddDelayed(() => 
+            {
+                if (GameplayClockContainer.GameplayClock.IsRunning)
+                    GameplayClockContainer.Stop();
+                else
+                    GameplayClockContainer.Start();
+            }, 1000, true);*/
+
             base.LoadComplete();
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+
+            trackTimer.Text = TimeSpan.FromMilliseconds(GameplayClockContainer.GameplayClock.CurrentTime).ToString(@"mm\:ss\:fff");
         }
 
         private class PlayableContainer : Container
@@ -100,7 +124,7 @@ namespace Rhythmic.Screens.Play
 
             protected override void LoadComplete()
             {
-                Add(player = new Player
+                AddInternal(player = new Player
                 {
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
@@ -109,25 +133,17 @@ namespace Rhythmic.Screens.Play
 
                 foreach (var obj in collection.CurrentBeatmap.Value.Level.Level)
                 {
-                    Scheduler.AddDelayed(() =>
-                    {
-                        Add(new DrawableBeatmapObject(obj, player) { Depth = obj.Depth });
-                    }, obj.Time);
+                    AddInternal(new DrawableBeatmapObject(obj, player) { Depth = obj.Depth });
                 }
 
                 base.LoadComplete();
             }
 
-            public void Stop()
-            {
-                Scheduler.CancelDelayedTasks();
-            }
-
             public void Restart()
             {
-                Clear();
+                ClearInternal();
 
-                Add(player = new Player
+                AddInternal(player = new Player
                 {
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
@@ -136,10 +152,7 @@ namespace Rhythmic.Screens.Play
 
                 foreach (var obj in collection.CurrentBeatmap.Value.Level.Level)
                 {
-                    Scheduler.AddDelayed(() =>
-                    {
-                        Add(new DrawableBeatmapObject(obj, player));
-                    }, obj.Time);
+                    AddInternal(new DrawableBeatmapObject(obj, player) { Depth = obj.Depth });
                 }
             }
         }

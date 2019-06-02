@@ -82,6 +82,13 @@ namespace Rhythmic.Beatmap.Drawables
             drawable.RelativeSizeAxes = obj?.RelativeSizeAxes ?? Axes.None;
             drawable.Shear = new Vector2(obj.Shear[0], obj.Shear[1]);
 
+            drawable
+                .FadeOut()
+                .Then()
+                .Delay(obj.Time)
+                .Then()
+                .FadeIn();
+
             AddInternal(drawable);
 
             if (drawable is Container container)
@@ -98,7 +105,7 @@ namespace Rhythmic.Beatmap.Drawables
                     {
                         DelayTillExpire += (float)t.Time;
                         DelayTillExpire += (float)t.TimeUntilFinish;
-                        container.Delay(t.Time).TransformTo(
+                        container.Delay(obj.Time).Delay(t.Time).TransformTo(
                             nameof(container.BorderColour),
                             new Color4(t.Value[0], t.Value[1], t.Value[2], t.Value[3]),
                             t.TimeUntilFinish,
@@ -113,7 +120,7 @@ namespace Rhythmic.Beatmap.Drawables
                     {
                         DelayTillExpire += (float)t.Time;
                         DelayTillExpire += (float)t.TimeUntilFinish;
-                        container.Delay(t.Time).TransformTo(
+                        container.Delay(obj.Time).Delay(t.Time).TransformTo(
                             nameof(container.BorderThickness),
                             t.Value,
                             t.TimeUntilFinish,
@@ -141,6 +148,7 @@ namespace Rhythmic.Beatmap.Drawables
                         DelayTillExpire += (float)t.TimeUntilFinish;
 
                         progress
+                            .Delay(obj.Time)
                             .Delay(t.Time)
                             .TransformTo(nameof(progress.Current.Value),
                                          t.Value,
@@ -158,6 +166,7 @@ namespace Rhythmic.Beatmap.Drawables
                         DelayTillExpire += (float)t.TimeUntilFinish;
 
                         progress
+                            .Delay(obj.Time)
                             .Delay(t.Time)
                             .TransformTo(nameof(progress.InnerRadius),
                                          t.Value,
@@ -178,7 +187,7 @@ namespace Rhythmic.Beatmap.Drawables
                 {
                     DelayTillExpire += (float)t.Time;
                     DelayTillExpire += (float)t.TimeUntilFinish;
-                    drawable.Delay(t.Time).FadeColour(
+                    drawable.Delay(obj.Time).Delay(t.Time).FadeColour(
                         new Color4(t.Value[0], t.Value[1], t.Value[2], 255),
                         t.TimeUntilFinish,
                         t.EaseType)
@@ -195,7 +204,7 @@ namespace Rhythmic.Beatmap.Drawables
                 {
                     DelayTillExpire += (float)t.Time;
                     DelayTillExpire += (float)t.TimeUntilFinish;
-                    this.Delay(t.Time).MoveTo(
+                    this.Delay(obj.Time).Delay(t.Time).MoveTo(
                         new Vector2((float)t.Value[0], (float)t.Value[1]),
                         t.TimeUntilFinish,
                         t.EaseType);
@@ -209,12 +218,12 @@ namespace Rhythmic.Beatmap.Drawables
                 {
                     DelayTillExpire += (float)t.Time;
                     DelayTillExpire += (float)t.TimeUntilFinish;
-                    drawable.Delay(t.Time).ResizeTo(
+                    drawable.Delay(obj.Time).Delay(t.Time).ResizeTo(
                         new Vector2((float)t.Value[0], (float)t.Value[1]),
                         t.TimeUntilFinish,
                         t.EaseType);
 
-                    this.Delay(t.Time).ResizeTo(
+                    this.Delay(obj.Time).Delay(t.Time).ResizeTo(
                         new Vector2((float)t.Value[0], (float)t.Value[1]),
                         t.TimeUntilFinish,
                         t.EaseType);
@@ -228,7 +237,7 @@ namespace Rhythmic.Beatmap.Drawables
                 {
                     DelayTillExpire += (float)t.Time;
                     DelayTillExpire += (float)t.TimeUntilFinish;
-                    drawable.Delay(t.Time).RotateTo(
+                    drawable.Delay(obj.Time).Delay(t.Time).RotateTo(
                         (float)t.Value,
                         t.TimeUntilFinish,
                         t.EaseType);
@@ -241,7 +250,9 @@ namespace Rhythmic.Beatmap.Drawables
         {
             base.Update();
 
-            if (player != null && drawable.ScreenSpaceDrawQuad.AABBFloat.IntersectsWith(player.player.ScreenSpaceDrawQuad.AABBFloat) && !obj.Helper && !obj.Empty)
+            if (player != null && 
+                drawable.ScreenSpaceDrawQuad.AABBFloat.IntersectsWith(
+                    player.player.ScreenSpaceDrawQuad.AABBFloat) && !obj.Helper && !obj.Empty)
             {
                 player.TakeDamage();
             }
