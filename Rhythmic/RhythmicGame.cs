@@ -4,6 +4,7 @@ using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Input.Bindings;
 using osu.Framework.Logging;
 using osu.Framework.Screens;
 using osu.Framework.Threading;
@@ -30,7 +31,7 @@ using System.Threading.Tasks;
 
 namespace Rhythmic
 {
-    public class RhythmicGame : RhythmicGameBase
+    public class RhythmicGame : RhythmicGameBase, IKeyBindingHandler<GlobalAction>
     {
         public Toolbar Toolbar;
 
@@ -64,6 +65,8 @@ namespace Rhythmic
 
             if (beatmaps.CurrentBeatmap == null)
                 beatmaps.CurrentBeatmap = new Bindable<BeatmapMeta>();
+
+            Name = "RhythmicGame";
         }
 
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent) =>
@@ -161,23 +164,16 @@ namespace Rhythmic
 
             AddRange(new Drawable[]
             {
-                new GlobalActionContainer
+                screenContainer = new Container
                 {
                     RelativeSizeAxes = Axes.Both,
                     Children = new Drawable[]
                     {
-                        screenContainer = new Container
-                        {
-                            RelativeSizeAxes = Axes.Both,
-                            Children = new Drawable[]
-                            {
-                                screenStack = new RhythmicScreenStack { RelativeSizeAxes = Axes.Both },
-                            }
-                        },
-                        rightFloatingOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
-                        topMostOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
+                        screenStack = new RhythmicScreenStack { RelativeSizeAxes = Axes.Both },
                     }
-                }
+                },
+                rightFloatingOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
+                topMostOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
             });
 
             screenStack.ScreenPushed += screenPushed;
@@ -423,5 +419,19 @@ namespace Rhythmic
             if (newScreen == null)
                 Exit();
         }
+
+        public bool OnPressed(GlobalAction action)
+        {
+            switch (action)
+            {
+                case GlobalAction.ToggleToolbar:
+                    Toolbar.ToggleVisibility();
+                    return true;
+            }
+
+            return false;
+        }
+
+        public bool OnReleased(GlobalAction action) => false;
     }
 }

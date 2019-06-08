@@ -2,11 +2,14 @@
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Configuration;
+using osu.Framework.Graphics;
+using osu.Framework.Graphics.Containers;
 using osu.Framework.IO.Stores;
 using osu.Framework.Platform;
 using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties;
 using Rhythmic.Database;
+using Rhythmic.Graphics.Containers;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,7 +22,12 @@ namespace Rhythmic
         private string mainResourceFile = "Rhythmic.Resources.dll";
 
         private DependencyContainer dependencies;
+
         private Storage storage;
+
+        private Container content;
+
+        protected override Container<Drawable> Content => content;
 
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent) =>
             dependencies = new DependencyContainer(base.CreateChildDependencies(parent));
@@ -46,6 +54,14 @@ namespace Rhythmic
             Resources.AddStore(new DllResourceStore(mainResourceFile));
 
             frameworkConfig.Set(FrameworkSetting.FrameSync, FrameSync.Unlimited);
+
+            var container = new GlobalActionContainer(this)
+            {
+                RelativeSizeAxes = Axes.Both,
+                Child = content = new Container { RelativeSizeAxes = Axes.Both }
+            };
+
+            base.Content.Add(new Container { RelativeSizeAxes = Axes.Both, Child = container });
         }
 
         public override void SetHost(GameHost host)
