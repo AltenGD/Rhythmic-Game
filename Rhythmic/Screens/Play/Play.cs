@@ -9,6 +9,7 @@ using osu.Framework.Bindables;
 using osu.Framework.Graphics.Sprites;
 using Rhythmic.Graphics.Sprites;
 using System;
+using osu.Framework.Audio;
 
 namespace Rhythmic.Screens.Play
 {
@@ -99,10 +100,18 @@ namespace Rhythmic.Screens.Play
 
             /*Scheduler.AddDelayed(() => 
             {
-                if (GameplayClockContainer.GameplayClock.IsRunning)
-                    GameplayClockContainer.Stop();
+                if (GameplayClockContainer.UserPlaybackRate.Value == 0.5)
+                {
+                    var songClock = collection.CurrentBeatmap.Value.Song as IHasTempoAdjust;
+                    GameplayClockContainer.UserPlaybackRate.Value = 1;
+                    songClock.TempoAdjust = 1;
+                }
                 else
-                    GameplayClockContainer.Start();
+                {
+                    var songClock = collection.CurrentBeatmap.Value.Song as IHasTempoAdjust;
+                    GameplayClockContainer.UserPlaybackRate.Value = 0.5;
+                    songClock.TempoAdjust = 0.5;
+                }
             }, 1000, true);*/
 
             base.LoadComplete();

@@ -103,5 +103,12 @@ namespace Rhythmic.Screens.Select
                 }
             });
         }
+
+        public override void OnResuming(IScreen last)
+        {
+            base.OnResuming(last);
+
+            collection.CurrentBeatmap.Value.Song.ResetSpeedAdjustments();
+        }
     }
 }
