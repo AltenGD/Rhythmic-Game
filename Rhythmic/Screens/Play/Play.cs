@@ -172,10 +172,9 @@ namespace Rhythmic.Screens.Play
 
             Alpha = 0;
             this
-                .ScaleTo(0.7f)
+                .ScaleTo(0.975f)
                 .ScaleTo(1, 750, Easing.OutQuint)
-                .Delay(250)
-                .FadeIn(250);
+                .FadeIn(750);
         }
 
         public override bool OnExiting(IScreen next)
