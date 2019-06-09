@@ -35,19 +35,18 @@ using osuTK.Input;
 using Rhythmic.Graphics.Containers;
 using Rhythmic.Graphics.UserInterface;
 using osu.Framework.Extensions.Color4Extensions;
+using Rhythmic.Beatmap.Drawables;
 
 namespace Rhythmic.Screens.Edit.Componets.Overlays
 {
     public class BeatmapMetadataOverlay : RhythmicFocusedOverlayContainer
     {
-        private readonly RhythmicScreenStack screenStack;
+        private RhythmicScreenStack screenStack;
 
         private Header header;
 
-        private DependencyContainer dependencies;
-
-        protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent)
-            => dependencies = new DependencyContainer(base.CreateChildDependencies(parent));
+        [Resolved]
+        private BeatmapCollection collection { get; set; }
 
         [BackgroundDependencyLoader]
         private void load()
@@ -70,16 +69,45 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
                         Size = new Vector2(1f, 100),
                         Colour = Color4.Black.Opacity(0.2f)
                     },
-                    header = new Header
+                    new FillFlowContainer
                     {
-                        Size = new Vector2(1f, 100),
-                        RelativeSizeAxes = Axes.X,
-                        Depth = -1,
-                        Padding = new MarginPadding
+                        Direction = FillDirection.Vertical,
+                        RelativeSizeAxes = Axes.Both,
+                        Children = new Drawable[]
                         {
-                            Horizontal = 10,
-                            Top = 10
-                        },
+                            header = new Header
+                            {
+                                Size = new Vector2(1f, 100),
+                                RelativeSizeAxes = Axes.X,
+                                Depth = -1,
+                                Padding = new MarginPadding
+                                {
+                                    Horizontal = 10,
+                                    Top = 10
+                                }
+                            },
+                            new DrawSizePreservingFillContainer
+                            {
+                                Strategy = DrawSizePreservationStrategy.Minimum,
+                                RelativeSizeAxes = Axes.X,
+                                Height =  150,
+                                Masking = true,
+                                Children = new Drawable[]
+                                {
+                                    new BeatmapBackgroundSprite(collection.CurrentBeatmap.Value)
+                                    {
+                                        RelativeSizeAxes = Axes.Both,
+                                        FillMode = FillMode.Fill,
+                                        Anchor = Anchor.Centre,
+                                        Origin = Anchor.Centre,
+                                    }
+                                }
+                            },
+                            screenStack = new RhythmicScreenStack
+                            {
+                                RelativeSizeAxes = Axes.Both,
+                            }
+                        }
                     }
                 }
             });
