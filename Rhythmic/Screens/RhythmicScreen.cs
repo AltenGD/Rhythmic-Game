@@ -14,7 +14,7 @@ namespace Rhythmic.Screens
     public abstract class RhythmicScreen : Screen, IRhythmicScreen, IKeyBindingHandler<GlobalAction>
     {
         /// <summary>A user-facing title for this screen. </summary>
-        public virtual string Title => GetType().ShortDisplayName();
+        public virtual string Title => GetType().DisplayName();
 
         public string Description => Title;
 
