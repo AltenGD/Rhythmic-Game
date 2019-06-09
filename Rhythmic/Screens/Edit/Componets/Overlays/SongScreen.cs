@@ -2,7 +2,7 @@
 using osu.Framework.Graphics;
 namespace Rhythmic.Screens.Edit.Componets.Overlays
 {
-    public class SongScreen : RhythmicScreen
+    public class SongScreen : BeatmapMetadataScreen
     {
         public SongScreen()
         {

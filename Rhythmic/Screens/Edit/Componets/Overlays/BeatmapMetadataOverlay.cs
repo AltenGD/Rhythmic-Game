@@ -41,9 +41,11 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
 {
     public class BeatmapMetadataOverlay : RhythmicFocusedOverlayContainer
     {
-        private RhythmicScreenStack screenStack;
+        private Container screenContainer;
 
         private Header header;
+
+        private BeatmapMetadataScreen currentScreen;
 
         [Resolved]
         private BeatmapCollection collection { get; set; }
@@ -103,9 +105,11 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
                                     }
                                 }
                             },
-                            screenStack = new RhythmicScreenStack
+                            screenContainer = new Container
                             {
                                 RelativeSizeAxes = Axes.Both,
+                                Size = new Vector2(1f, 0.7f),
+                                Masking = true
                             }
                         }
                     }
@@ -118,21 +122,25 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
 
         private void ChangedTab(ValueChangedEvent<string> obj)
         {
+            currentScreen?.Exit();
+
             switch (obj.NewValue)
             {
                 case "General":
-                    screenStack.Push(new GeneralScreen());
+                    currentScreen = new GeneralScreen();
                     break;
                 case "Song":
-                    screenStack.Push(new SongScreen());
+                    currentScreen = new SongScreen();
                     break;
                 case "Difficulty":
-                    screenStack.Push(new DifficultyScreen());
+                    currentScreen = new DifficultyScreen();
                     break;
                 default:
-                    screenStack.Push(new GeneralScreen());
+                    currentScreen = new GeneralScreen();
                     break;
             }
+
+            LoadComponentAsync(currentScreen, screenContainer.Add);
         }
     }
 }

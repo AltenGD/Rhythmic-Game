@@ -3,7 +3,7 @@ using osu.Framework.Graphics;
 
 namespace Rhythmic.Screens.Edit.Componets.Overlays
 {
-    public class DifficultyScreen : RhythmicScreen
+    public class DifficultyScreen : BeatmapMetadataScreen
     {
         public DifficultyScreen()
         {
