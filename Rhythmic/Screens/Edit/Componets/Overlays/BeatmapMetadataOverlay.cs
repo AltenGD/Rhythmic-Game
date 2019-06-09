@@ -111,6 +111,28 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
                     }
                 }
             });
+
+            header.TabControl.Current.ValueChanged += ChangedTab;
+            //header.TabControl.SwitchTab
+        }
+
+        private void ChangedTab(ValueChangedEvent<string> obj)
+        {
+            switch (obj.NewValue)
+            {
+                case "General":
+                    screenStack.Push(new GeneralScreen());
+                    break;
+                case "Song":
+                    screenStack.Push(new SongScreen());
+                    break;
+                case "Difficulty":
+                    screenStack.Push(new DifficultyScreen());
+                    break;
+                default:
+                    screenStack.Push(new GeneralScreen());
+                    break;
+            }
         }
     }
 }
