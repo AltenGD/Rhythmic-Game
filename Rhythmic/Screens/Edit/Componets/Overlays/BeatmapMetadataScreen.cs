@@ -9,11 +9,6 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
 {
     public class BeatmapMetadataScreen : Container
     {
-        [Resolved]
-        private BeatmapCollection collection { get; set; }
-
-        protected IBindable<BeatmapMeta> Beatmap => collection.CurrentBeatmap;
-
         protected override Container<Drawable> Content => content;
         private readonly Container content;
 

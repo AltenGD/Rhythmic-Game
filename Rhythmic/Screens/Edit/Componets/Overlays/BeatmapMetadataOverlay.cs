@@ -56,7 +56,7 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
             Add(new Container
             {
                 Masking = true,
-                CornerRadius = 10,
+                CornerRadius = 20,
                 RelativeSizeAxes = Axes.Both,
                 Children = new Drawable[]
                 {
@@ -109,7 +109,12 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
                             {
                                 RelativeSizeAxes = Axes.Both,
                                 Size = new Vector2(1f, 0.7f),
-                                Masking = true
+                                Masking = true,
+                                Padding = new MarginPadding
+                                {
+                                    Horizontal = 40,
+                                    Top = 40
+                                },
                             }
                         }
                     }

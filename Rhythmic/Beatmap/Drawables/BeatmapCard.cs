@@ -52,14 +52,13 @@ namespace Rhythmic.Beatmap.Drawables
                     RelativeSizeAxes = Axes.Both,
                     Colour = Color4.Black
                 },
-                new Box
+                new BeatmapBackgroundSprite(beatmap)
                 {
                     RelativeSizeAxes = Axes.Both,
                     FillMode = FillMode.Fill,
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                     Alpha = 0.6f,
-                    Texture = beatmap.Background
                 },
                 new Box
                 {
