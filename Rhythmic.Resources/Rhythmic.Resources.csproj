@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Textures\Objects\" />
+    <None Remove="Textures\Objects\Hexagon\HexagonNormal.png" />
   </ItemGroup>
 
 </Project>

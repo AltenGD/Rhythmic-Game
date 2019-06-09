@@ -41,5 +41,20 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
     {
         private readonly RhythmicScreenStack screenStack;
         private readonly RhythmicTabControl tabControl;
+
+        [BackgroundDependencyLoader]
+        private void load()
+        {
+            Add(new Container
+            {
+                Masking = true,
+                CornerRadius = 10,
+                RelativeSizeAxes = Axes.Both,
+                Children = new Drawable[]
+                {
+
+                }
+            });
+        }
     }
 }
