@@ -15,7 +15,7 @@ using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
 using osu.Framework;
 
-namespace Rhythmic.Test.Visual.TestCaseBeatmap
+namespace Rhythmic.Test.Visual.Beatmaps
 {
     public class TestSceneBeatmapParsing : TestScene
     {

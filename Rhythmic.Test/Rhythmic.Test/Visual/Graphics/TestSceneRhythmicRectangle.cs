@@ -5,7 +5,7 @@ using osu.Framework.MathUtils;
 using Rhythmic.Graphics.Drawables;
 using Rhythmic.Graphics.Colors;
 
-namespace Rhythmic.Tests.Visual
+namespace Rhythmic.Tests.Visual.Graphics
 {
     public class TestSceneRhythmicRectangle : TestScene
     {

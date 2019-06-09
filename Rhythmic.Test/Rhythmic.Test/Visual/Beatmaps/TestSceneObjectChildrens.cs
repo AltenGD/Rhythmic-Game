@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using Rhythmic.Beatmap.Properties.Level;
 using Rhythmic.Beatmap.Properties.Level.Keyframe;
 
-namespace Rhythmic.Test.Visual.TestCaseBeatmap
+namespace Rhythmic.Test.Visual.Beatmaps
 {
     public class TestSceneObjectChildrens : TestScene
     {

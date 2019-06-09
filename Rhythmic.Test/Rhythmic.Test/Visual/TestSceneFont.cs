@@ -40,6 +40,12 @@ namespace Rhythmic.Test.Visual
                 Refresh();
             });
 
+            AddStep("Bold", () =>
+            {
+                Weight = FontWeight.Bold;
+                Refresh();
+            });
+
             AddStep("Regular", () =>
             {
                 Weight = FontWeight.Regular;
@@ -59,9 +65,6 @@ namespace Rhythmic.Test.Visual
         private void Refresh()
         {
             flow.Clear();
-
-            System.Console.WriteLine(TypeFace);
-            System.Console.WriteLine(Weight);
 
             flow.Add(new SpriteText
             {

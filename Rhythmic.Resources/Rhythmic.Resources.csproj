@@ -11,4 +11,8 @@
     <EmbeddedResource Include="Tracks\**\*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Textures\Objects\" />
+  </ItemGroup>
+
 </Project>

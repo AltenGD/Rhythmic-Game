@@ -8,7 +8,7 @@ using osu.Framework;
 using System.IO;
 using Rhythmic.Beatmap.Drawables;
 
-namespace Rhythmic.Test.Visual.TestCaseBeatmap
+namespace Rhythmic.Test.Visual.Beatmaps
 {
     public class TestSceneBeatmapObject : TestScene
     {
