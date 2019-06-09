@@ -34,13 +34,20 @@ using osu.Framework.Threading;
 using osuTK.Input;
 using Rhythmic.Graphics.Containers;
 using Rhythmic.Graphics.UserInterface;
+using osu.Framework.Extensions.Color4Extensions;
 
 namespace Rhythmic.Screens.Edit.Componets.Overlays
 {
     public class BeatmapMetadataOverlay : RhythmicFocusedOverlayContainer
     {
         private readonly RhythmicScreenStack screenStack;
-        private readonly RhythmicTabControl tabControl;
+
+        private Header header;
+
+        private DependencyContainer dependencies;
+
+        protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent)
+            => dependencies = new DependencyContainer(base.CreateChildDependencies(parent));
 
         [BackgroundDependencyLoader]
         private void load()
@@ -52,7 +59,28 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
                 RelativeSizeAxes = Axes.Both,
                 Children = new Drawable[]
                 {
-
+                    new Box
+                    {
+                        RelativeSizeAxes = Axes.Both,
+                        Colour = Color4.Black.Opacity(0.4f)
+                    },
+                    new Box
+                    {
+                        RelativeSizeAxes = Axes.X,
+                        Size = new Vector2(1f, 100),
+                        Colour = Color4.Black.Opacity(0.2f)
+                    },
+                    header = new Header
+                    {
+                        Size = new Vector2(1f, 100),
+                        RelativeSizeAxes = Axes.X,
+                        Depth = -1,
+                        Padding = new MarginPadding
+                        {
+                            Horizontal = 10,
+                            Top = 10
+                        },
+                    }
                 }
             });
         }

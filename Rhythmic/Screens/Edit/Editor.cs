@@ -16,12 +16,14 @@ using osuTK.Input;
 using Rhythmic.Graphics.Sprites;
 using Rhythmic.Screens.Backgrounds;
 using osu.Framework.Timing;
+using Rhythmic.Screens.Edit.Componets.Overlays;
+using osuTK;
 
 namespace Rhythmic.Screens.Edit
 {
     public class Editor : RhythmicScreen
     {
-        protected override BackgroundScreen CreateBackground() => new BackgroundScreenBeatmap();
+        protected override BackgroundScreen CreateBackground() => new BackgroundScreenDefault();
 
         public override bool HideOverlaysOnEnter => true;
 
@@ -54,6 +56,8 @@ namespace Rhythmic.Screens.Edit
             dependencies.CacheAs<IAdjustableClock>(clock);
             dependencies.Cache(beatDivisor);
 
+            BeatmapMetadataOverlay beatmapOverlay;
+
             InternalChildren = new Drawable[]
             {
                 new Container
@@ -69,8 +73,17 @@ namespace Rhythmic.Screens.Edit
                 trackTimer = new SpriteText
                 {
                     Font = RhythmicFont.Default
+                },
+                beatmapOverlay = new BeatmapMetadataOverlay
+                {
+                    RelativeSizeAxes = Axes.Both,
+                    Size = new Vector2(0.8f),
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre
                 }
             };
+
+            beatmapOverlay.ToggleVisibility();
         }
 
         protected override bool OnKeyDown(KeyDownEvent e)
