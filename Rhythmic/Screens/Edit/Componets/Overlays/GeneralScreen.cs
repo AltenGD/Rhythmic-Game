@@ -42,6 +42,16 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
 {
     public class GeneralScreen : BeatmapMetadataScreen
     {
+        private LabelledTextBox levelTitle;
+
+        private LabelledTextBox romanisedLevelTitle;
+
+        private LabelledTextBox difficulty;
+
+        private LabelledTextBox source;
+
+        private LabelledTextBox tags;
+
         [Resolved]
         private BeatmapCollection collection { get; set; }
 
@@ -62,13 +72,13 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
                         Spacing = new Vector2(0, 10),
                         Children = new Drawable[]
                         {
-                            new LabelledTextBox
+                            levelTitle = new LabelledTextBox
                             {
                                 RelativeSizeAxes = Axes.X,
                                 LabelText = "Level Title",
                                 Text = collection?.CurrentBeatmap?.Value?.Metadata?.Level?.LevelName ?? ""
                             },
-                            new LabelledTextBox
+                            romanisedLevelTitle = new LabelledTextBox
                             {
                                 RelativeSizeAxes = Axes.X,
                                 LabelText = "Romanised Level Title",
@@ -81,19 +91,19 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
                                 Height = 1,
                                 Colour = Color4.Transparent
                             },
-                            new LabelledTextBox
+                            difficulty = new LabelledTextBox
                             {
                                 RelativeSizeAxes = Axes.X,
                                 LabelText = "Difficulty",
                                 Text = collection?.CurrentBeatmap?.Value?.Metadata?.Level?.Difficulty ?? ""
                             },
-                            new LabelledTextBox
+                            source = new LabelledTextBox
                             {
                                 RelativeSizeAxes = Axes.X,
                                 LabelText = "Source",
                                 Text = collection?.CurrentBeatmap?.Value?.Metadata?.Level?.Source ?? ""
                             },
-                            new LabelledTextBox
+                            tags = new LabelledTextBox
                             {
                                 RelativeSizeAxes = Axes.X,
                                 LabelText = "Tags"
@@ -102,6 +112,12 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
                     }
                 }
             });
+
+            levelTitle.OnCommit += val => collection.CurrentBeatmap.Value.Metadata.Level.LevelName = val;
+            romanisedLevelTitle.OnCommit += val => collection.CurrentBeatmap.Value.Metadata.Level.LevelNameUnicode = val;
+            difficulty.OnCommit += val => collection.CurrentBeatmap.Value.Metadata.Level.Difficulty = val;
+            source.OnCommit += val => collection.CurrentBeatmap.Value.Metadata.Level.Source = val;
+            tags.OnCommit += val => collection.CurrentBeatmap.Value.Metadata.Level.Tags.Add(val);
         }
     }
 }

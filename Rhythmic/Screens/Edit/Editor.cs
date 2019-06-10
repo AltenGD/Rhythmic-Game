@@ -77,7 +77,7 @@ namespace Rhythmic.Screens.Edit
                 beatmapOverlay = new BeatmapMetadataOverlay
                 {
                     RelativeSizeAxes = Axes.Both,
-                    Size = new Vector2(0.8f),
+                    Size = new Vector2(0.6f, 0.8f),
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre
                 }

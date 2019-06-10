@@ -7,6 +7,7 @@ using osu.Framework.Graphics.UserInterface;
 using osuTK.Graphics;
 using Rhythmic.Graphics.Sprites;
 using Rhythmic.Graphics.UserInterface;
+using System;
 
 namespace Rhythmic.Screens.Edit.Componets.Overlays.LabelledComponents
 {
@@ -19,7 +20,7 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays.LabelledComponents
         private const float default_label_top_padding = 12;
         private const float default_label_text_size = 16;
 
-        public event TextBox.OnCommitHandler OnCommit;
+        public event Action<string> OnCommit;
 
         public bool ReadOnly
         {
@@ -114,7 +115,7 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays.LabelledComponents
                 }
             });
 
-            textBox.OnCommit += OnCommit;
+            textBox.OnCommit += (textBox, newText) => OnCommit.Invoke(textBox.Text);
         }
     }
 }

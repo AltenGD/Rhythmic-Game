@@ -15,7 +15,7 @@ namespace Rhythmic.Beatmap.Properties.Metadata
 
         public string Source { get; set; }
 
-        public IEnumerable<string> Tags { get; set; }
+        public List<string> Tags { get; set; }
 
         [JsonIgnore]
         public string CreatorName { get; set; }
