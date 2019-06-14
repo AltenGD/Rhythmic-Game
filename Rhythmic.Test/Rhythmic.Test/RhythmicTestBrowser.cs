@@ -12,16 +12,6 @@ namespace Rhythmic.Test
         {
             base.LoadComplete();
 
-            BackgroundScreenStack screenStack;
-
-            Add(screenStack = new BackgroundScreenStack()
-            {
-                RelativeSizeAxes = Axes.Both,
-                Colour = Color4.Gray
-            });
-
-            screenStack.Push(new BackgroundScreenDefault());
-
             Add(new TestBrowser("Rhythmic"));
         }
     }

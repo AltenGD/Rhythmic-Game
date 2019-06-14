@@ -2,6 +2,7 @@
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Testing;
+using Rhythmic.Graphics.Containers;
 using Rhythmic.Graphics.Sprites;
 
 namespace Rhythmic.Test.Visual
@@ -17,7 +18,7 @@ namespace Rhythmic.Test.Visual
         {
             Children = new Drawable[]
             {
-                new ScrollContainer
+                new RhythmicScrollContainer
                 {
                     RelativeSizeAxes = Axes.Both,
                     Children = new[]

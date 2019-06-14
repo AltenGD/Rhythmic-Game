@@ -14,6 +14,7 @@ using osu.Framework.Allocation;
 using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
 using osu.Framework;
+using Rhythmic.Graphics.Containers;
 
 namespace Rhythmic.Test.Visual.Beatmaps
 {
@@ -32,7 +33,7 @@ namespace Rhythmic.Test.Visual.Beatmaps
 
             Children = new Drawable[]
             {
-                new ScrollContainer(Direction.Vertical)
+                new RhythmicScrollContainer(Direction.Vertical)
                 {
                     RelativeSizeAxes = Axes.Both,
                     Children = new[]
@@ -273,7 +274,7 @@ namespace Rhythmic.Test.Visual.Beatmaps
             {
                 Track = new TrackBass(game.Resources.GetStream("Tracks/" + TestLevel.Metadata.Level.LevelName + "/" + TestLevel.SongUrl));
 
-                audio.Track.AddItem(Track);
+                audio.AddItem(Track);
                 Track.Start();
             });
 
