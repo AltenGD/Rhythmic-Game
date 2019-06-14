@@ -9,6 +9,7 @@ using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Input.Events;
 using Rhythmic.Graphics.Colors;
+using osuTK.Graphics;
 
 namespace Rhythmic.Overlays.Toolbar
 {
@@ -28,10 +29,14 @@ namespace Rhythmic.Overlays.Toolbar
 
         private readonly Bindable<OverlayActivation> overlayActivationMode = new Bindable<OverlayActivation>(OverlayActivation.All);
 
-        public Toolbar()
+        private BufferedContainer screen;
+
+        public Toolbar(BufferedContainer Screen)
         {
             RelativeSizeAxes = Axes.X;
             Size = new Vector2(1, HEIGHT);
+
+            screen = Screen;
         }
 
         [BackgroundDependencyLoader(true)]
@@ -39,7 +44,7 @@ namespace Rhythmic.Overlays.Toolbar
         {
             Children = new Drawable[]
             {
-                new ToolbarBackground(),
+                new ToolbarBackground(screen),
                 new FillFlowContainer
                 {
                     Direction = FillDirection.Horizontal,
@@ -85,15 +90,26 @@ namespace Rhythmic.Overlays.Toolbar
             private readonly Box solidBackground;
             private readonly Box gradientBackground;
 
-            public ToolbarBackground()
+            public ToolbarBackground(BufferedContainer screen)
             {
                 RelativeSizeAxes = Axes.Both;
                 Children = new Drawable[]
                 {
+                    new BufferedContainer
+                    {
+                        RelativeSizeAxes = Axes.Both,
+                        BackgroundColour = Color4.Black,
+                        BlurSigma = new Vector2(15),
+                        Child = screen.CreateView().With(d =>
+                        {
+                            d.RelativeSizeAxes = Axes.Both;
+                            d.SynchronisedDrawQuad = true;
+                        })
+                    },
                     solidBackground = new Box
                     {
                         RelativeSizeAxes = Axes.Both,
-                        Colour = RhythmicColors.Gray(0.1f),
+                        Colour = Color4.Black.Opacity(0.2f),
                         Alpha = alpha_normal,
                     },
                     gradientBackground = new Box
@@ -103,7 +119,7 @@ namespace Rhythmic.Overlays.Toolbar
                         Alpha = 0,
                         Height = 90,
                         Colour = ColourInfo.GradientVertical(
-                            RhythmicColors.Gray(0.1f).Opacity(0.5f), RhythmicColors.Gray(0.1f).Opacity(0)),
+                            Color4.Black.Opacity(0.5f), Color4.Black.Opacity(0)),
                     },
                 };
             }

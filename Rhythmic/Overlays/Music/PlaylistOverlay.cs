@@ -28,6 +28,13 @@ namespace Rhythmic.Overlays.Music
 
         private PlaylistList list;
 
+        private BufferedContainer screen;
+
+        public PlaylistOverlay(BufferedContainer Screen)
+        {
+            screen = Screen;
+        }
+
         [BackgroundDependencyLoader]
         private void load()
         {
@@ -40,15 +47,27 @@ namespace Rhythmic.Overlays.Music
                     Masking = true,
                     EdgeEffect = new EdgeEffectParameters
                     {
-                        Type = EdgeEffectType.Shadow,
                         Colour = Color4.Black.Opacity(40),
+                        Type = EdgeEffectType.Shadow,
+                        Offset = new Vector2(0, 2),
                         Radius = 5,
                     },
                     Children = new Drawable[]
                     {
+                        new BufferedContainer
+                        {
+                            RelativeSizeAxes = Axes.Both,
+                            BackgroundColour = Color4.Black,
+                            BlurSigma = new Vector2(15),
+                            Child = screen.CreateView().With(d =>
+                            {
+                                d.RelativeSizeAxes = Axes.Both;
+                                d.SynchronisedDrawQuad = true;
+                            })
+                        },
                         new Box
                         {
-                            Colour = RhythmicColors.Gray3,
+                            Colour = Color4.Black.Opacity(0.25f),
                             RelativeSizeAxes = Axes.Both,
                         },
                         list = new PlaylistList

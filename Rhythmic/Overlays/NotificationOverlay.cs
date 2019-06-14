@@ -10,6 +10,8 @@ using osu.Framework.Bindables;
 using osu.Framework.Threading;
 using Rhythmic.Graphics.Containers;
 using Rhythmic.Overlays.Notifications;
+using osuTK;
+using osu.Framework.Extensions.Color4Extensions;
 
 namespace Rhythmic.Overlays
 {
@@ -19,10 +21,17 @@ namespace Rhythmic.Overlays
 
         public const float TRANSITION_LENGTH = 600;
 
+        private BufferedContainer screen;
+
         private FlowContainer<NotificationSection> sections;
 
         /// <summary>Provide a source for the toolbar height.</summary>
         public Func<float> GetToolbarHeight;
+
+        public NotificationOverlay(BufferedContainer Screen)
+        {
+            screen = Screen;
+        }
 
         [BackgroundDependencyLoader]
         private void load()
@@ -34,13 +43,23 @@ namespace Rhythmic.Overlays
 
             Children = new Drawable[]
             {
+                new BufferedContainer
+                {
+                    RelativeSizeAxes = Axes.Both,
+                    BackgroundColour = Color4.Black,
+                    BlurSigma = new Vector2(15),
+                    Child = screen.CreateView().With(d =>
+                    {
+                        d.RelativeSizeAxes = Axes.Both;
+                        d.SynchronisedDrawQuad = true;
+                    })
+                },
                 new Box
                 {
                     RelativeSizeAxes = Axes.Both,
-                    Colour = Color4.Black,
-                    Alpha = 0.6f
+                    Colour = Color4.Black.Opacity(0.2f)
                 },
-                new RhythmicScrollContainer
+                content = new RhythmicScrollContainer
                 {
                     Masking = true,
                     RelativeSizeAxes = Axes.Both,
@@ -107,6 +126,7 @@ namespace Rhythmic.Overlays
         private readonly Scheduler postScheduler = new Scheduler();
 
         private bool processingPosts = true;
+        private RhythmicScrollContainer content;
 
         public void Post(Notification notification) => postScheduler.Add(() =>
         {
@@ -140,7 +160,7 @@ namespace Rhythmic.Overlays
             base.PopIn();
 
             this.MoveToX(0, TRANSITION_LENGTH, Easing.OutQuint);
-            this.FadeTo(1, TRANSITION_LENGTH, Easing.OutQuint);
+            content.FadeTo(1, TRANSITION_LENGTH, Easing.OutQuint);
         }
 
         protected override void PopOut()
@@ -150,7 +170,7 @@ namespace Rhythmic.Overlays
             markAllRead();
 
             this.MoveToX(width, TRANSITION_LENGTH, Easing.OutQuint);
-            this.FadeTo(0, TRANSITION_LENGTH, Easing.OutQuint);
+            content.FadeTo(0, TRANSITION_LENGTH, Easing.OutQuint);
         }
 
         private void updateCounts()

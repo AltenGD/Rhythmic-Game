@@ -16,6 +16,15 @@ namespace Rhythmic.Screens
             Origin = Anchor.Centre;
         }
 
+        public BackgroundScreenStack()
+            : base()
+        {
+            Scale = new Vector2(1.06f);
+            RelativeSizeAxes = Axes.Both;
+            Anchor = Anchor.Centre;
+            Origin = Anchor.Centre;
+        }
+
         public void Push(BackgroundScreen screen)
         {
             if (screen == null)

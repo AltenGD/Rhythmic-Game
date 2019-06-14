@@ -164,7 +164,7 @@ namespace Rhythmic
 
             AddRange(new Drawable[]
             {
-                screenContainer = new Container
+                screenContainer = new BufferedContainer
                 {
                     RelativeSizeAxes = Axes.Both,
                     Children = new Drawable[]
@@ -172,8 +172,8 @@ namespace Rhythmic
                         screenStack = new RhythmicScreenStack { RelativeSizeAxes = Axes.Both },
                     }
                 },
-                rightFloatingOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
-                topMostOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
+                rightFloatingOverlayContent = new BufferedContainer { RelativeSizeAxes = Axes.Both },
+                topMostOverlayContent = new BufferedContainer { RelativeSizeAxes = Axes.Both },
             });
 
             screenStack.ScreenPushed += screenPushed;
@@ -181,7 +181,7 @@ namespace Rhythmic
 
             dependencies.Cache(beatmaps);
 
-            loadComponentSingleFile(Toolbar = new Toolbar
+            loadComponentSingleFile(Toolbar = new Toolbar(screenContainer)
             {
                 OnHome = delegate
                 {
@@ -194,7 +194,7 @@ namespace Rhythmic
                 toolbarElements.Add(d);
             });
 
-            loadComponentSingleFile(musicController = new MusicController
+            loadComponentSingleFile(musicController = new MusicController(screenContainer)
             {
                 GetToolbarHeight = () => ToolbarOffset,
                 Anchor = Anchor.TopRight,
@@ -205,7 +205,7 @@ namespace Rhythmic
                 overlays.Add(m);
             });
 
-            loadComponentSingleFile(notifications = new NotificationOverlay
+            loadComponentSingleFile(notifications = new NotificationOverlay(screenContainer)
             {
                 GetToolbarHeight = () => ToolbarOffset,
                 Anchor = Anchor.TopRight,
@@ -378,11 +378,11 @@ namespace Rhythmic
             });
         }
 
-        private Container topMostOverlayContent;
+        private BufferedContainer topMostOverlayContent;
 
-        private Container rightFloatingOverlayContent;
+        private BufferedContainer rightFloatingOverlayContent;
 
-        private Container screenContainer;
+        private BufferedContainer screenContainer;
 
         private bool IsDeployedBuild = true;
 

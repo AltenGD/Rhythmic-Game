@@ -54,15 +54,19 @@ namespace Rhythmic.Overlays
         private Container dragContainer;
         private Container playerContainer;
 
+        private BufferedContainer screen;
+
         /// <summary>Provide a source for the toolbar height.</summary>
         public Func<float> GetToolbarHeight;
 
-        public MusicController()
+        public MusicController(BufferedContainer Screen)
         {
             Width = 400;
             Margin = new MarginPadding(10);
 
             AlwaysPresent = true;
+
+            screen = Screen;
         }
 
         [BackgroundDependencyLoader]
@@ -78,7 +82,7 @@ namespace Rhythmic.Overlays
                     AutoSizeAxes = Axes.Y,
                     Children = new Drawable[]
                     {
-                        playlist = new PlaylistOverlay
+                        playlist = new PlaylistOverlay(screen)
                         {
                             RelativeSizeAxes = Axes.X,
                             Y = player_height + 10,
@@ -92,8 +96,9 @@ namespace Rhythmic.Overlays
                             CornerRadius = 5,
                             EdgeEffect = new EdgeEffectParameters
                             {
-                                Type = EdgeEffectType.Shadow,
                                 Colour = Color4.Black.Opacity(40),
+                                Type = EdgeEffectType.Shadow,
+                                Offset = new Vector2(0, 2),
                                 Radius = 5,
                             },
                             Children = new[]
@@ -425,7 +430,7 @@ namespace Rhythmic.Overlays
             }
         }
 
-        private class Background : BufferedContainer
+        private class Background : Container
         {
             private readonly Sprite sprite;
             private readonly BeatmapMeta beatmap;
@@ -433,19 +438,39 @@ namespace Rhythmic.Overlays
             public Background(BeatmapMeta beatmap = null)
             {
                 this.beatmap = beatmap;
-                CacheDrawnFrameBuffer = true;
                 Depth = float.MaxValue;
                 RelativeSizeAxes = Axes.Both;
 
-                Children = new Drawable[]
+                BufferedContainer container = new BufferedContainer
                 {
-                    sprite = new Sprite
+                    RelativeSizeAxes = Axes.Both,
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    Child = sprite = new Sprite
                     {
                         RelativeSizeAxes = Axes.Both,
                         Colour = RhythmicColors.Gray(150),
                         FillMode = FillMode.Fill,
                         Anchor = Anchor.Centre,
                         Origin = Anchor.Centre
+                    }
+                };
+
+                Children = new Drawable[]
+                {
+                    container,
+                    new BufferedContainer
+                    {
+                        RelativeSizeAxes = Axes.X,
+                        Height = bottom_black_area_height,
+                        Origin = Anchor.BottomCentre,
+                        Anchor = Anchor.BottomCentre,
+                        BlurSigma = new Vector2(10),
+                        Child = container.CreateView().With(d =>
+                        {
+                            d.RelativeSizeAxes = Axes.Both;
+                            d.SynchronisedDrawQuad = true;
+                        })
                     },
                     new Box
                     {
@@ -453,7 +478,7 @@ namespace Rhythmic.Overlays
                         Height = bottom_black_area_height,
                         Origin = Anchor.BottomCentre,
                         Anchor = Anchor.BottomCentre,
-                        Colour = Color4.Black.Opacity(0.5f)
+                        Colour = Color4.Black.Opacity(0.2f)
                     }
                 };
             }
