@@ -10,6 +10,8 @@ using osu.Framework.Bindables;
 using osu.Framework.Input.Events;
 using Rhythmic.Graphics.Colors;
 using osuTK.Graphics;
+using osu.Framework.Graphics.Textures;
+using osu.Framework.Graphics.Sprites;
 
 namespace Rhythmic.Overlays.Toolbar
 {
@@ -87,12 +89,20 @@ namespace Rhythmic.Overlays.Toolbar
 
         public class ToolbarBackground : Container
         {
-            private readonly Box solidBackground;
-            private readonly Box gradientBackground;
+            private Box solidBackground;
+            private Box gradientBackground;
+
+            private BufferedContainer screen;
 
             public ToolbarBackground(BufferedContainer screen)
             {
                 RelativeSizeAxes = Axes.Both;
+                this.screen = screen;
+            }
+
+            [BackgroundDependencyLoader]
+            private void load(TextureStore store)
+            {
                 Children = new Drawable[]
                 {
                     new BufferedContainer
@@ -105,6 +115,12 @@ namespace Rhythmic.Overlays.Toolbar
                             d.RelativeSizeAxes = Axes.Both;
                             d.SynchronisedDrawQuad = true;
                         })
+                    },
+                    new Sprite
+                    {
+                        Texture = store.Get("AcrylicNoise.png"),
+                        Colour = Color4.Black.Opacity(0.05f),
+                        Scale = new Vector2(2)
                     },
                     solidBackground = new Box
                     {

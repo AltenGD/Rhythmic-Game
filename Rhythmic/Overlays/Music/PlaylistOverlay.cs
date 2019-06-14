@@ -6,6 +6,8 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Effects;
 using osu.Framework.Graphics.Shapes;
+using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 using osuTK;
 using osuTK.Graphics;
 using Rhythmic.Beatmap;
@@ -36,7 +38,7 @@ namespace Rhythmic.Overlays.Music
         }
 
         [BackgroundDependencyLoader]
-        private void load()
+        private void load(TextureStore store)
         {
             Children = new Drawable[]
             {
@@ -69,6 +71,12 @@ namespace Rhythmic.Overlays.Music
                         {
                             Colour = Color4.Black.Opacity(0.25f),
                             RelativeSizeAxes = Axes.Both,
+                        },
+                        new Sprite
+                        {
+                            Texture = store.Get("AcrylicNoise.png"),
+                            Colour = Color4.Black.Opacity(0.05f),
+                            Scale = new Vector2(2)
                         },
                         list = new PlaylistList
                         {

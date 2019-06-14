@@ -1,8 +1,10 @@
-﻿using osu.Framework.Extensions.Color4Extensions;
+﻿using osu.Framework.Allocation;
+using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 using osuTK;
 using osuTK.Graphics;
 using Rhythmic.Beatmap.Properties;
@@ -16,10 +18,17 @@ namespace Rhythmic.Beatmap.Drawables.Components
 
         private BeatmapMeta beatmap;
 
+        private BufferedContainer background;
+
         public BeatmapUsecase(BeatmapMeta beatmap, BufferedContainer background)
         {
             this.beatmap = beatmap;
+            this.background = background;
+        }
 
+        [BackgroundDependencyLoader]
+        private void load(TextureStore store)
+        {
             Children = new Drawable[]
             {
                 new BufferedContainer
@@ -37,6 +46,12 @@ namespace Rhythmic.Beatmap.Drawables.Components
                 {
                     RelativeSizeAxes = Axes.Both,
                     Colour = Color4.White.Opacity(0.8f)
+                },
+                new Sprite
+                {
+                    Texture = store.Get("AcrylicNoise.png"),
+                    Colour = Color4.Black.Opacity(0.05f),
+                    Scale = new Vector2(2)
                 },
                 new Container
                 {

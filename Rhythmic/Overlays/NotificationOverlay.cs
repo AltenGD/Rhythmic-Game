@@ -12,6 +12,8 @@ using Rhythmic.Graphics.Containers;
 using Rhythmic.Overlays.Notifications;
 using osuTK;
 using osu.Framework.Extensions.Color4Extensions;
+using osu.Framework.Graphics.Textures;
+using osu.Framework.Graphics.Sprites;
 
 namespace Rhythmic.Overlays
 {
@@ -34,7 +36,7 @@ namespace Rhythmic.Overlays
         }
 
         [BackgroundDependencyLoader]
-        private void load()
+        private void load(TextureStore store)
         {
             Width = width;
             RelativeSizeAxes = Axes.Y;
@@ -58,6 +60,12 @@ namespace Rhythmic.Overlays
                 {
                     RelativeSizeAxes = Axes.Both,
                     Colour = Color4.Black.Opacity(0.2f)
+                },
+                new Sprite
+                {
+                    Texture = store.Get("AcrylicNoise.png"),
+                    Colour = Color4.Black.Opacity(0.05f),
+                    Scale = new Vector2(2)
                 },
                 content = new RhythmicScrollContainer
                 {

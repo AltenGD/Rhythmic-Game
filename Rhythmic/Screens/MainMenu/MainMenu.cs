@@ -19,13 +19,11 @@ namespace Rhythmic.Screens.MainMenu
 {
     public class MainMenu : RhythmicScreen
     {
-        private BackgroundScreenDefault background;
-
         private RhythmicLogo logo;
 
         public override bool AllowExternalScreenChange => true;
 
-        protected override BackgroundScreen CreateBackground() => background = new BackgroundScreenDefault();
+        protected override BackgroundScreen CreateBackground() => new BackgroundScreenDefault();
 
         public MainMenu()
         {

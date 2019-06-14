@@ -434,6 +434,7 @@ namespace Rhythmic.Overlays
         {
             private readonly Sprite sprite;
             private readonly BeatmapMeta beatmap;
+            private Sprite noise;
 
             public Background(BeatmapMeta beatmap = null)
             {
@@ -472,6 +473,11 @@ namespace Rhythmic.Overlays
                             d.SynchronisedDrawQuad = true;
                         })
                     },
+                    noise = new Sprite
+                    {
+                        Colour = Color4.Black.Opacity(0.05f),
+                        Scale = new Vector2(2)
+                    },
                     new Box
                     {
                         RelativeSizeAxes = Axes.X,
@@ -487,6 +493,7 @@ namespace Rhythmic.Overlays
             private void load(TextureStore textures)
             {
                 sprite.Texture = beatmap?.Background ?? textures.Get(@"Backgrounds/bg4");
+                noise.Texture = textures.Get("AcrylicNoise.png");
             }
         }
 
