@@ -19,6 +19,7 @@ namespace Rhythmic.Beatmap.Drawables
         private Vector2 size = new Vector2(330, 150);
 
         public BeatmapMeta Beatmap;
+        private BufferedContainer main;
 
         public IEnumerable<string> FilterTerms => new[]
         {
@@ -46,61 +47,68 @@ namespace Rhythmic.Beatmap.Drawables
             };
 
             Children = new Drawable[]
-{
-                new Box
+            {
+                main = new BufferedContainer
                 {
                     RelativeSizeAxes = Axes.Both,
-                    Colour = Color4.Black
-                },
-                new BeatmapBackgroundSprite(beatmap)
-                {
-                    RelativeSizeAxes = Axes.Both,
-                    FillMode = FillMode.Fill,
-                    Anchor = Anchor.Centre,
-                    Origin = Anchor.Centre,
-                    Alpha = 0.6f,
-                },
-                new Box
-                {
-                    RelativeSizeAxes = Axes.Both,
-                    Colour = new ColourInfo
-                    {
-                        TopLeft = Color4.Black.Opacity(0f),
-                        TopRight = Color4.Black.Opacity(0f),
-                        BottomLeft = Color4.Black.Opacity(0.6f),
-                        BottomRight = Color4.Black.Opacity(0.6f)
-                    }
-                },
-                new FillFlowContainer
-                {
-                    RelativeSizeAxes = Axes.Both,
-                    Direction = FillDirection.Vertical,
-                    Anchor = Anchor.BottomCentre,
-                    Origin = Anchor.BottomCentre,
-                    Padding = new MarginPadding
-                    {
-                        Bottom = size.Y / 4 + 5,
-                        Left = 5
-                    },
                     Children = new Drawable[]
                     {
-                        new SpriteText
+                        new Box
                         {
-                            Text = beatmap.Metadata.Song.Author,
-                           Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.Medium),
-                            Anchor = Anchor.BottomLeft,
-                            Origin = Anchor.BottomLeft
+                            RelativeSizeAxes = Axes.Both,
+                            Colour = Color4.Black
                         },
-                        new SpriteText
+                        new BeatmapBackgroundSprite(beatmap)
                         {
-                            Text = beatmap.Metadata.Song.Name,
-                            Font = RhythmicFont.GetFont(size: 30, weight: FontWeight.Medium),
-                            Anchor = Anchor.BottomLeft,
-                            Origin = Anchor.BottomLeft
-                        }
+                            RelativeSizeAxes = Axes.Both,
+                            FillMode = FillMode.Fill,
+                            Anchor = Anchor.Centre,
+                            Origin = Anchor.Centre,
+                            Alpha = 0.6f,
+                        },
+                        new Box
+                        {
+                            RelativeSizeAxes = Axes.Both,
+                            Colour = new ColourInfo
+                            {
+                                TopLeft = Color4.Black.Opacity(0f),
+                                TopRight = Color4.Black.Opacity(0f),
+                                BottomLeft = Color4.Black.Opacity(0.6f),
+                                BottomRight = Color4.Black.Opacity(0.6f)
+                            }
+                        },
+                        new FillFlowContainer
+                        {
+                            RelativeSizeAxes = Axes.Both,
+                            Direction = FillDirection.Vertical,
+                            Anchor = Anchor.BottomCentre,
+                            Origin = Anchor.BottomCentre,
+                            Padding = new MarginPadding
+                            {
+                                Bottom = size.Y / 4 + 5,
+                                Left = 5
+                            },
+                            Children = new Drawable[]
+                            {
+                                new SpriteText
+                                {
+                                    Text = beatmap.Metadata.Song.Author,
+                                   Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.Medium),
+                                    Anchor = Anchor.BottomLeft,
+                                    Origin = Anchor.BottomLeft
+                                },
+                                new SpriteText
+                                {
+                                    Text = beatmap.Metadata.Song.Name,
+                                    Font = RhythmicFont.GetFont(size: 30, weight: FontWeight.Medium),
+                                    Anchor = Anchor.BottomLeft,
+                                    Origin = Anchor.BottomLeft
+                                }
+                            }
+                        },
                     }
                 },
-                new BeatmapUsecase(beatmap)
+                new BeatmapUsecase(beatmap, main)
                 {
                     Origin = Anchor.BottomLeft,
                     Anchor = Anchor.BottomLeft,
