@@ -6,6 +6,7 @@ using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Drawables;
 using System;
 using osu.Framework.Bindables;
+using Rhythmic.Graphics.Containers;
 
 namespace Rhythmic.Screens.Select.Components
 {
@@ -25,7 +26,7 @@ namespace Rhythmic.Screens.Select.Components
 
             Children = new Drawable[]
             {
-                new ScrollContainer
+                new RhythmicScrollContainer
                 {
                     RelativeSizeAxes = Axes.Both,
                     Padding = new MarginPadding

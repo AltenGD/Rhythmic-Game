@@ -70,10 +70,10 @@ namespace Rhythmic.Overlays.Toolbar
                 }
             };
 
-            StateChanged += visibility =>
+            State.ValueChanged += visibility =>
             {
                 if (overlayActivationMode.Value == OverlayActivation.Disabled)
-                    State = Visibility.Hidden;
+                    State.Value = Visibility.Hidden;
             };
 
             if (game != null)

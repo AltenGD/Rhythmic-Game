@@ -54,7 +54,7 @@ namespace Rhythmic.Screens.Edit.Componets.Overlays
         {
             base.LoadComplete();
 
-            AddInternal(new ScrollContainer
+            AddInternal(new RhythmicScrollContainer
             {
                 RelativeSizeAxes = Axes.Both,
                 Children = new Drawable[]

@@ -87,7 +87,7 @@ namespace Rhythmic.Screens.Play
 
         protected override void LoadComplete()
         {
-            State = Visibility.Visible;
+            Hide();
 
             replayLoaded.ValueChanged += loaded => AllowSeeking = loaded.NewValue;
             replayLoaded.TriggerChange();

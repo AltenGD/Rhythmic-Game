@@ -50,7 +50,7 @@ namespace Rhythmic.Screens.Play
         {
             RelativeSizeAxes = Axes.Both;
 
-            StateChanged += s => selectionIndex = -1;
+            State.ValueChanged += s => selectionIndex = -1;
         }
 
         [BackgroundDependencyLoader]

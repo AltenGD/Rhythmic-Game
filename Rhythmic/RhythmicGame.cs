@@ -130,12 +130,12 @@ namespace Rhythmic
         public void CloseAllOverlays(bool hideToolbarElements = true)
         {
             foreach (var overlay in overlays)
-                overlay.State = Visibility.Hidden;
+                overlay.State.Value = Visibility.Hidden;
 
             if (hideToolbarElements)
             {
                 foreach (var overlay in toolbarElements)
-                    overlay.State = Visibility.Hidden;
+                    overlay.State.Value = Visibility.Hidden;
             }
         }
 
@@ -401,7 +401,7 @@ namespace Rhythmic
                 if (newRhythmicScreen.HideOverlaysOnEnter)
                     CloseAllOverlays();
                 else
-                    Toolbar.State = Visibility.Visible;
+                    Toolbar.State.Value = Visibility.Visible;
             }
         }
 

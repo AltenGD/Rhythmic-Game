@@ -22,7 +22,7 @@ namespace Rhythmic.Graphics.Containers
         [BackgroundDependencyLoader]
         private void load()
         {
-            StateChanged += onStateChanged;
+            State.ValueChanged += onStateChanged;
         }
 
         /// <summary> Whether mouse input should be blocked screen-wide while this overlay is visible.
@@ -36,16 +36,16 @@ namespace Rhythmic.Graphics.Containers
         {
             if (!base.ReceivePositionalInputAt(e.ScreenSpaceMousePosition))
             {
-                State = Visibility.Hidden;
+                Hide();
                 return true;
             }
 
             return base.OnClick(e);
         }
 
-        private void onStateChanged(Visibility visibility)
+        private void onStateChanged(ValueChangedEvent<Visibility> state)
         {
-            switch (visibility)
+            switch (state.NewValue)
             {
                 case Visibility.Visible:
                     if (OverlayActivationMode.Value != OverlayActivation.Disabled)
@@ -53,7 +53,7 @@ namespace Rhythmic.Graphics.Containers
                         if (BlockScreenWideMouse && DimMainContent) game?.AddBlockingOverlay(this);
                     }
                     else
-                        State = Visibility.Hidden;
+                        Hide();
 
                     break;
 

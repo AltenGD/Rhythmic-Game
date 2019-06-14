@@ -184,7 +184,7 @@ namespace Rhythmic.Overlays
                 }
             };
 
-            playlist.StateChanged += s => playlistButton.FadeColour(s == Visibility.Visible ? RhythmicColors.Orange : Color4.White, 200, Easing.OutQuint);
+            playlist.State.ValueChanged += s => playlistButton.FadeColour(s.NewValue == Visibility.Visible ? RhythmicColors.Orange : Color4.White, 200, Easing.OutQuint);
         }
 
         private ScheduledDelegate seekDelegate;
@@ -403,7 +403,7 @@ namespace Rhythmic.Overlays
         {
             base.PopOut();
 
-            playlist.State = Visibility.Hidden;
+            playlist.Hide();
 
             this.FadeOut(transition_length, Easing.OutQuint);
             dragContainer.ScaleTo(0.9f, transition_length, Easing.OutQuint);

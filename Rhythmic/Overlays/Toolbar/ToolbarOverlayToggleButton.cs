@@ -1,4 +1,5 @@
-﻿using osu.Framework.Extensions.Color4Extensions;
+﻿using osu.Framework.Bindables;
+using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
@@ -22,7 +23,7 @@ namespace Rhythmic.Overlays.Toolbar
                 if (stateContainer != null)
                 {
                     Action = stateContainer.ToggleVisibility;
-                    stateContainer.StateChanged += stateChanged;
+                    stateContainer.State.ValueChanged += stateChanged;
                 }
             }
         }
@@ -43,12 +44,12 @@ namespace Rhythmic.Overlays.Toolbar
         {
             base.Dispose(isDisposing);
             if (stateContainer != null)
-                stateContainer.StateChanged -= stateChanged;
+                stateContainer.State.ValueChanged -= stateChanged;
         }
 
-        private void stateChanged(Visibility state)
+        private void stateChanged(ValueChangedEvent<Visibility> state)
         {
-            switch (state)
+            switch (state.NewValue)
             {
                 case Visibility.Hidden:
                     stateBackground.FadeOut(200);

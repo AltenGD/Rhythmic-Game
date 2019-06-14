@@ -40,7 +40,7 @@ namespace Rhythmic.Overlays
                     Colour = Color4.Black,
                     Alpha = 0.6f
                 },
-                new ScrollContainer
+                new RhythmicScrollContainer
                 {
                     Masking = true,
                     RelativeSizeAxes = Axes.Both,
@@ -76,13 +76,13 @@ namespace Rhythmic.Overlays
 
         private void updateProcessingMode()
         {
-            bool enabled = OverlayActivationMode.Value == OverlayActivation.All || State == Visibility.Visible;
+            bool enabled = OverlayActivationMode.Value == OverlayActivation.All || State.Value == Visibility.Visible;
 
             notificationsEnabler?.Cancel();
 
             if (enabled)
                 // we want a slight delay before toggling notifications on to avoid the user becoming overwhelmed.
-                notificationsEnabler = Scheduler.AddDelayed(() => processingPosts = true, State == Visibility.Visible ? 0 : 1000);
+                notificationsEnabler = Scheduler.AddDelayed(() => processingPosts = true, State.Value == Visibility.Visible ? 0 : 1000);
             else
                 processingPosts = false;
         }
@@ -91,7 +91,7 @@ namespace Rhythmic.Overlays
         {
             base.LoadComplete();
 
-            StateChanged += _ => updateProcessingMode();
+            State.ValueChanged += _ => updateProcessingMode();
             OverlayActivationMode.BindValueChanged(_ => updateProcessingMode(), true);
         }
 
@@ -123,7 +123,7 @@ namespace Rhythmic.Overlays
             section?.Add(notification, notification.DisplayOnTop ? -runningDepth : runningDepth);
 
             if (notification.IsImportant)
-                State = Visibility.Visible;
+                State.Value = Visibility.Visible;
 
             updateCounts();
         });
