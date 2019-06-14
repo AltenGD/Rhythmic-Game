@@ -23,7 +23,7 @@ namespace Rhythmic.Screens.Edit
 {
     public class Editor : RhythmicScreen
     {
-        protected override BackgroundScreen CreateBackground() => new BackgroundScreenDefault();
+        protected override BackgroundScreen CreateBackground() => new BackgroundScreenBeatmap();
 
         public override bool HideOverlaysOnEnter => true;
 

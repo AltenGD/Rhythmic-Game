@@ -2,6 +2,8 @@
 using Rhythmic.Screens.Backgrounds;
 using osu.Framework.Graphics;
 using Rhythmic.Screens.Select.Components;
+using osu.Framework.Allocation;
+using Rhythmic.Beatmap;
 
 namespace Rhythmic.Screens.Select
 {
@@ -12,6 +14,9 @@ namespace Rhythmic.Screens.Select
         protected override BackgroundScreen CreateBackground() => new BackgroundScreenBeatmap();
 
         public override bool DisableBeatmapOnEnter => false;
+
+        [Resolved]
+        private BeatmapCollection collection { get; set; }
 
         public SongSelect()
         {
@@ -26,6 +31,12 @@ namespace Rhythmic.Screens.Select
                     }
                 },
             });
+        }
+
+        public override void OnResuming(IScreen last)
+        {
+            collection.CurrentBeatmap.Disabled = false;
+            base.OnResuming(last);
         }
     }
 }
