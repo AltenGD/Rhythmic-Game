@@ -12,8 +12,12 @@ namespace Rhythmic.Beatmap.Drawables.Components
     {
         private TextFlowContainer textContainer;
 
+        private BeatmapMeta beatmap;
+
         public BeatmapUsecase(BeatmapMeta beatmap)
         {
+            this.beatmap = beatmap;
+
             Children = new Drawable[]
             {
                 new Box
@@ -42,7 +46,7 @@ namespace Rhythmic.Beatmap.Drawables.Components
 
             textContainer.AddText(new SpriteTextLink(null)
             {
-                Text = "Alten"
+                Text = beatmap.Metadata.Level.CreatorName
             });
         }
     }
