@@ -11,7 +11,7 @@ namespace Rhythmic.Graphics.UserInterface
         {
             Size = new Vector2(100, 50);
             Text = @"back";
-            BackgroundColour = RhythmicColors.HotPinkeDark;
+            BackgroundColour = RhythmicColors.HotPinkDark;
             Anchor = Anchor.BottomLeft;
             Origin = Anchor.BottomLeft;
         }

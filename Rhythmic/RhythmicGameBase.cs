@@ -50,6 +50,7 @@ namespace Rhythmic
             dependencies.Cache(storage);
 
             dependencies.CacheAs(new BeatmapAPI());
+            dependencies.CacheAs(new RhythmicStore());
 
             Resources.AddStore(new DllResourceStore(mainResourceFile));
 

@@ -57,6 +57,12 @@ namespace Rhythmic.Graphics.Colors
         public static readonly Color4 OrangeDark = FromHex(@"CF814A");
         public static readonly Color4 OrangeDarker = FromHex(@"633A1D");
 
+        public static readonly Color4 YellowLighter = FromHex(@"FFFFCC");
+        public static readonly Color4 YellowLight = FromHex(@"FEFE8B");
+        public static readonly Color4 Yellow = FromHex(@"EEEE5D");
+        public static readonly Color4 YellowDark = FromHex(@"CFCF4A");
+        public static readonly Color4 YellowDarker = FromHex(@"9E9E2E");
+
         public static readonly Color4 PurpleLighter = FromHex(@"D3CCFF");
         public static readonly Color4 PurpleLight = FromHex(@"9B8BFE");
         public static readonly Color4 Purple = FromHex(@"725DEE");
@@ -72,7 +78,7 @@ namespace Rhythmic.Graphics.Colors
         public static readonly Color4 HotPinkLighter = FromHex(@"FFCCDE");
         public static readonly Color4 HotPinkLight = FromHex(@"FE8BB4");
         public static readonly Color4 HotPink = FromHex(@"EE5D92");
-        public static readonly Color4 HotPinkeDark = FromHex(@"CF4A7A");
+        public static readonly Color4 HotPinkDark = FromHex(@"CF4A7A");
         public static readonly Color4 HotPinkDarker = FromHex(@"631D36");
 
         public static readonly Color4 Gray0 = FromHex(@"000");
