@@ -35,6 +35,10 @@ namespace Rhythmic.Overlays.Notifications
             }
         }
 
+        public bool Important = false;
+
+        public override bool IsImportant => Important;
+
         private readonly TextFlowContainer textDrawable;
         private readonly SpriteIcon iconDrawable;
 
