@@ -216,6 +216,12 @@ namespace Rhythmic
                 overlays.Add(n);
             });
 
+            notifications.Post(new SimpleNotification
+            {
+                Text = "Test Notification",
+                Description = "And here’s some text that you can almost barely read!"
+            });
+
             Toolbar.ToggleVisibility();
 
             screenStack.Push(new Loader());

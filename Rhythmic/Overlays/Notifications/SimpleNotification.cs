@@ -5,7 +5,9 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osuTK;
+using osuTK.Graphics;
 using Rhythmic.Graphics.Colors;
+using Rhythmic.Graphics.Sprites;
 
 namespace Rhythmic.Overlays.Notifications
 {
@@ -20,6 +22,18 @@ namespace Rhythmic.Overlays.Notifications
             {
                 text = value;
                 textDrawable.Text = text;
+            }
+        }
+
+        private string desc = string.Empty;
+
+        public string Description
+        {
+            get => desc;
+            set
+            {
+                desc = value;
+                descDrawable.Text = desc;
             }
         }
 
@@ -40,9 +54,10 @@ namespace Rhythmic.Overlays.Notifications
         public override bool IsImportant => Important;
 
         private readonly TextFlowContainer textDrawable;
+        private readonly TextFlowContainer descDrawable;
         private readonly SpriteIcon iconDrawable;
 
-        protected Box IconBackgound;
+        public Box IconBackgound;
 
         public SimpleNotification()
         {
@@ -51,7 +66,7 @@ namespace Rhythmic.Overlays.Notifications
                 IconBackgound = new Box
                 {
                     RelativeSizeAxes = Axes.Both,
-                    Colour = RhythmicColors.Gray(0.6f)
+                    Colour = ColourInfo.GradientVertical(RhythmicColors.BlueDark, RhythmicColors.BlueLight)
                 },
                 iconDrawable = new SpriteIcon
                 {
@@ -62,15 +77,29 @@ namespace Rhythmic.Overlays.Notifications
                 }
             });
 
-            Content.Add(textDrawable = new TextFlowContainer(t => t.Font = t.Font.With(size: 14))
+            Content.Add(new FillFlowContainer
             {
-                Colour = RhythmicColors.Gray(128),
-                AutoSizeAxes = Axes.Y,
                 RelativeSizeAxes = Axes.X,
-                Text = text
+                AutoSizeAxes = Axes.Y,
+                Direction = FillDirection.Vertical,
+                Children = new Drawable[]
+                {
+                    textDrawable = new TextFlowContainer(t => t.Font = RhythmicFont.GetFont(size:20, weight:FontWeight.Bold))
+                    {
+                        Colour = Color4.White,
+                        AutoSizeAxes = Axes.Y,
+                        RelativeSizeAxes = Axes.X,
+                        Text = text
+                    },
+                    descDrawable = new TextFlowContainer(t => t.Font = RhythmicFont.GetFont(size:15, weight:FontWeight.Bold))
+                    {
+                        Colour = Color4.White,
+                        AutoSizeAxes = Axes.Y,
+                        RelativeSizeAxes = Axes.X,
+                        Text = desc
+                    }
+                }
             });
-
-            Light.Colour = RhythmicColors.Green;
         }
 
         public override bool Read
@@ -81,7 +110,6 @@ namespace Rhythmic.Overlays.Notifications
                 if (value == base.Read) return;
 
                 base.Read = value;
-                Light.FadeTo(value ? 0 : 1, 100);
             }
         }
     }

@@ -14,6 +14,8 @@ using osuTK;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics.Textures;
 using osu.Framework.Graphics.Sprites;
+using Rhythmic.Database;
+using osu.Framework.Graphics.Colour;
 
 namespace Rhythmic.Overlays
 {
@@ -36,7 +38,7 @@ namespace Rhythmic.Overlays
         }
 
         [BackgroundDependencyLoader]
-        private void load(TextureStore store)
+        private void load(TextureStore store, RhythmicStore colourStore)
         {
             Width = width;
             RelativeSizeAxes = Axes.Y;
@@ -56,10 +58,29 @@ namespace Rhythmic.Overlays
                         d.SynchronisedDrawQuad = true;
                     })
                 },
-                new Box
+                new FillFlowContainer
                 {
                     RelativeSizeAxes = Axes.Both,
-                    Colour = Color4.Black.Opacity(0.2f)
+                    Direction = FillDirection.Vertical,
+                    Children = new Drawable[]
+                    {
+                        new Box
+                        {
+                            RelativeSizeAxes = Axes.Both,
+                            Height = 0.3f,
+                            Colour = colourStore.SecondaryColour.Value.Opacity(0.3f)
+                        },
+                        new Box
+                        {
+                            RelativeSizeAxes = Axes.Both,
+                            Height = 0.7f,
+                            Colour = ColourInfo.GradientVertical
+                            (
+                                colourStore.SecondaryColour.Value.Opacity(0.3f),
+                                colourStore.SecondaryColour.Value.Opacity(0.1f)
+                            )
+                        }
+                    }
                 },
                 new Sprite
                 {
