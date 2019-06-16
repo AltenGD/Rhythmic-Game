@@ -46,20 +46,14 @@ namespace Rhythmic.Overlays.Notifications
                         switch (state)
                         {
                             case ProgressNotificationState.Queued:
-                                Light.Colour = colourQueued;
-                                Light.Pulsate = false;
                                 progressBar.Active = false;
                                 break;
 
                             case ProgressNotificationState.Active:
-                                Light.Colour = colourActive;
-                                Light.Pulsate = true;
                                 progressBar.Active = true;
                                 break;
 
                             case ProgressNotificationState.Cancelled:
-                                Light.Colour = colourCancelled;
-                                Light.Pulsate = false;
                                 progressBar.Active = false;
                                 break;
                         }
@@ -95,9 +89,6 @@ namespace Rhythmic.Overlays.Notifications
         public override bool DisplayOnTop => false;
 
         private readonly ProgressBar progressBar;
-        private Color4 colourQueued;
-        private Color4 colourActive;
-        private Color4 colourCancelled;
 
         private readonly TextFlowContainer textDrawable;
 
@@ -126,10 +117,6 @@ namespace Rhythmic.Overlays.Notifications
 
             // don't close on click by default.
             Activated = () => false;
-
-            colourQueued = RhythmicColors.OrangeDark;
-            colourActive = RhythmicColors.Blue;
-            colourCancelled = RhythmicColors.Red;
         }
 
         public override void Close()

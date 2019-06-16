@@ -68,8 +68,6 @@ namespace Rhythmic.Overlays.Notifications
             {
                 Top = 10,
                 Bottom = 5,
-                Right = 20,
-                Left = 20,
             };
 
             AddRangeInternal(new Drawable[]
@@ -85,13 +83,18 @@ namespace Rhythmic.Overlays.Notifications
                             Text = clearText,
                             Anchor = Anchor.TopRight,
                             Origin = Anchor.TopRight,
-                            Action = clearAll
+                            Action = clearAll,
+                            Margin = new MarginPadding
+                            {
+                                Right = 20
+                            },
                         },
                         new FillFlowContainer
                         {
                             Margin = new MarginPadding
                             {
-                                Bottom = 5
+                                Bottom = 5,
+                                Horizontal = 20
                             },
                             Spacing = new Vector2(5, 0),
                             AutoSizeAxes = Axes.Both,
@@ -104,8 +107,8 @@ namespace Rhythmic.Overlays.Notifications
                                 },
                                 countText = new SpriteText
                                 {
-                                    Text = "3",
-                                    Colour = RhythmicColors.Orange,
+                                    Text = "0",
+                                    Colour = RhythmicColors.Yellow,
                                     Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.Bold)
                                 },
                             }
