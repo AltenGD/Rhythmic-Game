@@ -10,6 +10,7 @@ using osu.Framework.Bindables;
 using osu.Framework.Input.Events;
 using Rhythmic.Graphics.Colors;
 using osuTK.Graphics;
+using Rhythmic.Database;
 
 namespace Rhythmic.Overlays.Toolbar
 {
@@ -69,7 +70,6 @@ namespace Rhythmic.Overlays.Toolbar
                     Children = new Drawable[]
                     {
                         new ToolbarMusicButton(),
-                        //userButton = new ToolbarUserButton(),
                         new ToolbarNotificationButton(),
                     }
                 }
@@ -122,6 +122,15 @@ namespace Rhythmic.Overlays.Toolbar
                             Color4.Black.Opacity(0.5f), Color4.Black.Opacity(0)),
                     },
                 };
+            }
+
+            [BackgroundDependencyLoader]
+            private void load(RhythmicStore store)
+            {
+                solidBackground.Colour = ColourInfo.GradientHorizontal(
+                    store.SecondaryColour?.Value.Opacity(0.3f) ?? Color4.Black.Opacity(0.3f),
+                    store.SecondaryColour?.Value.Opacity(0.2f) ?? Color4.Black.Opacity(0.2f)
+                    );
             }
 
             protected override bool OnHover(HoverEvent e)
