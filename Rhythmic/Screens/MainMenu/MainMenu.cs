@@ -14,6 +14,8 @@ using Rhythmic.Screens.Backgrounds;
 using Rhythmic.Other;
 using osuTK;
 using Rhythmic.Screens.Edit;
+using osu.Framework.Graphics.Shapes;
+using osuTK.Graphics;
 
 namespace Rhythmic.Screens.MainMenu
 {
