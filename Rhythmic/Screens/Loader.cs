@@ -11,6 +11,7 @@ using osu.Framework.Audio.Track;
 using osu.Framework.Graphics.Textures;
 using System.Text;
 using Rhythmic.Beatmap.Properties;
+using osu.Framework.Graphics.Containers;
 
 namespace Rhythmic.Screens
 {
@@ -21,6 +22,8 @@ namespace Rhythmic.Screens
 
         [Resolved]
         private BeatmapCollection collection { get; set; }
+
+        private BufferedContainer screen;
 
         public Loader()
         {

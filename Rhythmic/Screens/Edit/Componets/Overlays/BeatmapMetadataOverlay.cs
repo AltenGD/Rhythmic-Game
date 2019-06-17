@@ -19,7 +19,6 @@ using osuTK;
 using osuTK.Graphics;
 using osu.Framework.Graphics.Lines;
 using osu.Framework.MathUtils;
-using Rhythmic.Graphics.Drawables;
 using Rhythmic.Graphics.Colors;
 using System.Linq;
 using osu.Framework;

@@ -11,6 +11,7 @@ using Rhythmic.Other;
 using Rhythmic.Beatmap.Properties.Metadata;
 using osu.Framework.Graphics.Textures;
 using Rhythmic.Beatmap.Properties;
+using osu.Framework.Graphics.Containers;
 
 namespace Rhythmic.Screens.MainMenu
 {
