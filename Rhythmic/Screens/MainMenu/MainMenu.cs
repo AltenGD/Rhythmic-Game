@@ -27,7 +27,7 @@ namespace Rhythmic.Screens.MainMenu
 
         protected override BackgroundScreen CreateBackground() => new BackgroundScreenDefault();
 
-        public MainMenu()
+        public MainMenu(BufferedContainer Screen)
         {
             AddRangeInternal(new Drawable[]
             {
@@ -52,7 +52,7 @@ namespace Rhythmic.Screens.MainMenu
                                 },
                             }
                         },
-                        new ButtonSystem
+                        new ButtonSystem(Screen)
                         {
                             Anchor = Anchor.BottomLeft,
                             Origin = Anchor.BottomLeft,

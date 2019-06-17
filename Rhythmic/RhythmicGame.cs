@@ -160,8 +160,6 @@ namespace Rhythmic
             base.LoadComplete();
             dependencies.Cache(this);
 
-            dependencies.Cache(menuScreen = new MainMenu());
-
             AddRange(new Drawable[]
             {
                 screenContainer = new BufferedContainer
@@ -224,6 +222,7 @@ namespace Rhythmic
 
             Toolbar.ToggleVisibility();
 
+            dependencies.Cache(menuScreen = new MainMenu(screenContainer));
             screenStack.Push(new Loader());
 
             dependencies.Cache(musicController);
