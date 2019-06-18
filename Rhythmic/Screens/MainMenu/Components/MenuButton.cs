@@ -8,6 +8,7 @@ using osu.Framework.Extensions.Color4Extensions;
 using Rhythmic.Database;
 using osu.Framework.Graphics.Colour;
 using Rhythmic.Graphics.Sprites;
+using osu.Framework.Input.Events;
 
 namespace Rhythmic.Screens.MainMenu.Components
 {
@@ -81,10 +82,36 @@ namespace Rhythmic.Screens.MainMenu.Components
             };
         }
 
+        [Resolved]
+        private RhythmicStore store { get; set; }
+
         [BackgroundDependencyLoader]
-        private void load(RhythmicStore store)
+        private void load()
         {
-            background.Colour = ColourInfo.GradientHorizontal(store.SecondaryColour.Value.Opacity(0.6f), store.SecondaryColour.Value.Opacity(0.2f));
+            background.Colour = ColourInfo.GradientHorizontal(store.SecondaryColour.Value.Opacity(0.4f), store.SecondaryColour.Value.Opacity(0.05f));
+        }
+
+        protected override bool OnHover(HoverEvent e)
+        {
+            background.FadeColour(ColourInfo.GradientHorizontal(store.SecondaryColour.Value.Opacity(0.75f), store.SecondaryColour.Value.Opacity(0.05f)), 500, Easing.OutExpo);
+            return base.OnHover(e);
+        }
+
+        protected override void OnHoverLost(HoverLostEvent e)
+        {
+            base.OnHoverLost(e); background.FadeColour(ColourInfo.GradientHorizontal(store.SecondaryColour.Value.Opacity(0.4f), store.SecondaryColour.Value.Opacity(0.05f)), 500, Easing.OutExpo);
+        }
+
+        protected override bool OnMouseDown(MouseDownEvent e)
+        {
+            this.ResizeHeightTo(40, 1000, Easing.InOutQuad);
+            return base.OnMouseDown(e);
+        }
+
+        protected override bool OnMouseUp(MouseUpEvent e)
+        {
+            this.ResizeHeightTo(50, 500, Easing.OutElastic);
+            return base.OnMouseUp(e);
         }
     }
 }
