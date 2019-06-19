@@ -5,6 +5,7 @@ using osu.Framework.Audio;
 using osu.Framework.Bindables;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Colour;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Effects;
 using osu.Framework.Graphics.Shapes;
@@ -47,9 +48,6 @@ namespace Rhythmic.Overlays
 
         [Resolved]
         private BeatmapCollection collection { get; set; }
-
-        [Resolved]
-        private AudioManager audio { get; set; }
 
         private Container dragContainer;
         private Container playerContainer;
@@ -106,19 +104,19 @@ namespace Rhythmic.Overlays
                                 background = new Background(),
                                 title = new SpriteText
                                 {
-                                    Origin = Anchor.BottomCentre,
-                                    Anchor = Anchor.TopCentre,
-                                    Position = new Vector2(0, 40),
-                                    Font = RhythmicFont.GetFont(size: 35, italics: true),
+                                    Origin = Anchor.BottomLeft,
+                                    Anchor = Anchor.TopLeft,
+                                    Position = new Vector2(10, 40),
+                                    Font = RhythmicFont.GetFont(size: 30, weight: FontWeight.Bold),
                                     Colour = Color4.White,
                                     Text = @"Nothing to play",
                                 },
                                 artist = new SpriteText
                                 {
-                                    Origin = Anchor.TopCentre,
-                                    Anchor = Anchor.TopCentre,
-                                    Position = new Vector2(0, 45),
-                                    Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.Bold, italics: true),
+                                    Origin = Anchor.TopLeft,
+                                    Anchor = Anchor.TopLeft,
+                                    Position = new Vector2(10, 45),
+                                    Font = RhythmicFont.GetFont(size: 20),
                                     Colour = Color4.White,
                                     Text = @"Nothing to play",
                                 },
@@ -447,13 +445,21 @@ namespace Rhythmic.Overlays
                     RelativeSizeAxes = Axes.Both,
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
-                    Child = sprite = new Sprite
+                    Children = new Drawable[]
                     {
-                        RelativeSizeAxes = Axes.Both,
-                        Colour = RhythmicColors.Gray(150),
-                        FillMode = FillMode.Fill,
-                        Anchor = Anchor.Centre,
-                        Origin = Anchor.Centre
+                        sprite = new Sprite
+                        {
+                            RelativeSizeAxes = Axes.Both,
+                            FillMode = FillMode.Fill,
+                            Anchor = Anchor.Centre,
+                            Origin = Anchor.Centre
+                        },
+                        new Box
+                        {
+                            RelativeSizeAxes = Axes.Both,
+                            Size = new Vector2(1f, 0.8f),
+                            Colour = ColourInfo.GradientVertical(Color4.Black.Opacity(0.5f), Color4.Black.Opacity(0f))
+                        }
                     }
                 };
 
@@ -473,11 +479,6 @@ namespace Rhythmic.Overlays
                             d.SynchronisedDrawQuad = true;
                         })
                     },
-                    noise = new Sprite
-                    {
-                        Colour = Color4.Black.Opacity(0.05f),
-                        Scale = new Vector2(2)
-                    },
                     new Box
                     {
                         RelativeSizeAxes = Axes.X,
@@ -493,7 +494,6 @@ namespace Rhythmic.Overlays
             private void load(TextureStore textures)
             {
                 sprite.Texture = beatmap?.Background ?? textures.Get(@"Backgrounds/bg4");
-                noise.Texture = textures.Get("AcrylicNoise.png");
             }
         }
 

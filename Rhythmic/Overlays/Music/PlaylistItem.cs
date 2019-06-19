@@ -8,11 +8,13 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Events;
 using osu.Framework.Localisation;
-using Rhythmic.Beatmap;
 using osuTK;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Sprites;
 using Rhythmic.Beatmap.Properties;
+using osu.Framework.Graphics.Colour;
+using osu.Framework.Extensions.Color4Extensions;
+using Rhythmic.Beatmap.Drawables;
 
 namespace Rhythmic.Overlays.Music
 {
@@ -76,24 +78,41 @@ namespace Rhythmic.Overlays.Music
         [BackgroundDependencyLoader]
         private void load(LocalisationManager localisation)
         {
-            hoverColour = RhythmicColors.Orange;
-            artistColour = RhythmicColors.Gray9;
+            hoverColour = RhythmicColors.Yellow;
+            artistColour = Color4.White.Opacity(0.8f);
 
             var metadata = Beatmap.Metadata.Song;
 
             Children = new Drawable[]
             {
+                new Container
+                {
+                    RelativeSizeAxes = Axes.Both,
+                    Masking = true,
+                    Children = new Drawable[]
+                    {
+                        new BeatmapBackgroundSprite(Beatmap)
+                        {
+                            Colour = ColourInfo.GradientHorizontal(Color4.White.Opacity(0.5f), Color4.White.Opacity(0f)),
+                            RelativeSizeAxes = Axes.Both,
+                            FillMode = FillMode.Fill,
+                            Anchor = Anchor.Centre,
+                            Origin = Anchor.Centre
+                        }
+                    }
+                },
                 handle = new PlaylistItemHandle
                 {
-                    Colour = RhythmicColors.Gray5
+                    Colour = Color4.White.Opacity(0.8f)
                 },
                 text = new TextFlowContainer
                 {
+                    Padding = new MarginPadding { Left = 30, Vertical = 10 },
+                    Direction = FillDirection.Full,
                     RelativeSizeAxes = Axes.X,
                     AutoSizeAxes = Axes.Y,
-                    Padding = new MarginPadding { Left = 20 },
                     ContentIndent = 10f,
-                },
+                }
             };
 
             titleBind = localisation.GetLocalisedString(new LocalisedString((metadata.NameUnicode, metadata.Name)));
@@ -107,11 +126,11 @@ namespace Rhythmic.Overlays.Music
             text.Clear();
 
             //space after the title to put a space between the title and artist
-            titleSprites = text.AddText(titleBind.Value + @"  ", sprite => sprite.Font = RhythmicFont.GetFont(size:20)).OfType<SpriteText>();
+            titleSprites = text.AddText(titleBind.Value + @"  ", sprite => sprite.Font = RhythmicFont.GetFont(size:20, weight: FontWeight.Bold)).OfType<SpriteText>();
 
             text.AddText(artistBind.Value, sprite =>
             {
-                sprite.Font = RhythmicFont.GetFont(size: 18, weight: FontWeight.Bold);
+                sprite.Font = RhythmicFont.GetFont(size: 18);
                 sprite.Colour = artistColour;
                 sprite.Padding = new MarginPadding { Top = 1 };
             });
@@ -158,8 +177,8 @@ namespace Rhythmic.Overlays.Music
         {
             public PlaylistItemHandle()
             {
-                Anchor = Anchor.TopLeft;
-                Origin = Anchor.TopLeft;
+                Anchor = Anchor.CentreLeft;
+                Origin = Anchor.CentreLeft;
                 Size = new Vector2(12);
                 Icon = FontAwesome.Solid.Bars;
                 Alpha = 0f;
@@ -172,9 +191,7 @@ namespace Rhythmic.Overlays.Music
 
     public interface IDraggable : IDrawable
     {
-        /// <summary>
-        /// Whether this <see cref="IDraggable"/> can be dragged in its current state.
-        /// </summary>
+        /// <summary>Whether this <see cref="IDraggable"/> can be dragged in its current state.</summary>
         bool IsDraggable { get; }
     }
 }
