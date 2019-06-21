@@ -45,6 +45,7 @@ namespace Rhythmic
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Purista/Purista-Italic"));
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Purista/Purista-BoldItalic"));
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Digitall/Digitall"));
+            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Audiowide/Audiowide"));
 
             dependencies.Cache(this);
             dependencies.Cache(storage);
