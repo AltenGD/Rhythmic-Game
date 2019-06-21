@@ -26,6 +26,8 @@ namespace Rhythmic.Graphics.Sprites
                         return "Purista";
                 case Typeface.Digitall:
                     return "Digitall";
+                case Typeface.Audiowide:
+                    return "Audiowide";
             }
 
             return null;
@@ -35,7 +37,8 @@ namespace Rhythmic.Graphics.Sprites
     public enum Typeface
     {
         Purista,
-        Digitall
+        Digitall,
+        Audiowide
     }
     public enum FontWeight
     {

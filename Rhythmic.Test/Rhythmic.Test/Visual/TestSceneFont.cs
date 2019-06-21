@@ -41,6 +41,18 @@ namespace Rhythmic.Test.Visual
                 Refresh();
             });
 
+            AddStep("Digitall", () =>
+            {
+                TypeFace = Typeface.Digitall;
+                Refresh();
+            });
+
+            AddStep("Audiowide", () =>
+            {
+                TypeFace = Typeface.Audiowide;
+                Refresh();
+            });
+
             AddStep("Bold", () =>
             {
                 Weight = FontWeight.Bold;
