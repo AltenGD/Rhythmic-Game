@@ -59,15 +59,27 @@ namespace Rhythmic.Test.Visual
                 Refresh();
             });
 
+            AddStep("SemiBold", () =>
+            {
+                Weight = FontWeight.SemiBold;
+                Refresh();
+            });
+
             AddStep("Regular", () =>
             {
                 Weight = FontWeight.Regular;
                 Refresh();
             });
 
-            AddStep("Medium", () =>
+            AddStep("Light", () =>
             {
-                Weight = FontWeight.Medium;
+                Weight = FontWeight.Light;
+                Refresh();
+            });
+
+            AddStep("Thin", () =>
+            {
+                Weight = FontWeight.Thin;
                 Refresh();
             });
             #endregion

@@ -84,14 +84,14 @@ namespace Rhythmic.Overlays.Notifications
                 Direction = FillDirection.Vertical,
                 Children = new Drawable[]
                 {
-                    textDrawable = new TextFlowContainer(t => t.Font = RhythmicFont.GetFont(size:20, weight:FontWeight.Bold))
+                    textDrawable = new TextFlowContainer(t => t.Font = RhythmicFont.GetFont(size:20, weight:FontWeight.SemiBold))
                     {
                         Colour = Color4.White,
                         AutoSizeAxes = Axes.Y,
                         RelativeSizeAxes = Axes.X,
                         Text = text
                     },
-                    descDrawable = new TextFlowContainer(t => t.Font = RhythmicFont.GetFont(size:15, weight:FontWeight.Bold))
+                    descDrawable = new TextFlowContainer(t => t.Font = RhythmicFont.GetFont(size:15, weight:FontWeight.Regular))
                     {
                         Colour = Color4.White,
                         AutoSizeAxes = Axes.Y,
