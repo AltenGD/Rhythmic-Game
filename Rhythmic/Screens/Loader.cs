@@ -23,8 +23,6 @@ namespace Rhythmic.Screens
         [Resolved]
         private BeatmapCollection collection { get; set; }
 
-        private BufferedContainer screen;
-
         public Loader()
         {
             ValidForResume = false;

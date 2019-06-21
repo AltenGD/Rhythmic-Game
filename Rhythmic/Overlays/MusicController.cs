@@ -432,7 +432,6 @@ namespace Rhythmic.Overlays
         {
             private readonly Sprite sprite;
             private readonly BeatmapMeta beatmap;
-            private Sprite noise;
 
             public Background(BeatmapMeta beatmap = null)
             {
