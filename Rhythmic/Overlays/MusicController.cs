@@ -107,7 +107,7 @@ namespace Rhythmic.Overlays
                                     Origin = Anchor.BottomLeft,
                                     Anchor = Anchor.TopLeft,
                                     Position = new Vector2(10, 40),
-                                    Font = RhythmicFont.GetFont(size: 30, weight: FontWeight.Bold),
+                                    Font = RhythmicFont.GetFont(size: 30, weight: FontWeight.SemiBold),
                                     Colour = Color4.White,
                                     Text = @"Nothing to play",
                                 },

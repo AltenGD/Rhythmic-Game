@@ -116,7 +116,7 @@ namespace Rhythmic.Overlays.Toolbar
                             Anchor = TooltipAnchor,
                             Origin = TooltipAnchor,
                             Shadow = true,
-                            Font = RhythmicFont.GetFont(size: 22, weight: FontWeight.Bold),
+                            Font = RhythmicFont.GetFont(size: 22, weight: FontWeight.SemiBold),
                         },
                         tooltip2 = new SpriteText
                         {
