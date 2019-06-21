@@ -148,18 +148,11 @@ namespace Rhythmic.Screens.Select
                 return;
 
             collection.CurrentBeatmap.BindDisabledChanged(disabled => Carousel.AllowSelection = !disabled, true);
-            collection.CurrentBeatmap.BindValueChanged(workingBeatmapChanged);
 
             boundLocalBindables = true;
         }
 
         private ScheduledDelegate selectionChangedDebounce;
-
-        private void workingBeatmapChanged(ValueChangedEvent<BeatmapMeta> e)
-        {
-            if (this.IsCurrentScreen() && !Carousel.SelectBeatmap(e.NewValue, false))
-                Carousel.SelectBeatmap(e.NewValue);
-        }
 
         /// <summary>selection has been changed as the result of a user interaction.</summary>
         private void performUpdateSelected()
@@ -183,13 +176,16 @@ namespace Rhythmic.Screens.Select
                 {
                     Logger.Log($"beatmap changed from \"{collection.CurrentBeatmap.Value}\" to \"{beatmap}\"");
 
-                    CurrentBeatmap.Value = beatmap;
+                    //We want to make sure we stop the current track before we change to a new Beatmap.
+                    collection.CurrentBeatmap.Value.Song.Stop();
+
+                    collection.CurrentBeatmap.Value = beatmap;
+
+                    if (this.IsCurrentScreen())
+                        collection.CurrentBeatmap.Value.Song.Restart();
                 }
 
-                if (this.IsCurrentScreen())
-                    ensurePlayingSelected();
-
-                UpdateBeatmap(beatmap);
+                UpdateBeatmap(collection.CurrentBeatmap.Value);
             }
         }
 
@@ -213,15 +209,6 @@ namespace Rhythmic.Screens.Select
 
             if (beatmap.Song != null)
                 beatmap.Song.Looping = true;
-        }
-
-        private void ensurePlayingSelected(bool restart = false)
-        {
-            if (!CurrentBeatmap.Value.Song.IsRunning || restart)
-            {
-                //track.RestartPoint = Beatmap.Value.Metadata.PreviewTime;
-                CurrentBeatmap.Value.Song.Restart();
-            }
         }
 
         public override void OnResuming(IScreen last)
