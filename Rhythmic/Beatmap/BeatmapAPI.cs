@@ -1,17 +1,17 @@
-﻿using Rhythmic.Beatmap.Properties;
+﻿using Newtonsoft.Json;
+using osu.Framework;
+using osu.Framework.Allocation;
+using osu.Framework.Graphics;
+using Rhythmic.Beatmap.Properties;
 using Rhythmic.Beatmap.Properties.Level;
 using Rhythmic.Beatmap.Properties.Level.Object;
 using Rhythmic.Beatmap.Properties.Metadata;
-using osu.Framework.Allocation;
-using osu.Framework.Graphics;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
-using osu.Framework;
 using Rhythmic.Tools;
-using static System.Environment;
 using SharpCompress.Archives;
 using SharpCompress.Common;
+using System.Collections.Generic;
+using System.IO;
+using static System.Environment;
 
 namespace Rhythmic.Beatmap
 {
@@ -25,9 +25,9 @@ namespace Rhythmic.Beatmap
             if (!ZipUtils.IsZipArchive(path))
                 return;
 
-            var directory = GetFolderPath(SpecialFolder.ApplicationData) + @"\Rhythmic\Database\Beatmaps\";
-            var archive = ArchiveFactory.Open(path);
-            foreach (var entry in archive.Entries)
+            string directory = GetFolderPath(SpecialFolder.ApplicationData) + @"\Rhythmic\Database\Beatmaps\";
+            IArchive archive = ArchiveFactory.Open(path);
+            foreach (IArchiveEntry entry in archive.Entries)
             {
                 if (!File.Exists(directory + entry.Key))
                     entry.WriteToDirectory(directory, new ExtractionOptions
@@ -53,15 +53,20 @@ namespace Rhythmic.Beatmap
         // Beatmap editing
         public BeatmapMeta CreateNewLevel(BeatmapMeta meta)
         {
-            var Beatmap = new BeatmapMeta();
-
-            Beatmap.Level = new LevelMeta();
-            Beatmap.Level.Level = new List<Object>();
-            Beatmap.Level.Prefabs = new List<Prefab>();
-            Beatmap.Metadata = new BeatmapMetadata();
-            Beatmap.Metadata.Level = new LevelMetadata();
-            Beatmap.Metadata.Song = new SongMetadata();
-            Beatmap.Player = new PlayerMeta ();
+            BeatmapMeta Beatmap = new BeatmapMeta
+            {
+                Level = new LevelMeta
+                {
+                    Level = new List<Object>(),
+                    Prefabs = new List<Prefab>()
+                },
+                Metadata = new BeatmapMetadata
+                {
+                    Level = new LevelMetadata(),
+                    Song = new SongMetadata()
+                },
+                Player = new PlayerMeta()
+            };
 
             Beatmap.Metadata = meta.Metadata;
             Beatmap.Player = meta.Player;

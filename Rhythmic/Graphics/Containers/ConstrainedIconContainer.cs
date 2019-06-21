@@ -1,8 +1,8 @@
-﻿using System;
-using osu.Framework.Graphics;
+﻿using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Effects;
 using osuTK;
+using System;
 
 namespace Rhythmic.Graphics.Containers
 {
@@ -31,7 +31,7 @@ namespace Rhythmic.Graphics.Containers
 
             if (InternalChildren.Count > 0 && InternalChild.DrawSize.X > 0)
             {
-                var fitScale = Math.Min(DrawSize.X / InternalChild.DrawSize.X, DrawSize.Y / InternalChild.DrawSize.Y);
+                float fitScale = Math.Min(DrawSize.X / InternalChild.DrawSize.X, DrawSize.Y / InternalChild.DrawSize.Y);
                 InternalChild.Scale = new Vector2(fitScale);
                 InternalChild.Anchor = Anchor.Centre;
                 InternalChild.Origin = Anchor.Centre;

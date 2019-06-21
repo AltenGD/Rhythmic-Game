@@ -1,9 +1,9 @@
-﻿using System.Diagnostics;
+﻿using osu.Framework.Platform;
+using Rhythmic.Database;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using osu.Framework.Platform;
-using Rhythmic.Database;
 
 namespace Rhythmic.IPC
 {

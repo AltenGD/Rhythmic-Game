@@ -1,11 +1,11 @@
-﻿using System;
-using osu.Framework.Allocation;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osuTK;
 using osuTK.Graphics;
 using Rhythmic.Graphics.Colors;
+using System;
 
 namespace Rhythmic.Graphics.Containers
 {

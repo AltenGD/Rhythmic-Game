@@ -36,7 +36,7 @@ namespace Rhythmic.Visualizers
                 if (!IsLoaded)
                     return;
 
-                foreach (var bar in EqualizerBars)
+                foreach (VisualizerBar bar in EqualizerBars)
                     bar.Width = barWidth;
             }
             get { return barWidth; }
@@ -101,7 +101,7 @@ namespace Rhythmic.Visualizers
 
         protected virtual void AddBars()
         {
-            foreach (var bar in EqualizerBars)
+            foreach (VisualizerBar bar in EqualizerBars)
                 Add(bar);
         }
 
@@ -109,7 +109,7 @@ namespace Rhythmic.Visualizers
         {
             for (int i = 0; i < BarsAmount; i++)
             {
-                var currentAmplitude = amplitudes[RealAmplitudeFor(i) + 10];
+                float currentAmplitude = amplitudes[RealAmplitudeFor(i) + 10];
                 EqualizerBars[IsReversed ? BarsAmount - 1 - i : i].SetValue(currentAmplitude, ValueMultiplier, Smoothness, UpdateDelay);
             }
         }

@@ -7,7 +7,6 @@ using osu.Framework.Graphics.Sprites;
 using osuTK;
 using osuTK.Graphics;
 using Rhythmic.Graphics.Colors;
-using Rhythmic.Graphics.Sprites;
 
 namespace Rhythmic.Overlays.Toolbar
 {

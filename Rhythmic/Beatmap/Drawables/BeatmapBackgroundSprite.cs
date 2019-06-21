@@ -1,14 +1,14 @@
-﻿using System;
-using osu.Framework.Allocation;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using Rhythmic.Beatmap.Properties;
+using System;
 
 namespace Rhythmic.Beatmap.Drawables
 {
     public class BeatmapBackgroundSprite : Sprite
     {
-        private BeatmapMeta beatmap;
+        private readonly BeatmapMeta beatmap;
 
         [Resolved]
         private TextureStore store { get; set; }

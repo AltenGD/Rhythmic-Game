@@ -1,28 +1,28 @@
-﻿using Rhythmic.Beatmap;
-using Rhythmic.Beatmap.Properties;
-using Rhythmic.Beatmap.Properties.Level;
-using Rhythmic.Beatmap.Properties.Level.Object;
-using Rhythmic.Beatmap.Properties.Level.Keyframe;
-using Rhythmic.Beatmap.Properties.Metadata;
+﻿using Newtonsoft.Json;
+using osu.Framework;
+using osu.Framework.Allocation;
+using osu.Framework.Audio;
+using osu.Framework.Audio.Track;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Testing;
 using osuTK;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using osu.Framework.Allocation;
-using osu.Framework.Audio;
-using osu.Framework.Audio.Track;
-using osu.Framework;
+using Rhythmic.Beatmap;
+using Rhythmic.Beatmap.Properties;
+using Rhythmic.Beatmap.Properties.Level;
+using Rhythmic.Beatmap.Properties.Level.Keyframe;
+using Rhythmic.Beatmap.Properties.Level.Object;
+using Rhythmic.Beatmap.Properties.Metadata;
 using Rhythmic.Graphics.Containers;
+using System.Collections.Generic;
 
 namespace Rhythmic.Test.Visual.Beatmaps
 {
     public class TestSceneBeatmapParsing : TestScene
     {
-        private FillFlowContainer Container;
-        private BeatmapMeta TestLevel;
-        private BeatmapAPI API;
+        private readonly FillFlowContainer Container;
+        private readonly BeatmapMeta TestLevel;
+        private readonly BeatmapAPI API;
         private TrackBass Track;
 
         private int index = 1;
@@ -188,7 +188,7 @@ namespace Rhythmic.Test.Visual.Beatmaps
 
             #endregion
 
-            var Json = API.ParseBeatmap(TestLevel);
+            string Json = API.ParseBeatmap(TestLevel);
 
             System.Console.WriteLine(Json);
 

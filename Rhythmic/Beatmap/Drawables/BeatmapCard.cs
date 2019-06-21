@@ -19,7 +19,7 @@ namespace Rhythmic.Beatmap.Drawables
         private Vector2 size = new Vector2(330, 150);
 
         public BeatmapMeta Beatmap;
-        private BufferedContainer main;
+        private readonly BufferedContainer main;
 
         public IEnumerable<string> FilterTerms => new[]
         {

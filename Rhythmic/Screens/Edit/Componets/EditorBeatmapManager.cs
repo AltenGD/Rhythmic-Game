@@ -1,9 +1,9 @@
 ﻿using osu.Framework.Allocation;
 using osu.Framework.Graphics;
-using System;
 using Rhythmic.Database;
 using Rhythmic.Overlays;
 using Rhythmic.Overlays.Notifications;
+using System;
 
 namespace Rhythmic.Screens.Edit.Componets
 {

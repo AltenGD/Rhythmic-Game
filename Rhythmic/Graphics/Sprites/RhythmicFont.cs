@@ -30,7 +30,7 @@ namespace Rhythmic.Graphics.Sprites
             switch (typeface)
             {
                 case Typeface.Purista:
-                     return "Purista";
+                    return "Purista";
                 case Typeface.Digitall:
                     return "Digitall";
                 case Typeface.Audiowide:

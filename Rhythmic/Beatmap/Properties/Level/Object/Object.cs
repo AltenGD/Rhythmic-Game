@@ -1,5 +1,5 @@
-﻿using Rhythmic.Beatmap.Properties.Level.Keyframe;
-using osu.Framework.Graphics;
+﻿using osu.Framework.Graphics;
+using Rhythmic.Beatmap.Properties.Level.Keyframe;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -59,58 +59,58 @@ namespace Rhythmic.Beatmap.Properties.Level.Object
         {
             get
             {
-                var time = 0f;
+                float time = 0f;
 
                 if (ColourKeyframes.Any())
-                    foreach (var t in ColourKeyframes)
+                    foreach (Keyframe<float[]> t in ColourKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
                 if (BorderColourKeyframes.Any())
-                    foreach (var t in BorderColourKeyframes)
+                    foreach (Keyframe<float[]> t in BorderColourKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
                 if (FillKeyframes.Any())
-                    foreach (var t in FillKeyframes)
+                    foreach (Keyframe<double> t in FillKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
                 if (InnerRadiusKeyframes.Any())
-                    foreach (var t in InnerRadiusKeyframes)
+                    foreach (Keyframe<float> t in InnerRadiusKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
                 if (ShearKeyframes.Any())
-                    foreach (var t in ShearKeyframes)
+                    foreach (Keyframe<float[]> t in ShearKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
                 if (MoveKeyframes.Any())
-                    foreach (var t in MoveKeyframes)
+                    foreach (Keyframe<double[]> t in MoveKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
                 if (RotationKeyframes.Any())
-                    foreach (var t in RotationKeyframes)
+                    foreach (Keyframe<double> t in RotationKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
                 if (ScaleKeyframes.Any())
-                    foreach (var t in ScaleKeyframes)
+                    foreach (Keyframe<double[]> t in ScaleKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
                 if (BorderThicknessKeyframes.Any())
-                    foreach (var t in BorderThicknessKeyframes)
+                    foreach (Keyframe<double[]> t in BorderThicknessKeyframes)
                     {
                         time += (float)t.Time;
                     }

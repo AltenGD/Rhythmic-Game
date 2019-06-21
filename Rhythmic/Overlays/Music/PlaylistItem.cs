@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using osuTK.Graphics;
-using osu.Framework.Allocation;
+﻿using osu.Framework.Allocation;
+using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Colour;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Events;
 using osu.Framework.Localisation;
 using osuTK;
+using osuTK.Graphics;
+using Rhythmic.Beatmap.Drawables;
+using Rhythmic.Beatmap.Properties;
+using Rhythmic.Beatmap.Properties.Metadata;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Sprites;
-using Rhythmic.Beatmap.Properties;
-using osu.Framework.Graphics.Colour;
-using osu.Framework.Extensions.Color4Extensions;
-using Rhythmic.Beatmap.Drawables;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Rhythmic.Overlays.Music
 {
@@ -81,7 +82,7 @@ namespace Rhythmic.Overlays.Music
             hoverColour = RhythmicColors.Yellow;
             artistColour = Color4.White.Opacity(0.8f);
 
-            var metadata = Beatmap.Metadata.Song;
+            SongMetadata metadata = Beatmap.Metadata.Song;
 
             Children = new Drawable[]
             {
@@ -126,7 +127,7 @@ namespace Rhythmic.Overlays.Music
             text.Clear();
 
             //space after the title to put a space between the title and artist
-            titleSprites = text.AddText(titleBind.Value + @"  ", sprite => sprite.Font = RhythmicFont.GetFont(size:20, weight: FontWeight.Bold)).OfType<SpriteText>();
+            titleSprites = text.AddText(titleBind.Value + @"  ", sprite => sprite.Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.Bold)).OfType<SpriteText>();
 
             text.AddText(artistBind.Value, sprite =>
             {

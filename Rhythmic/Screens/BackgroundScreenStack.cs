@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using osu.Framework.Graphics;
+﻿using osu.Framework.Graphics;
 using osu.Framework.Screens;
 using osuTK;
+using System.Collections.Generic;
 
 namespace Rhythmic.Screens
 {

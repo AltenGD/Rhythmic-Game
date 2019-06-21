@@ -13,7 +13,7 @@ namespace Rhythmic.Test.Visual
         private Typeface TypeFace = Typeface.Purista;
         private bool Italics = false;
 
-        private FillFlowContainer flow;
+        private readonly FillFlowContainer flow;
 
         public TestSceneFont()
         {

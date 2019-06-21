@@ -42,9 +42,11 @@ namespace Rhythmic.Screens.Backgrounds
         private Background createBackground()
         {
             Background newBackground;
-            newBackground = new Background(backgroundName);
-            newBackground.Depth = currentDisplay;
-            newBackground.Alpha = 0.7f;
+            newBackground = new Background(backgroundName)
+            {
+                Depth = currentDisplay,
+                Alpha = 0.7f
+            };
 
             return newBackground;
         }

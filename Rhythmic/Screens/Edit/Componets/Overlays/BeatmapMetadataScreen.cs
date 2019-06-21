@@ -1,9 +1,5 @@
-﻿using osu.Framework.Allocation;
-using osu.Framework.Bindables;
-using osu.Framework.Graphics;
+﻿using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using Rhythmic.Beatmap;
-using Rhythmic.Beatmap.Properties; 
 
 namespace Rhythmic.Screens.Edit.Componets.Overlays
 {

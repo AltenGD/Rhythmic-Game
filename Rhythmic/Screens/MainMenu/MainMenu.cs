@@ -1,27 +1,18 @@
-﻿using osu.Framework.Allocation;
-using osu.Framework.Audio.Track;
-using osu.Framework.Graphics.Textures;
-using osu.Framework.Screens;
-using osu.Framework.Graphics;
-using Rhythmic.Beatmap;
-using Rhythmic.Screens.MainMenu.Components;
-using System.IO;
-using System.Text;
-using static System.Environment;
+﻿using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using Rhythmic.Screens.Select;
-using Rhythmic.Screens.Backgrounds;
-using Rhythmic.Other;
+using osu.Framework.Screens;
 using osuTK;
+using Rhythmic.Other;
+using Rhythmic.Screens.Backgrounds;
 using Rhythmic.Screens.Edit;
-using osu.Framework.Graphics.Shapes;
-using osuTK.Graphics;
+using Rhythmic.Screens.MainMenu.Components;
+using Rhythmic.Screens.Select;
 
 namespace Rhythmic.Screens.MainMenu
 {
     public class MainMenu : RhythmicScreen
     {
-        private RhythmicLogo logo;
+        private readonly RhythmicLogo logo;
 
         public override bool AllowExternalScreenChange => true;
 

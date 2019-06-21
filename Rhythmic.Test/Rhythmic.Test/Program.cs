@@ -1,6 +1,6 @@
-﻿using System;
-using osu.Framework;
+﻿using osu.Framework;
 using osu.Framework.Platform;
+using System;
 
 namespace Rhythmic.Test
 {

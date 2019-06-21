@@ -1,14 +1,14 @@
-﻿using System.Linq;
-using osuTK;
-using osuTK.Graphics;
-using osu.Framework.Allocation;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
+using osuTK;
+using osuTK.Graphics;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Sprites;
+using System.Linq;
 
 namespace Rhythmic.Screens.MainMenu
 {
@@ -129,7 +129,7 @@ namespace Rhythmic.Screens.MainMenu
                 }
             };
 
-            foreach (var line in lines)
+            foreach (Box line in lines)
             {
                 line.Size = new Vector2(105, 1.5f);
                 line.Alpha = 0;
@@ -162,7 +162,7 @@ namespace Rhythmic.Screens.MainMenu
                 const int line_duration = 700;
                 const int line_resize = 150;
 
-                foreach (var line in lines)
+                foreach (Box line in lines)
                 {
                     line.FadeIn(40).ResizeWidthTo(0, line_duration - line_resize, Easing.OutQuint);
                 }

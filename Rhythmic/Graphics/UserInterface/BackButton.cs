@@ -5,7 +5,7 @@ using Rhythmic.Graphics.Colors;
 
 namespace Rhythmic.Graphics.UserInterface
 {
-    public class BackButton : Button 
+    public class BackButton : Button
     {
         public BackButton()
         {

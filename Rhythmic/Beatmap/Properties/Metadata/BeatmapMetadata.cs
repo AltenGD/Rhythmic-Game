@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using osu.Framework.Graphics.Containers;
-
 namespace Rhythmic.Beatmap.Properties.Metadata
 {
     public class BeatmapMetadata

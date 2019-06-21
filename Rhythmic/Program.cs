@@ -1,14 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using osu.Framework;
-using osu.Framework.Allocation;
+﻿using osu.Framework;
 using osu.Framework.Development;
 using osu.Framework.Logging;
 using osu.Framework.Platform;
 using Rhythmic.IPC;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using static System.Environment;
 
 namespace Rhythmic
@@ -19,7 +18,7 @@ namespace Rhythmic
         [STAThread]
         public static void Main(string[] args)
         {
-            var cwd = CurrentDirectory;
+            string cwd = CurrentDirectory;
 
             using (DesktopGameHost host = Host.GetSuitableHost("Rhythmic", true))
             {
@@ -27,10 +26,10 @@ namespace Rhythmic
 
                 if (!host.IsPrimaryInstance)
                 {
-                    var importer = new ArchiveImportIPCChannel(host);
+                    ArchiveImportIPCChannel importer = new ArchiveImportIPCChannel(host);
                     // Restore the cwd so relative paths given at the command line work correctly
                     Directory.SetCurrentDirectory(cwd);
-                    foreach (var file in args)
+                    foreach (string file in args)
                     {
                         Console.WriteLine(@"Importing {0}", file);
                         if (!importer.ImportAsync(Path.GetFullPath(file)).Wait(3000))

@@ -1,6 +1,4 @@
-﻿using osu.Framework.Allocation;
-using osu.Framework.Graphics.Colour;
-using osu.Framework.Graphics.Sprites;
+﻿using osu.Framework.Graphics.Sprites;
 using Rhythmic.Graphics.Colors;
 
 namespace Rhythmic.Overlays.Notifications

@@ -2,10 +2,9 @@
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
-using osuTK;
 using osu.Framework.Graphics.Textures;
+using osuTK;
 using osuTK.Graphics;
-using Rhythmic.Graphics.Containers;
 
 namespace Rhythmic.Graphics.UserInterface
 {

@@ -1,14 +1,14 @@
-﻿using Rhythmic.Beatmap;
-using Rhythmic.Beatmap.Properties;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Testing;
-using osu.Framework.Allocation;
+using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Drawables;
-using Rhythmic.Beatmap.Properties.Metadata;
-using Rhythmic.Beatmap.Properties.Level.Object;
-using System.Collections.Generic;
+using Rhythmic.Beatmap.Properties;
 using Rhythmic.Beatmap.Properties.Level;
 using Rhythmic.Beatmap.Properties.Level.Keyframe;
+using Rhythmic.Beatmap.Properties.Level.Object;
+using Rhythmic.Beatmap.Properties.Metadata;
+using System.Collections.Generic;
 
 namespace Rhythmic.Test.Visual.Beatmaps
 {
@@ -166,7 +166,7 @@ namespace Rhythmic.Test.Visual.Beatmaps
                 }
             }, TestLevel);
 
-            foreach (var obj in TestLevel.Level.Level)
+            foreach (Object obj in TestLevel.Level.Level)
             {
                 Scheduler.AddDelayed(() =>
                 {

@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using osu.Framework.Allocation;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Textures;
@@ -7,6 +6,7 @@ using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties;
 using Rhythmic.Graphics;
 using Rhythmic.Graphics.Containers;
+using System.Threading;
 
 namespace Rhythmic.Screens.Backgrounds
 {
@@ -44,12 +44,12 @@ namespace Rhythmic.Screens.Backgrounds
             collection.CurrentBeatmap.ValueChanged += beatmap =>
             {
                 Beatmap = beatmap.NewValue;
-                var bg = new BeatmapBackground(this.beatmap);
+                BeatmapBackground bg = new BeatmapBackground(this.beatmap);
                 LoadComponent(bg);
                 switchBackground(bg);
             };
 
-            var background = new BeatmapBackground(beatmap);
+            BeatmapBackground background = new BeatmapBackground(beatmap);
             LoadComponent(background);
             switchBackground(background);
         }

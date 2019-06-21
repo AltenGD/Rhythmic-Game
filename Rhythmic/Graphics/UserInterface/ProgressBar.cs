@@ -1,8 +1,8 @@
-﻿using System;
-using osu.Framework.Graphics;
+﻿using osu.Framework.Graphics;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.UserInterface;
 using osuTK.Graphics;
+using System;
 
 namespace Rhythmic.Graphics.UserInterface
 {

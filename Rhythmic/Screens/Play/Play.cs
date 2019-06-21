@@ -1,15 +1,14 @@
 ﻿using osu.Framework.Allocation;
-using osu.Framework.Screens;
-using osu.Framework.Graphics;
-using Rhythmic.Beatmap;
-using osu.Framework.Graphics.Containers;
-using Rhythmic.Overlays;
-using Rhythmic.Beatmap.Drawables;
 using osu.Framework.Bindables;
+using osu.Framework.Graphics;
+using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Screens;
+using Rhythmic.Beatmap;
+using Rhythmic.Beatmap.Drawables;
 using Rhythmic.Graphics.Sprites;
+using Rhythmic.Overlays;
 using System;
-using osu.Framework.Audio;
 
 namespace Rhythmic.Screens.Play
 {
@@ -140,7 +139,7 @@ namespace Rhythmic.Screens.Play
                     RelativeSizeAxes = Axes.Both,
                 });
 
-                foreach (var obj in collection.CurrentBeatmap.Value.Level.Level)
+                foreach (Beatmap.Properties.Level.Object.Object obj in collection.CurrentBeatmap.Value.Level.Level)
                 {
                     AddInternal(new DrawableBeatmapObject(obj, player) { Depth = obj.Depth });
                 }
@@ -159,7 +158,7 @@ namespace Rhythmic.Screens.Play
                     RelativeSizeAxes = Axes.Both,
                 });
 
-                foreach (var obj in collection.CurrentBeatmap.Value.Level.Level)
+                foreach (Beatmap.Properties.Level.Object.Object obj in collection.CurrentBeatmap.Value.Level.Level)
                 {
                     AddInternal(new DrawableBeatmapObject(obj, player) { Depth = obj.Depth });
                 }
