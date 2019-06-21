@@ -127,6 +127,7 @@ namespace Rhythmic.Screens.Select.Carousel
                                                     {
                                                         new CircularContainer
                                                         {
+                                                            Position = new Vector2(0, 2),
                                                             RelativeSizeAxes = Axes.X,
                                                             Anchor = Anchor.TopCentre,
                                                             Origin = Anchor.TopCentre,
@@ -136,7 +137,7 @@ namespace Rhythmic.Screens.Select.Carousel
                                                             {
                                                                 Colour = RhythmicColors.FromHex("9CB913"),
                                                                 Type = EdgeEffectType.Glow,
-                                                                Radius = 20,
+                                                                Radius = 2,
                                                                 Roundness = 2
                                                             },
                                                             Children = new Drawable[]
