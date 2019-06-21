@@ -401,7 +401,6 @@ namespace Rhythmic.Screens.Select
 
             set.State.ValueChanged += state =>
             {
-                Console.WriteLine($"set: {set.BeatmapSet.ToString()} occured: {state.NewValue}");
                 if (state.NewValue == CarouselItemState.Selected)
                 {
                     selectedBeatmapSet = set;
@@ -437,6 +436,9 @@ namespace Rhythmic.Screens.Select
                         case DrawableCarouselBeatmapSet set:
                             lastSet = set;
 
+                            if (set.Item.State.Value == CarouselItemState.Selected)
+                                scrollTarget = currentY + set.DrawHeight / 2 - DrawHeight / 2;
+
                             set.MoveToX(set.Item.State.Value == CarouselItemState.Selected ? -100 : 0, 500, Easing.OutExpo);
                             set.MoveToY(currentY, 750, Easing.OutExpo);
                             break;
@@ -464,7 +466,7 @@ namespace Rhythmic.Screens.Select
         private void updateScrollPosition()
         {
             if (scrollTarget != null) ScrollTo(scrollTarget.Value);
-            scrollPositionCache.Validate();
+                scrollPositionCache.Validate();
         }
 
         /// <summary>Computes the x-offset of currently visible items. Makes the carousel appear round.</summary>
