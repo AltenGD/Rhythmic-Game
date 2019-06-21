@@ -126,7 +126,7 @@ namespace Rhythmic.Graphics.UserInterface
                             Colour = Color4.Black.Opacity(1f),
                             Offset = new Vector2(0, 1.5f),
                             Type = EdgeEffectType.Shadow,
-                            Radius = 10
+                            Radius = 50
                         },
                         Children = new Drawable[]
                         {
