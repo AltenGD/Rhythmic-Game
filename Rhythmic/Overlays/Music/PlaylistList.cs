@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using osu.Framework.Allocation;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
@@ -12,6 +9,9 @@ using osuTK.Input;
 using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties;
 using Rhythmic.Graphics.Colors;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Rhythmic.Overlays.Music
 {
@@ -75,7 +75,7 @@ namespace Rhythmic.Overlays.Music
 
             protected override void LoadComplete()
             {
-                foreach (var b in collection.Beatmaps)
+                foreach (BeatmapMeta b in collection.Beatmaps)
                     addBeatmapSet(b, false);
 
                 collection.CurrentBeatmap.ValueChanged += _ => updateSelectedSet();
@@ -87,7 +87,7 @@ namespace Rhythmic.Overlays.Music
                 if (existing)
                     return;
 
-                var newItem = new PlaylistItem(obj) { OnSelect = set => Selected?.Invoke(set) };
+                PlaylistItem newItem = new PlaylistItem(obj) { OnSelect = set => Selected?.Invoke(set) };
 
                 items.Add(newItem);
                 items.SetLayoutPosition(newItem, items.Count - 1);
@@ -129,7 +129,7 @@ namespace Rhythmic.Overlays.Music
             protected override bool OnDragEnd(DragEndEvent e)
             {
                 nativeDragPosition = e.ScreenSpaceMousePosition;
-                var handled = draggedItem != null || base.OnDragEnd(e);
+                bool handled = draggedItem != null || base.OnDragEnd(e);
                 draggedItem = null;
 
                 return handled;
@@ -152,14 +152,14 @@ namespace Rhythmic.Overlays.Music
                 const double max_power = 50;
                 const double exp_base = 1.05;
 
-                var localPos = ToLocalSpace(nativeDragPosition);
+                Vector2 localPos = ToLocalSpace(nativeDragPosition);
 
                 if (localPos.Y < start_offset)
                 {
                     if (Current <= 0)
                         return;
 
-                    var power = Math.Min(max_power, Math.Abs(start_offset - localPos.Y));
+                    double power = Math.Min(max_power, Math.Abs(start_offset - localPos.Y));
                     ScrollBy(-(float)Math.Pow(exp_base, power));
                 }
                 else if (localPos.Y > DrawHeight - start_offset)
@@ -167,14 +167,14 @@ namespace Rhythmic.Overlays.Music
                     if (IsScrolledToEnd())
                         return;
 
-                    var power = Math.Min(max_power, Math.Abs(DrawHeight - start_offset - localPos.Y));
+                    double power = Math.Min(max_power, Math.Abs(DrawHeight - start_offset - localPos.Y));
                     ScrollBy((float)Math.Pow(exp_base, power));
                 }
             }
 
             private void updateDragPosition()
             {
-                var itemsPos = items.ToLocalSpace(nativeDragPosition);
+                Vector2 itemsPos = items.ToLocalSpace(nativeDragPosition);
 
                 int srcIndex = (int)items.GetLayoutPosition(draggedItem);
 

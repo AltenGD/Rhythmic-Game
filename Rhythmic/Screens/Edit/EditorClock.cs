@@ -1,10 +1,6 @@
-﻿using Rhythmic.Beatmap.Properties;
-using System.Collections.Generic;
-using Object = Rhythmic.Beatmap.Properties.Level.Object.Object;
-using osu.Framework.Timing;
+﻿using osu.Framework.Timing;
+using Rhythmic.Beatmap.Properties;
 using System;
-using osu.Framework.MathUtils;
-using osuTK;
 
 namespace Rhythmic.Screens.Edit
 {

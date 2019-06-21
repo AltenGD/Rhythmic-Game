@@ -1,23 +1,20 @@
 ﻿using osu.Framework.Allocation;
-using osu.Framework.Graphics.Sprites;
-using osu.Framework.Screens;
-using Rhythmic.Beatmap;
-using Rhythmic.Beatmap.Properties;
-using System;
+using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Shapes;
+using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Events;
+using osu.Framework.Screens;
+using osu.Framework.Timing;
+using osuTK;
 using osuTK.Graphics;
-using Rhythmic.Graphics.Colors;
-using osu.Framework.Bindables;
-using osu.Framework.Platform;
 using osuTK.Input;
+using Rhythmic.Beatmap;
+using Rhythmic.Beatmap.Properties;
 using Rhythmic.Graphics.Sprites;
 using Rhythmic.Screens.Backgrounds;
-using osu.Framework.Timing;
 using Rhythmic.Screens.Edit.Componets.Overlays;
-using osuTK;
+using System;
 
 namespace Rhythmic.Screens.Edit
 {
@@ -46,7 +43,7 @@ namespace Rhythmic.Screens.Edit
         [BackgroundDependencyLoader]
         private void load()
         {
-            var sourceClock = (IAdjustableClock)beatmap.Value.Song ?? new StopwatchClock();
+            IAdjustableClock sourceClock = (IAdjustableClock)beatmap.Value.Song ?? new StopwatchClock();
             clock = new EditorClock(beatmap.Value, beatDivisor) { IsCoupled = false };
             clock.ChangeSource(sourceClock);
 

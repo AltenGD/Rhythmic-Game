@@ -1,16 +1,16 @@
 ﻿using osu.Framework.Bindables;
-using osuTK;
-using osuTK.Graphics;
+using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Colour;
+using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Effects;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
-using osu.Framework.Graphics.Containers;
-using osu.Framework.Extensions.Color4Extensions;
-using osu.Framework.Graphics.Effects;
 using osu.Framework.Input.Events;
-using Rhythmic.Graphics.Sprites;
+using osuTK;
+using osuTK.Graphics;
 using Rhythmic.Graphics.Colors;
+using Rhythmic.Graphics.Sprites;
 
 namespace Rhythmic.Graphics.UserInterface
 {
@@ -226,7 +226,7 @@ namespace Rhythmic.Graphics.UserInterface
 
         private void flash()
         {
-            var flash = new Box
+            Box flash = new Box
             {
                 RelativeSizeAxes = Axes.Both
             };

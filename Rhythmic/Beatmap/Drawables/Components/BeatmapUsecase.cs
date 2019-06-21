@@ -16,9 +16,9 @@ namespace Rhythmic.Beatmap.Drawables.Components
     {
         private TextFlowContainer textContainer;
 
-        private BeatmapMeta beatmap;
+        private readonly BeatmapMeta beatmap;
 
-        private BufferedContainer background;
+        private readonly BufferedContainer background;
 
         public BeatmapUsecase(BeatmapMeta beatmap, BufferedContainer background)
         {

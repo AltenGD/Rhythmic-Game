@@ -1,12 +1,12 @@
-﻿using Rhythmic.Beatmap;
-using Rhythmic.Beatmap.Properties;
-using osu.Framework.Testing;
+﻿using osu.Framework;
 using osu.Framework.Allocation;
 using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
-using osu.Framework;
-using System.IO;
+using osu.Framework.Testing;
+using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Drawables;
+using Rhythmic.Beatmap.Properties;
+using System.IO;
 
 namespace Rhythmic.Test.Visual.Beatmaps
 {
@@ -33,7 +33,7 @@ namespace Rhythmic.Test.Visual.Beatmaps
 
                 track.Stop();
 
-                foreach (var o in TestLevel.Level.Level)
+                foreach (Beatmap.Properties.Level.Object.Object o in TestLevel.Level.Level)
                 {
                     Scheduler.AddDelayed(() =>
                     {
@@ -50,7 +50,7 @@ namespace Rhythmic.Test.Visual.Beatmaps
                 track.Seek(0);
                 track.Start();
 
-                foreach (var o in TestLevel.Level.Level)
+                foreach (Beatmap.Properties.Level.Object.Object o in TestLevel.Level.Level)
                 {
                     Scheduler.AddDelayed(() =>
                     {
@@ -62,7 +62,7 @@ namespace Rhythmic.Test.Visual.Beatmaps
 
         protected override void LoadComplete()
         {
-            foreach (var o in TestLevel.Level.Level)
+            foreach (Beatmap.Properties.Level.Object.Object o in TestLevel.Level.Level)
             {
                 Scheduler.AddDelayed(() =>
                 {

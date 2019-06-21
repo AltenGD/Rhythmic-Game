@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using osu.Framework.Graphics;
+﻿using osu.Framework.Graphics;
 using osu.Framework.Input.Bindings;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Rhythmic.Graphics.Containers
 {

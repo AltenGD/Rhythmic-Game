@@ -1,13 +1,13 @@
-﻿using System;
+﻿using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osuTK;
 using osuTK.Graphics;
 using osuTK.Input;
-using Rhythmic.Visualizers;
 using Rhythmic.Screens.MainMenu;
-using osu.Framework.Extensions.Color4Extensions;
+using Rhythmic.Visualizers;
+using System;
 
 namespace Rhythmic.Other
 {
@@ -15,7 +15,7 @@ namespace Rhythmic.Other
     {
         public Key triggerKey;
 
-        private Container logoHoverContainer, logoBounceContainer;
+        private readonly Container logoHoverContainer, logoBounceContainer;
 
         private readonly IntroSequence intro;
 

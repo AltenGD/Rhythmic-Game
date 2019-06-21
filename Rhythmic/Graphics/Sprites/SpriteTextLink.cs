@@ -1,6 +1,6 @@
-﻿using osu.Framework.Graphics.Cursor;
-using osu.Framework.Allocation;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Cursor;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Events;
 using osu.Framework.Platform;
@@ -11,7 +11,7 @@ namespace Rhythmic.Graphics.Sprites
     public class SpriteTextLink : SpriteText, IHasTooltip
     {
         private GameHost host;
-        private string url;
+        private readonly string url;
 
         public string TooltipText { get; set; }
 

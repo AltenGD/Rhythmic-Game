@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using osu.Framework.Allocation;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -12,7 +10,8 @@ using osuTK;
 using osuTK.Graphics;
 using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties;
-using Rhythmic.Graphics.Colors;
+using System;
+using System.Linq;
 
 namespace Rhythmic.Overlays.Music
 {
@@ -30,7 +29,7 @@ namespace Rhythmic.Overlays.Music
 
         private PlaylistList list;
 
-        private BufferedContainer screen;
+        private readonly BufferedContainer screen;
 
         public PlaylistOverlay(BufferedContainer Screen)
         {

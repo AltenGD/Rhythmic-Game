@@ -1,21 +1,21 @@
-﻿using System.Linq;
+﻿using osu.Framework.Allocation;
+using osu.Framework.Bindables;
+using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Colour;
 using osu.Framework.Graphics.Containers;
-using osuTK.Graphics;
 using osu.Framework.Graphics.Shapes;
-using System;
-using osu.Framework.Allocation;
-using osu.Framework.Bindables;
+using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 using osu.Framework.Threading;
+using osuTK;
+using osuTK.Graphics;
+using Rhythmic.Database;
 using Rhythmic.Graphics.Containers;
 using Rhythmic.Overlays.Notifications;
-using osuTK;
-using osu.Framework.Extensions.Color4Extensions;
-using osu.Framework.Graphics.Textures;
-using osu.Framework.Graphics.Sprites;
-using Rhythmic.Database;
-using osu.Framework.Graphics.Colour;
+using System;
+using System.Linq;
 
 namespace Rhythmic.Overlays
 {
@@ -25,7 +25,7 @@ namespace Rhythmic.Overlays
 
         public const float TRANSITION_LENGTH = 600;
 
-        private BufferedContainer screen;
+        private readonly BufferedContainer screen;
 
         private FlowContainer<NotificationSection> sections;
 
@@ -166,9 +166,9 @@ namespace Rhythmic.Overlays
             if (notification is IHasCompletionTarget hasCompletionTarget)
                 hasCompletionTarget.CompletionTarget = Post;
 
-            var ourType = notification.GetType();
+            Type ourType = notification.GetType();
 
-            var section = sections.Children.FirstOrDefault(s => s.AcceptTypes.Any(accept => accept.IsAssignableFrom(ourType)));
+            NotificationSection section = sections.Children.FirstOrDefault(s => s.AcceptTypes.Any(accept => accept.IsAssignableFrom(ourType)));
             section?.Add(notification, notification.DisplayOnTop ? -runningDepth : runningDepth);
 
             if (notification.IsImportant)

@@ -1,6 +1,5 @@
-﻿using osuTK.Graphics;
-using osu.Framework.Allocation;
-using Rhythmic.Graphics.Colors;
+﻿using osu.Framework.Allocation;
+using osuTK.Graphics;
 
 namespace Rhythmic.Screens.Play
 {

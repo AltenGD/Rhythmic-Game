@@ -1,9 +1,8 @@
-﻿using osuTK;
-using osuTK.Graphics;
-using osu.Framework.Graphics;
+﻿using osu.Framework.Graphics;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Events;
-using osu.Framework.Graphics.UserInterface;
+using osuTK;
+using osuTK.Graphics;
 
 namespace Rhythmic.Graphics.UserInterface
 {

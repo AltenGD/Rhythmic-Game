@@ -1,14 +1,14 @@
 ﻿using osu.Framework.Allocation;
-using osu.Framework.Graphics.Sprites;
+using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Colour;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
-using osuTK;
-using osu.Framework.Extensions.Color4Extensions;
-using Rhythmic.Database;
-using osu.Framework.Graphics.Colour;
-using Rhythmic.Graphics.Sprites;
+using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Events;
+using osuTK;
+using Rhythmic.Database;
+using Rhythmic.Graphics.Sprites;
 
 namespace Rhythmic.Screens.MainMenu.Components
 {
@@ -38,9 +38,9 @@ namespace Rhythmic.Screens.MainMenu.Components
             }
         }
 
-        private SpriteText spriteText;
-        private SpriteIcon spriteIcon;
-        private Box background;
+        private readonly SpriteText spriteText;
+        private readonly SpriteIcon spriteIcon;
+        private readonly Box background;
 
         public MenuButton()
         {

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using osu.Framework.Bindables;
+using System;
 using System.Linq;
-using osu.Framework.Bindables;
 
 namespace Rhythmic.Screens.Edit
 {

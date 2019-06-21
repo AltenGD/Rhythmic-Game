@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
-using osu.Framework.Allocation;
-using osu.Framework.Audio;
+﻿using osu.Framework.Allocation;
+using osu.Framework.Audio.Track;
 using osu.Framework.Bindables;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
@@ -24,6 +22,8 @@ using Rhythmic.Graphics.Containers;
 using Rhythmic.Graphics.Sprites;
 using Rhythmic.Graphics.UserInterface;
 using Rhythmic.Overlays.Music;
+using System;
+using System.Linq;
 
 namespace Rhythmic.Overlays
 {
@@ -52,7 +52,7 @@ namespace Rhythmic.Overlays
         private Container dragContainer;
         private Container playerContainer;
 
-        private BufferedContainer screen;
+        private readonly BufferedContainer screen;
 
         /// <summary>Provide a source for the toolbar height.</summary>
         public Func<float> GetToolbarHeight;
@@ -237,7 +237,7 @@ namespace Rhythmic.Overlays
         {
             base.Update();
 
-            var track = current?.Song?.IsLoaded ?? false ? current?.Song : null;
+            Track track = current?.Song?.IsLoaded ?? false ? current?.Song : null;
 
             if (track?.IsDummyDevice == false)
             {
@@ -257,7 +257,7 @@ namespace Rhythmic.Overlays
 
         private void play()
         {
-            var track = current?.Song;
+            Track track = current?.Song;
 
             if (track == null)
             {
@@ -276,7 +276,7 @@ namespace Rhythmic.Overlays
         {
             queuedDirection = TransformDirection.Prev;
 
-            var playable = collection.Beatmaps.TakeWhile(i => i.ID != current.ID).LastOrDefault() ?? collection.Beatmaps.LastOrDefault();
+            BeatmapMeta playable = collection.Beatmaps.TakeWhile(i => i.ID != current.ID).LastOrDefault() ?? collection.Beatmaps.LastOrDefault();
 
             if (playable != null)
             {
@@ -291,7 +291,7 @@ namespace Rhythmic.Overlays
             if (!instant)
                 queuedDirection = TransformDirection.Next;
 
-            var playable = collection.Beatmaps.SkipWhile(i => i.ID != current.ID).Skip(1).FirstOrDefault() ?? collection.Beatmaps.FirstOrDefault();
+            BeatmapMeta playable = collection.Beatmaps.SkipWhile(i => i.ID != current.ID).Skip(1).FirstOrDefault() ?? collection.Beatmaps.FirstOrDefault();
             Console.WriteLine(playable);
 
             if (playable != null)
@@ -322,8 +322,8 @@ namespace Rhythmic.Overlays
                 }
                 else
                 {
-                    var last = collection.Beatmaps.TakeWhile(b => b.ID != current?.ID).Count();
-                    var next = beatmap.NewValue == null ? -1 : collection.Beatmaps.TakeWhile(b => b.ID != beatmap.NewValue?.ID).Count();
+                    int last = collection.Beatmaps.TakeWhile(b => b.ID != current?.ID).Count();
+                    int next = beatmap.NewValue == null ? -1 : collection.Beatmaps.TakeWhile(b => b.ID != beatmap.NewValue?.ID).Count();
 
                     direction = last > next ? TransformDirection.Prev : TransformDirection.Next;
                 }

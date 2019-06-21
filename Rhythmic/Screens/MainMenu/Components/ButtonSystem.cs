@@ -1,14 +1,13 @@
-﻿using osu.Framework.Graphics;
-using osu.Framework.Graphics.Sprites;
-using osu.Framework.Graphics.Containers;
-using osuTK;
-using System;
-using Rhythmic.Graphics.Colors;
-using osu.Framework.Graphics.Shapes;
-using osu.Framework.Allocation;
-using Rhythmic.Database;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Extensions.Color4Extensions;
+using osu.Framework.Graphics;
+using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Shapes;
+using osu.Framework.Graphics.Sprites;
+using osuTK;
 using osuTK.Graphics;
+using Rhythmic.Database;
+using System;
 
 namespace Rhythmic.Screens.MainMenu.Components
 {
@@ -17,7 +16,7 @@ namespace Rhythmic.Screens.MainMenu.Components
         public Action OnPlay;
         public Action OnEditor;
 
-        private BufferedContainer screen;
+        private readonly BufferedContainer screen;
 
         public ButtonSystem(BufferedContainer Screen)
         {

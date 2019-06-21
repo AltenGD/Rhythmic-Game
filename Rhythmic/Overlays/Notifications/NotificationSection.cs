@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using osu.Framework.Allocation;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -10,6 +7,9 @@ using osuTK;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Containers;
 using Rhythmic.Graphics.Sprites;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Rhythmic.Overlays.Notifications
 {

@@ -1,14 +1,14 @@
 using osu.Framework.Allocation;
-using osu.Framework.Graphics.Sprites;
-using osu.Framework.Graphics.Textures;
-using System;
+using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Effects;
 using osu.Framework.Graphics.Shapes;
+using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 using osuTK;
 using osuTK.Graphics;
-using osu.Framework.Graphics.Effects;
-using osu.Framework.Extensions.Color4Extensions;
+using System;
 
 namespace Rhythmic.Graphics.UserInterface
 {

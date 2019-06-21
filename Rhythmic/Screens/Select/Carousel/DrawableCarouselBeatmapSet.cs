@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using osu.Framework.Allocation;
-using osu.Framework.Bindables;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Colour;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Cursor;
 using osu.Framework.Graphics.Effects;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
-using osu.Framework.Graphics.UserInterface;
 using osu.Framework.Localisation;
 using osuTK;
 using osuTK.Graphics;
@@ -40,7 +34,7 @@ namespace Rhythmic.Screens.Select.Carousel
             {
                 new DelayedLoadUnloadWrapper(() =>
                     {
-                        var background = new PanelBackground(beatmapSet)
+                        PanelBackground background = new PanelBackground(beatmapSet)
                         {
                             RelativeSizeAxes = Axes.Both
                         };

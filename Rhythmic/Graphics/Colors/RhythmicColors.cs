@@ -1,5 +1,5 @@
-﻿using System;
-using osuTK.Graphics;
+﻿using osuTK.Graphics;
+using System;
 
 namespace Rhythmic.Graphics.Colors
 {

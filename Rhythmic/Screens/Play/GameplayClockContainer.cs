@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using osu.Framework;
+﻿using osu.Framework;
 using osu.Framework.Allocation;
 using osu.Framework.Audio;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Timing;
-using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties;
+using System.Threading.Tasks;
 
 namespace Rhythmic.Screens.Play
 {

@@ -1,20 +1,20 @@
-﻿using System;
+﻿using Humanizer;
+using osu.Framework.Allocation;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Effects;
+using osu.Framework.Graphics.Shapes;
+using osu.Framework.Graphics.Sprites;
+using osu.Framework.Input.Events;
 using osuTK;
 using osuTK.Graphics;
-using osu.Framework.Allocation;
-using osu.Framework.Graphics.Shapes;
+using Rhythmic.Graphics.Colors;
+using Rhythmic.Graphics.Sprites;
+using Rhythmic.Graphics.UserInterface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using osu.Framework.Input.Events;
-using Humanizer;
-using osu.Framework.Graphics.Effects;
-using Rhythmic.Graphics.Sprites;
-using osu.Framework.Graphics.Sprites;
-using Rhythmic.Graphics.Colors;
-using Rhythmic.Graphics.UserInterface;
 
 namespace Rhythmic.Screens.Play
 {
@@ -161,7 +161,7 @@ namespace Rhythmic.Screens.Play
 
         protected void AddButton(string text, Color4 colour, Action action)
         {
-            var button = new Button
+            Button button = new Button
             {
                 Text = text,
                 ButtonColour = colour,

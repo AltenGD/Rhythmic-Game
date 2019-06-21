@@ -1,6 +1,6 @@
-﻿using System;
+﻿using osu.Framework.Bindables;
+using System;
 using System.Collections.Generic;
-using osu.Framework.Bindables;
 
 namespace Rhythmic.Screens.Select.Carousel
 {
@@ -19,9 +19,9 @@ namespace Rhythmic.Screens.Select.Carousel
         {
             get
             {
-                var items = new List<DrawableCarouselItem>();
+                List<DrawableCarouselItem> items = new List<DrawableCarouselItem>();
 
-                var self = DrawableRepresentation.Value;
+                DrawableCarouselItem self = DrawableRepresentation.Value;
                 if (self?.IsPresent == true) items.Add(self);
 
                 return items;
