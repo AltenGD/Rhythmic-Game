@@ -33,11 +33,11 @@ namespace Rhythmic.Visualizers
         [BackgroundDependencyLoader]
         private void load()
         {
-            beatmap.Value = collection.CurrentBeatmap.Value;
+            beatmap.Value = collection?.CurrentBeatmap?.Value;
 
-            collection.CurrentBeatmap.ValueChanged += delegate 
+            collection.CurrentBeatmap.ValueChanged += val =>
             {
-                beatmap.Value = collection.CurrentBeatmap.Value;
+                beatmap.Value = val.NewValue;
                 Restart();
             };
         }
@@ -50,7 +50,7 @@ namespace Rhythmic.Visualizers
 
         private void updateAmplitudes()
         {
-            var frequencyAmplitudes = beatmap.Value.Song?.CurrentAmplitudes.FrequencyAmplitudes ?? new float[256];
+            float[] frequencyAmplitudes = beatmap.Value?.Song?.CurrentAmplitudes.FrequencyAmplitudes ?? new float[256];
             OnAmplitudesUpdate(frequencyAmplitudes);
             Scheduler.AddDelayed(updateAmplitudes, UpdateDelay);
         }
