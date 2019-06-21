@@ -34,5 +34,7 @@ namespace Rhythmic.Beatmap.Properties
 
         [JsonIgnore]
         public int ID { get; set; }
+
+        public override string ToString() => $"{Metadata?.Song?.Author} - {Metadata?.Song?.Name} ({Metadata?.Level?.CreatorName})";
     }
 }

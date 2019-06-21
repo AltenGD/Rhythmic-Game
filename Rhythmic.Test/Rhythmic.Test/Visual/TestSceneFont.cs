@@ -11,6 +11,7 @@ namespace Rhythmic.Test.Visual
     {
         private FontWeight Weight = FontWeight.Regular;
         private Typeface TypeFace = Typeface.Purista;
+        private bool Italics = false;
 
         private FillFlowContainer flow;
 
@@ -82,6 +83,12 @@ namespace Rhythmic.Test.Visual
                 Weight = FontWeight.Thin;
                 Refresh();
             });
+
+            AddStep("Italics", () =>
+            {
+                Italics = !Italics;
+                Refresh();
+            });
             #endregion
 
             Refresh();
@@ -94,17 +101,17 @@ namespace Rhythmic.Test.Visual
             flow.Add(new SpriteText
             {
                 Text = @"the quick red fox jumps over the lazy brown dog",
-                Font = RhythmicFont.GetFont(TypeFace, 60, Weight)
+                Font = RhythmicFont.GetFont(TypeFace, 60, Weight, Italics)
             });
             flow.Add(new SpriteText
             {
                 Text = @"THE QUICK RED FOX JUMPS OVER THE LAZY BROWN DOG",
-                Font = RhythmicFont.GetFont(TypeFace, 60, Weight)
+                Font = RhythmicFont.GetFont(TypeFace, 60, Weight, Italics)
             });
             flow.Add(new SpriteText
             {
                 Text = @"0123456789!@#$%^&*()_-+-[]{}.,<>;'\",
-                Font = RhythmicFont.GetFont(TypeFace, 60, Weight)
+                Font = RhythmicFont.GetFont(TypeFace, 60, Weight, Italics)
             });
         }
     }
