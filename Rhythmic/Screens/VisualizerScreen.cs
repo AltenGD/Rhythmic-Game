@@ -28,6 +28,7 @@ using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties;
 using Rhythmic.Beatmap.Properties.Metadata;
 using Rhythmic.Graphics.Colors;
+using Rhythmic.Graphics.UserInterface;
 using Rhythmic.Other;
 using Rhythmic.Overlays;
 using Rhythmic.Screens.Backgrounds;
@@ -45,8 +46,7 @@ namespace Rhythmic.Screens
     {
         protected override BackgroundScreen CreateBackground() => new BackgroundScreenBeatmap();
 
-        //TODO: Replace with OutlinedSprite
-        private BeatmapSprite beatmapSprite;
+        private OutlinedSprite beatmapSprite;
 
         [BackgroundDependencyLoader]
         private void load(BeatmapCollection collection)
@@ -90,31 +90,23 @@ namespace Rhythmic.Screens
                         Offset = new Vector2(0, 2),
                         Radius = 6,
                     },
-                    Child = beatmapSprite = new BeatmapSprite
+                    Child = beatmapSprite = new OutlinedSprite
                     {
                         RelativeSizeAxes = Axes.Both,
                         Anchor = Anchor.Centre,
                         Origin = Anchor.Centre,
                         FillMode = FillMode.Fill,
+                        BlurSigma = 10
                     }
                 },
             });
 
-            beatmapSprite.UpdateTexture(collection.CurrentBeatmap.Value);
+            beatmapSprite.Texture = collection.CurrentBeatmap.Value.Logo ?? collection.CurrentBeatmap.Value.Background;
         }
 
         private void OnBeatmapChanged(ValueChangedEvent<BeatmapMeta> obj)
         {
-            beatmapSprite.UpdateTexture(obj.NewValue);
-        }
-
-        private class BeatmapSprite : Sprite
-        {
-            public void UpdateTexture(BeatmapMeta beatmap)
-            {
-                if (beatmap.Background != null)
-                    Texture = beatmap.Background;
-            }
+            beatmapSprite.Texture = obj.NewValue.Logo ?? obj.NewValue.Background;
         }
     }
 }

@@ -1,4 +1,3 @@
-using osu.Framework.Allocation;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -25,6 +24,9 @@ namespace Rhythmic.Graphics.UserInterface
                 if (texture == value) return;
 
                 texture = value;
+
+                blurredSprite.Texture = value;
+                sprite.Texture = value;
             }
         }
 
@@ -38,11 +40,15 @@ namespace Rhythmic.Graphics.UserInterface
                 if (blurSigma == value) return;
 
                 blurSigma = value;
-                //update yet again
+                blurContainer.BlurSigma = new Vector2(value);
             }
         }
 
         private float thickness = 10;
+
+        private readonly Sprite blurredSprite;
+        private readonly Sprite sprite;
+        private readonly BufferedContainer blurContainer;
 
         public float Thickness
         {
@@ -55,8 +61,7 @@ namespace Rhythmic.Graphics.UserInterface
             }
         }
 
-        [BackgroundDependencyLoader]
-        private void load()
+        public OutlinedSprite()
         {
             AddInternal(new CircularContainer
             {
@@ -73,14 +78,14 @@ namespace Rhythmic.Graphics.UserInterface
                         RelativeSizeAxes = Axes.Both,
                         Colour = Color4.Black
                     },
-                    new BufferedContainer
+                    blurContainer = new BufferedContainer
                     {
                         RelativeSizeAxes = Axes.Both,
                         Alpha = 0.8f,
                         BlurSigma = new Vector2(blurSigma),
                         Children = new Drawable[]
                         {
-                            new Sprite
+                            blurredSprite = new Sprite
                             {
                                 RelativeSizeAxes = Axes.Both,
                                 FillMode = FillMode.Fill,
@@ -100,14 +105,14 @@ namespace Rhythmic.Graphics.UserInterface
                         EdgeEffect = new EdgeEffectParameters
                         {
                             Roundness = Math.Min(DrawSize.X, DrawSize.Y) / 2f, //Gives it a perfectly rounded circle
-                            Colour = Color4.Black.Opacity(1f),
+                            Colour = Color4.Black.Opacity(0.25f),
                             Offset = new Vector2(0, 1.5f),
                             Type = EdgeEffectType.Shadow,
                             Radius = 10
                         },
                         Children = new Drawable[]
                         {
-                            new Sprite
+                            sprite = new Sprite
                             {
                                 RelativeSizeAxes = Axes.Both,
                                 FillMode = FillMode.Fill,
