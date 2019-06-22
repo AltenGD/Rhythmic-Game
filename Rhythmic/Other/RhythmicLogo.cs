@@ -11,7 +11,7 @@ using osu.Framework.Extensions.Color4Extensions;
 
 namespace Rhythmic.Other
 {
-    public class RhythmicLogo : Container
+    public class RhythmicLogo : ClickableContainer
     {
         public Key triggerKey;
 

@@ -46,7 +46,8 @@ namespace Rhythmic.Screens.MainMenu
                                 logo = new RhythmicLogo
                                 {
                                     Scale = new Vector2(0.5f),
-                                    Alpha = 0
+                                    Alpha = 0,
+                                    Action = () => this.Push(new VisualizerScreen())
                                 },
                             }
                         },
