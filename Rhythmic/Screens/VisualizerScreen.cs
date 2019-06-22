@@ -1,44 +1,16 @@
-﻿using osu.Framework;
-using osu.Framework.Allocation;
-using osu.Framework.Audio;
-using osu.Framework.Audio.Sample;
-using osu.Framework.Audio.Track;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Extensions.Color4Extensions;
-using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Effects;
-using osu.Framework.Graphics.Lines;
-using osu.Framework.Graphics.Shapes;
-using osu.Framework.Graphics.Sprites;
-using osu.Framework.Graphics.Textures;
-using osu.Framework.Input.Bindings;
-using osu.Framework.Input.Events;
-using osu.Framework.Logging;
-using osu.Framework.MathUtils;
-using osu.Framework.Platform;
-using osu.Framework.Screens;
-using osu.Framework.Testing;
-using osu.Framework.Threading;
 using osuTK;
 using osuTK.Graphics;
-using osuTK.Input;
 using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties;
-using Rhythmic.Beatmap.Properties.Metadata;
-using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.UserInterface;
-using Rhythmic.Other;
-using Rhythmic.Overlays;
 using Rhythmic.Screens.Backgrounds;
 using Rhythmic.Visualizers;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using static System.Environment;
 
 namespace Rhythmic.Screens
 {
