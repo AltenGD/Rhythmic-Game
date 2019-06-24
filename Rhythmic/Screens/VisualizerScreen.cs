@@ -4,6 +4,7 @@ using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Effects;
+using osu.Framework.Graphics.Textures;
 using osuTK;
 using osuTK.Graphics;
 using Rhythmic.Beatmap;
@@ -21,7 +22,7 @@ namespace Rhythmic.Screens
         private OutlinedSprite beatmapSprite;
 
         [BackgroundDependencyLoader]
-        private void load(BeatmapCollection collection)
+        private void load(BeatmapCollection collection, TextureStore store)
         {
             collection.CurrentBeatmap.ValueChanged += OnBeatmapChanged;
 
@@ -73,7 +74,7 @@ namespace Rhythmic.Screens
                 },
             });
 
-            beatmapSprite.Texture = collection.CurrentBeatmap.Value.Logo ?? collection.CurrentBeatmap.Value.Background;
+            beatmapSprite.Texture = collection.CurrentBeatmap.Value.Logo ?? collection.CurrentBeatmap.Value.Background ?? store.Get("Backgrounds/bg2.jpg");
         }
 
         private void OnBeatmapChanged(ValueChangedEvent<BeatmapMeta> obj)
