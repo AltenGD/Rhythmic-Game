@@ -19,9 +19,12 @@ namespace Rhythmic.Screens.Select
 {
     public class SongSelect : RhythmicScreen
     {
-        protected readonly BeatmapCarousel Carousel;
+        private static readonly Vector2 wedged_container_size = new Vector2(0.5f, 245);
 
         protected const float BACKGROUND_BLUR = 20;
+        private const float left_area_padding = 20;
+
+        protected readonly BeatmapCarousel Carousel;
 
         public override bool AllowExternalScreenChange => true;
 
@@ -30,6 +33,8 @@ namespace Rhythmic.Screens.Select
         public override bool DisableBeatmapOnEnter => false;
 
         protected Bindable<BeatmapMeta> CurrentBeatmap = new Bindable<BeatmapMeta>();
+
+        private readonly BeatmapInfoWedge beatmapInfoWedge;
 
         [Resolved]
         private BeatmapCollection collection { get; set; }
@@ -47,6 +52,16 @@ namespace Rhythmic.Screens.Select
                     Origin = Anchor.CentreRight,
                     SelectionChanged = updateSelectedBeatmap,
                     BeatmapSetsChanged = carouselBeatmapsLoaded,
+                },
+                beatmapInfoWedge = new BeatmapInfoWedge
+                {
+                    Size = wedged_container_size,
+                    RelativeSizeAxes = Axes.X,
+                    Margin = new MarginPadding
+                    {
+                        Top = left_area_padding,
+                        Right = left_area_padding,
+                    },
                 },
                 new ResetScrollContainer(() => Carousel.ScrollToSelected())
                 {
@@ -203,12 +218,27 @@ namespace Rhythmic.Screens.Select
                 backgroundModeBeatmap.FadeColour(Color4.White, 250);
             }
 
-            //beatmapInfoWedge.Beatmap = beatmap;
+            beatmapInfoWedge.Beatmap = beatmap;
 
             //BeatmapDetails.Beatmap = beatmap;
 
             if (beatmap.Song != null)
                 beatmap.Song.Looping = true;
+        }
+
+        public override bool OnExiting(IScreen next)
+        {
+            if (base.OnExiting(next))
+                return true;
+
+            beatmapInfoWedge.Hide();
+
+            this.FadeOut(100);
+
+            if (collection.CurrentBeatmap.Value.Song != null)
+                collection.CurrentBeatmap.Value.Song.Looping = false;
+
+            return false;
         }
 
         public override void OnResuming(IScreen last)
