@@ -174,12 +174,44 @@ namespace Rhythmic.Screens.Select.Carousel
 
                 Children = new Drawable[]
                 {
-                    new BeatmapBackgroundSprite(working)
+                    new BufferedContainer
                     {
                         RelativeSizeAxes = Axes.Both,
                         Anchor = Anchor.Centre,
                         Origin = Anchor.Centre,
-                        FillMode = FillMode.Fill,
+                        BlurSigma = new Vector2(15),
+                        Children = new Drawable[]
+                        {
+                            new BeatmapBackgroundSprite(working)
+                            {
+                                RelativeSizeAxes = Axes.Both,
+                                Anchor = Anchor.Centre,
+                                Origin = Anchor.Centre,
+                                FillMode = FillMode.Fill,
+                            },
+                        }
+                    },
+                    new Container
+                    {
+                        RelativeSizeAxes = Axes.Both,
+                        Scale = new Vector2(0.9f),
+                        Anchor = Anchor.CentreLeft,
+                        Origin = Anchor.CentreLeft,
+                        Masking = true,
+                        Padding = new MarginPadding
+                        {
+                            Left = 5
+                        },
+                        Children = new Drawable[]
+                        {
+                            new BeatmapBackgroundSprite(working)
+                            {
+                                RelativeSizeAxes = Axes.Both,
+                                Anchor = Anchor.Centre,
+                                Origin = Anchor.Centre,
+                                FillMode = FillMode.Fill,
+                            },
+                        }
                     },
                     // Todo: This should be a fill flow, but has invalidation issues (see https://github.com/ppy/osu-framework/issues/223)
                     new Container
