@@ -74,55 +74,6 @@ namespace Rhythmic.Screens.Select
         [BackgroundDependencyLoader]
         private void load()
         {
-            List<BeatmapMeta> list = new List<BeatmapMeta>()
-            {
-                new BeatmapMeta
-                {
-                    Metadata = new BeatmapMetadata
-                    {
-                        Song = new SongMetadata
-                        {
-                            Author = "Test",
-                            Name = "Test"
-                        }
-                    }
-                },
-                new BeatmapMeta
-                {
-                    Metadata = new BeatmapMetadata
-                    {
-                        Song = new SongMetadata
-                        {
-                            Author = "Test1",
-                            Name = "Test1"
-                        }
-                    }
-                },
-                new BeatmapMeta
-                {
-                    Metadata = new BeatmapMetadata
-                    {
-                        Song = new SongMetadata
-                        {
-                            Author = "Test2",
-                            Name = "Test2"
-                        }
-                    }
-                },
-                new BeatmapMeta
-                {
-                    Metadata = new BeatmapMetadata
-                    {
-                        Song = new SongMetadata
-                        {
-                            Author = "Test3",
-                            Name = "Test3"
-                        }
-                    }
-                },
-            };
-
-            //Carousel.BeatmapSets = list;
             Carousel.LoadBeatmapSetsFromCollection(collection);
 
             CurrentBeatmap.ValueChanged += val =>
