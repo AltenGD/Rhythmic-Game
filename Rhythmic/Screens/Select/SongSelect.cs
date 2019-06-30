@@ -2,6 +2,7 @@
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Input.Bindings;
 using osu.Framework.Input.Events;
 using osu.Framework.Logging;
 using osu.Framework.Screens;
@@ -11,13 +12,14 @@ using osuTK.Graphics;
 using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties;
 using Rhythmic.Beatmap.Properties.Metadata;
+using Rhythmic.Graphics.Containers;
 using Rhythmic.Screens.Backgrounds;
 using System;
 using System.Collections.Generic;
 
 namespace Rhythmic.Screens.Select
 {
-    public class SongSelect : RhythmicScreen
+    public abstract class SongSelect : RhythmicScreen, IKeyBindingHandler<GlobalAction>
     {
         private static readonly Vector2 wedged_container_size = new Vector2(0.5f, 245);
 
@@ -81,6 +83,45 @@ namespace Rhythmic.Screens.Select
                 collection.CurrentBeatmap.Value = val.NewValue;
             };
         }
+
+        /// <summary>
+        /// Call to make a selection and perform the default action for this SongSelect.
+        /// </summary>
+        /// <param name="beatmap">An optional beatmap to override the current carousel selection.</param>
+        /// <param name="performStartAction">Whether to trigger <see cref="OnStart"/>.</param>
+        public void FinaliseSelection(BeatmapMeta beatmap = null, bool performStartAction = true)
+        {
+            // This is very important as we have not yet bound to screen-level bindables before the carousel load is completed.
+            if (!Carousel.BeatmapSetsLoaded)
+                return;
+
+            // if we have a pending filter operation, we want to run it now.
+            // it could change selection (ie. if the ruleset has been changed).
+            Carousel.FlushPendingFilterOperations();
+
+            // avoid attempting to continue before a selection has been obtained.
+            // this could happen via a user interaction while the carousel is still in a loading state.
+            if (Carousel.SelectedBeatmapSet == null) return;
+
+            if (beatmap != null)
+                Carousel.SelectBeatmap(beatmap);
+
+            if (selectionChangedDebounce?.Completed == false)
+            {
+                selectionChangedDebounce.RunTask();
+                selectionChangedDebounce.Cancel(); // cancel the already scheduled task.
+                selectionChangedDebounce = null;
+            }
+
+            if (performStartAction)
+                OnStart();
+        }
+
+        /// <summary>
+        /// Called when a selection is made.
+        /// </summary>
+        /// <returns>If a resultant action occurred that takes the user away from SongSelect.</returns>
+        protected abstract bool OnStart();
 
         private BeatmapMeta beatmapNoDebounce;
 
@@ -197,6 +238,22 @@ namespace Rhythmic.Screens.Select
             collection.CurrentBeatmap.Disabled = false;
             base.OnResuming(last);
         }
+
+        public virtual bool OnPressed(GlobalAction action)
+        {
+            if (!this.IsCurrentScreen()) return false;
+
+            switch (action)
+            {
+                case GlobalAction.Select:
+                    FinaliseSelection();
+                    return true;
+            }
+
+            return false;
+        }
+
+        public bool OnReleased(GlobalAction action) => action == GlobalAction.Select;
 
         private class ResetScrollContainer : Container
         {

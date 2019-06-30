@@ -18,6 +18,8 @@ namespace Rhythmic.Screens.MainMenu
 
         protected override BackgroundScreen CreateBackground() => new BackgroundScreenDefault();
 
+        private Screen songSelect;
+
         public MainMenu(BufferedContainer Screen)
         {
             AddRangeInternal(new Drawable[]
@@ -49,12 +51,35 @@ namespace Rhythmic.Screens.MainMenu
                             Anchor = Anchor.BottomLeft,
                             Origin = Anchor.BottomLeft,
                             Margin = new MarginPadding(50),
-                            OnPlay = () => this.Push(new SongSelect()),
+                            OnPlay = onSolo,
                             OnEditor = () => this.Push(new Editor())
                         }
                     }
                 }
             });
+        }
+
+        protected override void LoadAsyncComplete()
+        {
+            base.LoadAsyncComplete();
+            preloadSongSelect();
+        }
+
+        private void preloadSongSelect()
+        {
+            if (songSelect == null)
+                LoadComponentAsync(songSelect = new PlaySongSelect());
+        }
+
+        public void LoadToSolo() => Schedule(onSolo);
+
+        private void onSolo() => this.Push(consumeSongSelect());
+
+        private Screen consumeSongSelect()
+        {
+            var s = songSelect;
+            songSelect = null;
+            return s;
         }
 
         public override void OnResuming(IScreen last)
@@ -64,6 +89,7 @@ namespace Rhythmic.Screens.MainMenu
             (Background as BackgroundScreenDefault)?.Next();
             logo.MoveToX(25).MoveToX(0, 1000, Easing.OutExpo);
             logo.FadeIn(1000, Easing.OutExpo);
+            preloadSongSelect();
         }
 
         public override void OnEntering(IScreen last)
