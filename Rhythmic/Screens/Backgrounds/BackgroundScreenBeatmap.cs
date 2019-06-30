@@ -41,12 +41,9 @@ namespace Rhythmic.Screens.Backgrounds
         {
             Beatmap = collection.CurrentBeatmap.Value;
 
-            collection.CurrentBeatmap.ValueChanged += beatmap =>
+            collection.CurrentBeatmap.ValueChanged += val =>
             {
-                Beatmap = beatmap.NewValue;
-                BeatmapBackground bg = new BeatmapBackground(this.beatmap);
-                LoadComponent(bg);
-                switchBackground(bg);
+                Beatmap = val.NewValue;
             };
 
             BeatmapBackground background = new BeatmapBackground(beatmap);
@@ -86,6 +83,7 @@ namespace Rhythmic.Screens.Backgrounds
                 newDepth = Background.Depth + 1;
                 Background.FinishTransforms();
                 Background.FadeOut(250);
+                Background.Expire();
             }
 
             b.Depth = newDepth;

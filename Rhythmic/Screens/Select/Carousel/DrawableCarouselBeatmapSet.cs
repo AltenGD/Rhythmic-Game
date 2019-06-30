@@ -1,4 +1,5 @@
 ﻿using osu.Framework.Allocation;
+using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Colour;
 using osu.Framework.Graphics.Containers;
@@ -61,7 +62,7 @@ namespace Rhythmic.Screens.Select.Carousel
                             Texture = beatmapSet.Logo ?? beatmapSet.Background,
                             Size = new Vector2(70),
                             BlurSigma = 10,
-                            Thickness = 2.5f
+                            Thickness = 5f
                         },
                         new FillFlowContainer
                         {
@@ -133,12 +134,14 @@ namespace Rhythmic.Screens.Select.Carousel
                                                             Origin = Anchor.TopCentre,
                                                             Width = 2,
                                                             Height = 2,
+                                                            CornerRadius = 1f,
+                                                            Masking = true,
                                                             EdgeEffect = new EdgeEffectParameters
                                                             {
-                                                                Colour = RhythmicColors.FromHex("9CB913"),
+                                                                Colour = RhythmicColors.FromHex("9CB913").Opacity(0.25f),
                                                                 Type = EdgeEffectType.Glow,
                                                                 Radius = 2,
-                                                                Roundness = 2
+                                                                Roundness = 1,
                                                             },
                                                             Children = new Drawable[]
                                                             {

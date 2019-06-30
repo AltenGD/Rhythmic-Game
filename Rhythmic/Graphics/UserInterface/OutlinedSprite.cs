@@ -49,6 +49,7 @@ namespace Rhythmic.Graphics.UserInterface
         private readonly Sprite blurredSprite;
         private readonly Sprite sprite;
         private readonly BufferedContainer blurContainer;
+        private readonly CircularContainer borderContainer;
 
         public float Thickness
         {
@@ -58,12 +59,13 @@ namespace Rhythmic.Graphics.UserInterface
                 if (thickness == value) return;
 
                 thickness = value;
+                borderContainer.BorderThickness = value;
             }
         }
 
         public OutlinedSprite()
         {
-            AddInternal(new CircularContainer
+            AddInternal(borderContainer = new CircularContainer
             {
                 RelativeSizeAxes = Axes.Both,
                 BorderColour = Color4.White,

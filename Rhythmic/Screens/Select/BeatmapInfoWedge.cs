@@ -22,6 +22,7 @@ using Rhythmic.Beatmap.Properties.Metadata;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Sprites;
 using Rhythmic.Beatmap;
+using Object = Rhythmic.Beatmap.Properties.Level.Object.Object;
 
 namespace Rhythmic.Screens.Select
 {
@@ -170,38 +171,39 @@ namespace Rhythmic.Screens.Select
                         Name = "Topleft-aligned metadata",
                         Anchor = Anchor.TopLeft,
                         Origin = Anchor.TopLeft,
-                        Direction = FillDirection.Vertical,
-                        Margin = new MarginPadding { Top = 10, Left = 25, Right = 10, Bottom = 20 },
+                        Direction = FillDirection.Horizontal,
+                        Margin = new MarginPadding { Top = 10, Left = 10, Right = 10, Bottom = 20 },
+                        Spacing = new Vector2(5, 0),
                         AutoSizeAxes = Axes.Both,
                         Children = new Drawable[]
                         {
                             new CircularContainer
                             {
-                                Position = new Vector2(0, 2),
-                                RelativeSizeAxes = Axes.X,
-                                Anchor = Anchor.TopCentre,
-                                Origin = Anchor.TopCentre,
+                                RelativeSizeAxes = Axes.Y,
+                                Anchor = Anchor.CentreLeft,
+                                Origin = Anchor.CentreLeft,
                                 Width = 2,
-                                Height = 2,
+                                CornerRadius = 1f,
+                                Masking = true,
                                 EdgeEffect = new EdgeEffectParameters
                                 {
-                                    Colour = RhythmicColors.FromHex("9CB913"),
+                                    Colour = RhythmicColors.FromHex("82ff05").Opacity(0.25f),
                                     Type = EdgeEffectType.Glow,
                                     Radius = 2,
-                                    Roundness = 2
+                                    Roundness = 1,
                                 },
                                 Children = new Drawable[]
                                 {
                                     new Box
                                     {
                                         RelativeSizeAxes = Axes.Both,
-                                        Colour = RhythmicColors.FromHex("9CB913"),
+                                        Colour = RhythmicColors.FromHex("82ff05"),
                                     }
                                 }
                             },
                             VersionLabel = new SpriteText
                             {
-                                Text = "Placeholder!!",
+                                Text = "Placeholder :)",
                                 Font = RhythmicFont.GetFont(size: 24, italics: true),
                             }
                         }
@@ -231,7 +233,7 @@ namespace Rhythmic.Screens.Select
                         Origin = Anchor.TopLeft,
                         Y = -22,
                         Direction = FillDirection.Vertical,
-                        Margin = new MarginPadding { Top = 15, Left = 25, Right = 10, Bottom = 20 },
+                        Margin = new MarginPadding { Top = 15, Left = 10, Right = 10, Bottom = 20 },
                         AutoSizeAxes = Axes.Both,
                         Children = new Drawable[]
                         {
@@ -255,7 +257,7 @@ namespace Rhythmic.Screens.Select
                                 Margin = new MarginPadding { Top = 20 },
                                 Spacing = new Vector2(20, 0),
                                 AutoSizeAxes = Axes.Both,
-                                //Children = getInfoLabels()
+                                Children = getInfoLabels()
                             }
                         }
                     }
@@ -270,6 +272,42 @@ namespace Rhythmic.Screens.Select
                 ArtistLabel.Text = artistBinding.Value;
                 TitleLabel.Text = titleBinding.Value;
                 ForceRedraw();
+            }
+
+            private InfoLabel[] getInfoLabels()
+            {
+                var b = beatmap.Level;
+
+                List<InfoLabel> labels = new List<InfoLabel>();
+
+                if (b?.Level?.Any() == true)
+                {
+                    Object lastObject = b.Level.LastOrDefault();
+                    double endTime = lastObject?.TotalTime + lastObject?.Time ?? 0;
+
+                    labels.Add(new InfoLabel(new BeatmapStatistic
+                    {
+                        Name = "Length",
+                        Icon = FontAwesome.Regular.Clock,
+                        Content = TimeSpan.FromMilliseconds(endTime - b.Level.First().Time).ToString(@"m\:ss")
+                    }));
+
+                    labels.Add(new InfoLabel(new BeatmapStatistic
+                    {
+                        Name = "BPM",
+                        Icon = FontAwesome.Regular.Circle,
+                        Content = beatmap.Metadata.Level.BPM.ToString()
+                    }));
+
+                    labels.Add(new InfoLabel(new BeatmapStatistic
+                    {
+                        Name = "Objects",
+                        Icon = FontAwesome.Solid.Square,
+                        Content = b.Level.Count.ToString()
+                    }));
+                }
+
+                return labels.ToArray();
             }
 
             private SpriteText[] getMapper(BeatmapMetadata metadata)
@@ -288,6 +326,57 @@ namespace Rhythmic.Screens.Select
                     {
                         Text = metadata.Level.CreatorName,
                         Font = RhythmicFont.GetFont(weight: FontWeight.SemiBold, size: 15)
+                    }
+                };
+            }
+        }
+
+        public class InfoLabel : Container, IHasTooltip
+        {
+            public string TooltipText { get; private set; }
+
+            public InfoLabel(BeatmapStatistic statistic)
+            {
+                TooltipText = statistic.Name;
+                AutoSizeAxes = Axes.Both;
+
+                Children = new Drawable[]
+                {
+                    new Container
+                    {
+                        Anchor = Anchor.CentreLeft,
+                        Origin = Anchor.CentreLeft,
+                        Size = new Vector2(20),
+                        Children = new[]
+                        {
+                            new SpriteIcon
+                            {
+                                Anchor = Anchor.Centre,
+                                Origin = Anchor.Centre,
+                                RelativeSizeAxes = Axes.Both,
+                                Colour = RhythmicColors.FromHex(@"441288"),
+                                Icon = FontAwesome.Solid.Square,
+                                Rotation = 45,
+                            },
+                            new SpriteIcon
+                            {
+                                Anchor = Anchor.Centre,
+                                Origin = Anchor.Centre,
+                                RelativeSizeAxes = Axes.Both,
+                                Scale = new Vector2(0.8f),
+                                Colour = RhythmicColors.FromHex(@"f7dd55"),
+                                Icon = statistic.Icon,
+                            },
+                        }
+                    },
+                    new SpriteText
+                    {
+                        Anchor = Anchor.CentreLeft,
+                        Origin = Anchor.CentreLeft,
+                        Colour = new Color4(255, 221, 85, 255),
+                        Font = RhythmicFont.GetFont(Typeface.Digitall, 17),
+                        Margin = new MarginPadding { Left = 30 },
+                        Text = statistic.Content,
                     }
                 };
             }
