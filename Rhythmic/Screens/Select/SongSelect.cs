@@ -45,6 +45,20 @@ namespace Rhythmic.Screens.Select
         {
             AddRangeInternal(new Drawable[]
             {
+                new ParallaxContainer
+                {
+                    Masking = true,
+                    ParallaxAmount = 0.005f,
+                    RelativeSizeAxes = Axes.Both,
+                    Children = new[]
+                    {
+                        new WedgeBackground
+                        {
+                            RelativeSizeAxes = Axes.Both,
+                            Padding = new MarginPadding { Right = -150 },
+                        }
+                    }
+                },
                 Carousel = new BeatmapCarousel
                 {
                     Masking = false,
