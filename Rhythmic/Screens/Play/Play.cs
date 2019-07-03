@@ -18,12 +18,11 @@ namespace Rhythmic.Screens.Play
 
         public override bool HideOverlaysOnEnter => true;
 
-        public override float BackgroundParallaxAmount => 0f;
+        public override float BackgroundParallaxAmount => 0.1f;
 
         public readonly SongProgress Progress;
 
         private FailOverlay failOverlay;
-        private SpriteText trackTimer;
 
         [Resolved]
         private BeatmapCollection collection { get; set; }
@@ -77,10 +76,6 @@ namespace Rhythmic.Screens.Play
                     Origin = Anchor.BottomLeft,
                     RelativeSizeAxes = Axes.X,
                     Objects = collection.CurrentBeatmap.Value.Level.Level,
-                },
-                trackTimer = new SpriteText
-                {
-                    Font = RhythmicFont.Default
                 }
             };
 
@@ -97,30 +92,7 @@ namespace Rhythmic.Screens.Play
                 };
             };
 
-            /*Scheduler.AddDelayed(() => 
-            {
-                if (GameplayClockContainer.UserPlaybackRate.Value == 0.5)
-                {
-                    var songClock = collection.CurrentBeatmap.Value.Song as IHasTempoAdjust;
-                    GameplayClockContainer.UserPlaybackRate.Value = 1;
-                    songClock.TempoAdjust = 1;
-                }
-                else
-                {
-                    var songClock = collection.CurrentBeatmap.Value.Song as IHasTempoAdjust;
-                    GameplayClockContainer.UserPlaybackRate.Value = 0.5;
-                    songClock.TempoAdjust = 0.5;
-                }
-            }, 1000, true);*/
-
             base.LoadComplete();
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-
-            trackTimer.Text = TimeSpan.FromMilliseconds(GameplayClockContainer.GameplayClock.CurrentTime).ToString(@"mm\:ss\:fff");
         }
 
         private class PlayableContainer : Container
