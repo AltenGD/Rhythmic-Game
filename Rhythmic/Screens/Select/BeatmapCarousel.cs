@@ -10,6 +10,7 @@ using osuTK.Input;
 using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties;
 using Rhythmic.Graphics.Containers;
+using Rhythmic.Graphics.Cursor;
 using Rhythmic.Screens.Select.Carousel;
 using System;
 using System.Collections.Generic;
@@ -93,7 +94,7 @@ namespace Rhythmic.Screens.Select
         public BeatmapCarousel()
         {
             root = new CarouselRoot(this);
-            Child = new Container
+            Child = new RhythmicContextMenuContainer
             {
                 RelativeSizeAxes = Axes.X,
                 AutoSizeAxes = Axes.Y,

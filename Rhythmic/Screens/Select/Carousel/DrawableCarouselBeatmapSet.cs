@@ -3,9 +3,11 @@ using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Colour;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Cursor;
 using osu.Framework.Graphics.Effects;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.UserInterface;
 using osu.Framework.Localisation;
 using osuTK;
 using osuTK.Graphics;
@@ -15,11 +17,15 @@ using Rhythmic.Beatmap.Properties;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Sprites;
 using Rhythmic.Graphics.UserInterface;
+using System;
+using System.Collections.Generic;
 
 namespace Rhythmic.Screens.Select.Carousel
 {
-    public class DrawableCarouselBeatmapSet : DrawableCarouselItem
+    public class DrawableCarouselBeatmapSet : DrawableCarouselItem, IHasContextMenu
     {
+        private Action<BeatmapMeta> viewDetails;
+
         private readonly BeatmapMeta beatmapSet;
 
         public DrawableCarouselBeatmapSet(CarouselBeatmapSet set)
@@ -167,6 +173,21 @@ namespace Rhythmic.Screens.Select.Carousel
                     }
                 }
             };
+        }
+
+        public MenuItem[] ContextMenuItems
+        {
+            get
+            {
+                List<MenuItem> items = new List<MenuItem>();
+
+                if (Item.State.Value == CarouselItemState.NotSelected)
+                    items.Add(new RhythmicMenuItem("Expand", MenuItemType.Highlighted, () => Item.State.Value = CarouselItemState.Selected));
+
+                items.Add(new RhythmicMenuItem("Details...", MenuItemType.Standard, () => viewDetails?.Invoke(beatmapSet)));
+
+                return items.ToArray();
+            }
         }
 
         private class PanelBackground : BufferedContainer
