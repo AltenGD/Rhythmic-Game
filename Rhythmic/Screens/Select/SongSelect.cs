@@ -1,4 +1,5 @@
 ﻿using osu.Framework.Allocation;
+using osu.Framework.Audio.Track;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -201,12 +202,23 @@ namespace Rhythmic.Screens.Select
                     collection.CurrentBeatmap.Value.Song.Stop();
 
                     collection.CurrentBeatmap.Value = beatmap;
-
-                    if (this.IsCurrentScreen())
-                        collection.CurrentBeatmap.Value.Song.Restart();
                 }
 
+                if (this.IsCurrentScreen())
+                    ensurePlayingSelected();
+
                 UpdateBeatmap(collection.CurrentBeatmap.Value);
+            }
+        }
+
+        private void ensurePlayingSelected(bool restart = false)
+        {
+            Track track = collection.CurrentBeatmap.Value.Song;
+
+            if (track.IsRunning || restart)
+            {
+                track.RestartPoint = collection.CurrentBeatmap.Value.Metadata.Song.PreviewPoint;
+                track.Restart();
             }
         }
 
