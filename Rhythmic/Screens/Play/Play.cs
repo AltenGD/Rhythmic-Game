@@ -31,6 +31,8 @@ namespace Rhythmic.Screens.Play
 
         protected override void LoadComplete()
         {
+            collection.CurrentBeatmap.Value.Song.RestartPoint = 0;
+
             PlayableContainer container;
 
             InternalChild = GameplayClockContainer = new GameplayClockContainer(collection.CurrentBeatmap.Value, 0);

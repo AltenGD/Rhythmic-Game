@@ -9,5 +9,7 @@
         public string Name { get; set; }
 
         public string NameUnicode { get; set; }
+
+        public double PreviewPoint { get; set; }
     }
 }
