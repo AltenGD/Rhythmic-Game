@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using osu.Framework.Allocation;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -10,6 +7,9 @@ using osuTK;
 using Rhythmic.Graphics.Colors;
 using Rhythmic.Graphics.Containers;
 using Rhythmic.Graphics.Sprites;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Rhythmic.Overlays.Notifications
 {
@@ -68,8 +68,6 @@ namespace Rhythmic.Overlays.Notifications
             {
                 Top = 10,
                 Bottom = 5,
-                Right = 20,
-                Left = 20,
             };
 
             AddRangeInternal(new Drawable[]
@@ -85,13 +83,18 @@ namespace Rhythmic.Overlays.Notifications
                             Text = clearText,
                             Anchor = Anchor.TopRight,
                             Origin = Anchor.TopRight,
-                            Action = clearAll
+                            Action = clearAll,
+                            Margin = new MarginPadding
+                            {
+                                Right = 20
+                            },
                         },
                         new FillFlowContainer
                         {
                             Margin = new MarginPadding
                             {
-                                Bottom = 5
+                                Bottom = 5,
+                                Horizontal = 20
                             },
                             Spacing = new Vector2(5, 0),
                             AutoSizeAxes = Axes.Both,
@@ -100,13 +103,13 @@ namespace Rhythmic.Overlays.Notifications
                                 titleText = new SpriteText
                                 {
                                     Text = title.ToUpperInvariant(),
-                                    Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.Bold)
+                                    Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.SemiBold)
                                 },
                                 countText = new SpriteText
                                 {
-                                    Text = "3",
-                                    Colour = RhythmicColors.Orange,
-                                    Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.Bold)
+                                    Text = "0",
+                                    Colour = RhythmicColors.Yellow,
+                                    Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.SemiBold)
                                 },
                             }
                         },
@@ -145,7 +148,10 @@ namespace Rhythmic.Overlays.Notifications
 
                 Children = new[]
                 {
-                    text = new SpriteText()
+                    text = new SpriteText
+                    {
+                        Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.Regular)
+                    }
                 };
             }
 

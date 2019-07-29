@@ -1,15 +1,15 @@
-﻿using System;
+﻿using osu.Framework.Allocation;
+using osu.Framework.Bindables;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Colour;
 using osu.Framework.Graphics.Containers;
-using osuTK;
 using osu.Framework.Graphics.Shapes;
-using osu.Framework.Allocation;
-using osu.Framework.Bindables;
 using osu.Framework.Input.Events;
-using Rhythmic.Graphics.Colors;
+using osuTK;
 using osuTK.Graphics;
+using Rhythmic.Database;
+using System;
 
 namespace Rhythmic.Overlays.Toolbar
 {
@@ -29,7 +29,7 @@ namespace Rhythmic.Overlays.Toolbar
 
         private readonly Bindable<OverlayActivation> overlayActivationMode = new Bindable<OverlayActivation>(OverlayActivation.All);
 
-        private BufferedContainer screen;
+        private readonly BufferedContainer screen;
 
         public Toolbar(BufferedContainer Screen)
         {
@@ -69,7 +69,6 @@ namespace Rhythmic.Overlays.Toolbar
                     Children = new Drawable[]
                     {
                         new ToolbarMusicButton(),
-                        //userButton = new ToolbarUserButton(),
                         new ToolbarNotificationButton(),
                     }
                 }
@@ -122,6 +121,15 @@ namespace Rhythmic.Overlays.Toolbar
                             Color4.Black.Opacity(0.5f), Color4.Black.Opacity(0)),
                     },
                 };
+            }
+
+            [BackgroundDependencyLoader]
+            private void load(RhythmicStore store)
+            {
+                solidBackground.Colour = ColourInfo.GradientHorizontal(
+                    store.SecondaryColour?.Value.Opacity(0.3f) ?? Color4.Black.Opacity(0.3f),
+                    store.SecondaryColour?.Value.Opacity(0.2f) ?? Color4.Black.Opacity(0.2f)
+                    );
             }
 
             protected override bool OnHover(HoverEvent e)

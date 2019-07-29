@@ -129,12 +129,12 @@ namespace Rhythmic
         /// <param name="hideToolbarElements">Whether the toolbar (and accompanying controls) should also be hidden.</param>
         public void CloseAllOverlays(bool hideToolbarElements = true)
         {
-            foreach (var overlay in overlays)
+            foreach (OverlayContainer overlay in overlays)
                 overlay.State.Value = Visibility.Hidden;
 
             if (hideToolbarElements)
             {
-                foreach (var overlay in toolbarElements)
+                foreach (OverlayContainer overlay in toolbarElements)
                     overlay.State.Value = Visibility.Hidden;
             }
         }
@@ -159,8 +159,6 @@ namespace Rhythmic
         {
             base.LoadComplete();
             dependencies.Cache(this);
-
-            dependencies.Cache(menuScreen = new MainMenu());
 
             AddRange(new Drawable[]
             {
@@ -199,7 +197,7 @@ namespace Rhythmic
                 GetToolbarHeight = () => ToolbarOffset,
                 Anchor = Anchor.TopRight,
                 Origin = Anchor.TopRight,
-            }, m => 
+            }, m =>
             {
                 rightFloatingOverlayContent.Add(m);
                 overlays.Add(m);
@@ -216,8 +214,15 @@ namespace Rhythmic
                 overlays.Add(n);
             });
 
+            notifications.Post(new SimpleNotification
+            {
+                Text = "Test Notification",
+                Description = "And here’s some text that you can almost barely read!"
+            });
+
             Toolbar.ToggleVisibility();
 
+            dependencies.Cache(menuScreen = new MainMenu(screenContainer));
             screenStack.Push(new Loader());
 
             dependencies.Cache(musicController);
@@ -238,9 +243,9 @@ namespace Rhythmic
 
             editorBeatmapManager.PushToEditor += b =>
             {
-                var notification = new ProgressNotification { State = ProgressNotificationState.Active };
+                ProgressNotification notification = new ProgressNotification { State = ProgressNotificationState.Active };
 
-                var convertedBeatmap = Import(notification, b);
+                BeatmapMeta convertedBeatmap = Import(notification, b);
 
                 if (convertedBeatmap != null)
                 {
@@ -259,13 +264,13 @@ namespace Rhythmic
 
                 try
                 {
-                    var text = "Importing " + Path.GetFileNameWithoutExtension(songPath);
+                    string text = "Importing " + Path.GetFileNameWithoutExtension(songPath);
 
                     notification.Text = text;
 
-                    var file = File.OpenRead(songPath);
+                    FileStream file = File.OpenRead(songPath);
 
-                    var beatmap = new BeatmapMeta
+                    BeatmapMeta beatmap = new BeatmapMeta
                     {
                         Song = new TrackBass(file),
                         SongUrl = songPath,
@@ -339,7 +344,7 @@ namespace Rhythmic
             // we could avoid the need for scheduling altogether.
             Schedule(() =>
             {
-                var previousLoadStream = asyncLoadStream;
+                Task previousLoadStream = asyncLoadStream;
 
                 //chain with existing load stream
                 asyncLoadStream = Task.Run(async () =>
@@ -354,7 +359,7 @@ namespace Rhythmic
                         // Since this is running in a separate thread, it is possible for OsuGame to be disposed after LoadComponentAsync has been called
                         // throwing an exception. To avoid this, the call is scheduled on the update thread, which does not run if IsDisposed = true
                         Task task = null;
-                        var del = new ScheduledDelegate(() => task = LoadComponentAsync(d, add));
+                        ScheduledDelegate del = new ScheduledDelegate(() => task = LoadComponentAsync(d, add));
                         Scheduler.Add(del);
 
                         // The delegate won't complete if OsuGame has been disposed in the meantime
@@ -384,7 +389,7 @@ namespace Rhythmic
 
         private BufferedContainer screenContainer;
 
-        private bool IsDeployedBuild = true;
+        private readonly bool IsDeployedBuild = true;
 
         protected override void UpdateAfterChildren()
         {

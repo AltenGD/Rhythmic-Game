@@ -1,16 +1,16 @@
-﻿using osu.Framework.Graphics;
-using osuTK;
+﻿using osu.Framework.Allocation;
+using osu.Framework.Audio.Track;
+using osu.Framework.Graphics;
+using osu.Framework.Graphics.Textures;
 using osu.Framework.Screens;
+using osuTK;
+using Rhythmic.Beatmap;
+using Rhythmic.Beatmap.Properties;
 using Rhythmic.Other;
 using Rhythmic.Screens.MainMenu;
-using Rhythmic.Beatmap;
 using System.IO;
-using static System.Environment;
-using osu.Framework.Allocation;
-using osu.Framework.Audio.Track;
-using osu.Framework.Graphics.Textures;
 using System.Text;
-using Rhythmic.Beatmap.Properties;
+using static System.Environment;
 
 namespace Rhythmic.Screens
 {
@@ -78,18 +78,20 @@ namespace Rhythmic.Screens
 
         private void LoadAllBeatmaps()
         {
-            var path = GetFolderPath(SpecialFolder.ApplicationData) + @"\Rhythmic\Database\Beatmaps\";
+            string path = GetFolderPath(SpecialFolder.ApplicationData) + @"\Rhythmic\Database\Beatmaps\";
 
-            foreach (var file in Directory.EnumerateDirectories(path))
+            foreach (string file in Directory.EnumerateDirectories(path))
             {
                 API.GetBeatmapFromZip(file);
-                var level = API.ParseBeatmap(File.ReadAllText(file + @"\level.json"));
+                BeatmapMeta level = API.ParseBeatmap(File.ReadAllText(file + @"\level.json"));
 
-                var beatmap = new BeatmapMeta();
-                beatmap.Level = level.Level;
-                beatmap.Metadata = level.Metadata;
-                beatmap.Player = level.Player;
-                beatmap.SongUrl = level.SongUrl;
+                BeatmapMeta beatmap = new BeatmapMeta
+                {
+                    Level = level.Level,
+                    Metadata = level.Metadata,
+                    Player = level.Player,
+                    SongUrl = level.SongUrl
+                };
 
                 if (!beatmap.SongUrl.StartsWith(@"\"))
                     beatmap.SongUrl = Concat(@"\", beatmap.SongUrl);
@@ -100,7 +102,7 @@ namespace Rhythmic.Screens
                 if (!beatmap.Metadata.BackgroundURL.StartsWith(@"\"))
                     beatmap.Metadata.BackgroundURL = Concat(@"\", beatmap.Metadata.BackgroundURL);
 
-                var SongStream = File.OpenRead(file + beatmap.SongUrl);
+                FileStream SongStream = File.OpenRead(file + beatmap.SongUrl);
 
                 beatmap.Song = new TrackBass(SongStream);
                 beatmap.Logo = Texture.FromStream(File.OpenRead(file + beatmap.Metadata.LogoURL));
@@ -109,7 +111,7 @@ namespace Rhythmic.Screens
                 collection.Beatmaps.Add(beatmap);
             }
 
-            for (var i = 0; i < collection.Beatmaps.Count; i++)
+            for (int i = 0; i < collection.Beatmaps.Count; i++)
             {
                 collection.Beatmaps[i].ID = i;
             }

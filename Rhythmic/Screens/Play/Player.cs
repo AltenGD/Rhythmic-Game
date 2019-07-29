@@ -1,17 +1,17 @@
 ﻿using osu.Framework.Allocation;
-using osu.Framework.Graphics;
-using Rhythmic.Beatmap;
-using osu.Framework.Graphics.Shapes;
-using osuTK.Graphics;
-using osu.Framework.Graphics.Containers;
-using osuTK;
-using osu.Framework.Graphics.UserInterface;
-using osu.Framework.Input.Events;
-using osu.Framework.Input;
-using osu.Framework.MathUtils;
 using osu.Framework.Bindables;
-using System;
+using osu.Framework.Graphics;
+using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Shapes;
+using osu.Framework.Graphics.UserInterface;
+using osu.Framework.Input;
+using osu.Framework.Input.Events;
+using osu.Framework.MathUtils;
 using osu.Framework.Timing;
+using osuTK;
+using osuTK.Graphics;
+using Rhythmic.Beatmap;
+using System;
 
 namespace Rhythmic.Screens.Play
 {
@@ -103,7 +103,7 @@ namespace Rhythmic.Screens.Play
             [Resolved]
             private BeatmapCollection collection { get; set; }
 
-            private BindableFloat health = new BindableFloat();
+            private readonly BindableFloat health = new BindableFloat();
 
             private CircularProgress circle;
 

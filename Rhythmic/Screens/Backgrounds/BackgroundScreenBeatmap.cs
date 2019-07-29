@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using osu.Framework.Allocation;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Textures;
@@ -7,6 +6,7 @@ using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties;
 using Rhythmic.Graphics;
 using Rhythmic.Graphics.Containers;
+using System.Threading;
 
 namespace Rhythmic.Screens.Backgrounds
 {
@@ -41,15 +41,12 @@ namespace Rhythmic.Screens.Backgrounds
         {
             Beatmap = collection.CurrentBeatmap.Value;
 
-            collection.CurrentBeatmap.ValueChanged += beatmap =>
+            collection.CurrentBeatmap.ValueChanged += val =>
             {
-                Beatmap = beatmap.NewValue;
-                var bg = new BeatmapBackground(this.beatmap);
-                LoadComponent(bg);
-                switchBackground(bg);
+                Beatmap = val.NewValue;
             };
 
-            var background = new BeatmapBackground(beatmap);
+            BeatmapBackground background = new BeatmapBackground(beatmap);
             LoadComponent(background);
             switchBackground(background);
         }
@@ -86,6 +83,7 @@ namespace Rhythmic.Screens.Backgrounds
                 newDepth = Background.Depth + 1;
                 Background.FinishTransforms();
                 Background.FadeOut(250);
+                Background.Expire();
             }
 
             b.Depth = newDepth;

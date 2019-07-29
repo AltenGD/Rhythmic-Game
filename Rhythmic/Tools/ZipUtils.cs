@@ -1,5 +1,5 @@
-﻿using System;
-using SharpCompress.Archives.Zip;
+﻿using SharpCompress.Archives.Zip;
+using System;
 
 namespace Rhythmic.Tools
 {
@@ -9,9 +9,9 @@ namespace Rhythmic.Tools
         {
             try
             {
-                using (var arc = ZipArchive.Open(path))
+                using (ZipArchive arc = ZipArchive.Open(path))
                 {
-                    foreach (var entry in arc.Entries)
+                    foreach (ZipArchiveEntry entry in arc.Entries)
                     {
                         using (entry.OpenEntryStream())
                         {

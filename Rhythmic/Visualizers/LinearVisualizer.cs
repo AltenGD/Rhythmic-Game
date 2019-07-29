@@ -1,8 +1,8 @@
-﻿using osuTK;
-using osuTK.Graphics;
-using osu.Framework.Graphics;
+﻿using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
+using osuTK;
+using osuTK.Graphics;
 
 namespace Rhythmic.Visualizers
 {
@@ -12,7 +12,7 @@ namespace Rhythmic.Visualizers
 
         private readonly FillFlowContainer flow;
 
-        private float spacing = 2;
+        private readonly float spacing = 2;
         public float Spacing
         {
             set { flow.Spacing = new Vector2(value); }
@@ -38,7 +38,7 @@ namespace Rhythmic.Visualizers
 
         protected override void AddBars()
         {
-            foreach (var bar in EqualizerBars)
+            foreach (VisualizerBar bar in EqualizerBars)
                 flow.Add(bar);
 
             if (!IsLoaded)
@@ -58,7 +58,7 @@ namespace Rhythmic.Visualizers
             flow.Anchor = Origin;
             flow.Origin = Origin;
 
-            foreach (var bar in EqualizerBars)
+            foreach (VisualizerBar bar in EqualizerBars)
             {
                 bar.Anchor = Origin;
                 bar.Origin = Origin;
@@ -78,7 +78,7 @@ namespace Rhythmic.Visualizers
 
             public override void SetValue(float amplitudeValue, float valueMultiplier, int softness, int faloff)
             {
-                var newValue = amplitudeValue * valueMultiplier;
+                float newValue = amplitudeValue * valueMultiplier;
 
                 if (newValue <= Height)
                     return;

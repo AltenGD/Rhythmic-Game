@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using osu.Framework.Screens;
+﻿using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osuTK;
-using osuTK.Graphics;
-using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Screens;
+using osuTK;
+using osuTK.Graphics;
 using Rhythmic.Graphics.Sprites;
 using Rhythmic.Graphics.UserInterface;
+using System;
+using System.Collections.Generic;
 
 namespace Rhythmic.Screens
 {
@@ -23,7 +23,7 @@ namespace Rhythmic.Screens
 
         private readonly FillFlowContainer textContainer;
         private readonly Container boxContainer;
-        private SpriteText header;
+        private readonly SpriteText header;
 
         public override void OnEntering(IScreen last)
         {

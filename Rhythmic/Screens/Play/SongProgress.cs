@@ -1,12 +1,13 @@
-﻿using osuTK;
+﻿using osu.Framework.Allocation;
+using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Timing;
+using osuTK;
+using Rhythmic.Graphics.Colors;
 using System;
 using System.Collections.Generic;
-using osu.Framework.Allocation;
 using System.Linq;
-using osu.Framework.Bindables;
-using osu.Framework.Timing;
 using Object = Rhythmic.Beatmap.Properties.Level.Object.Object;
 
 namespace Rhythmic.Screens.Play
@@ -20,6 +21,7 @@ namespace Rhythmic.Screens.Play
         private const float transition_duration = 200;
 
         private readonly SongProgressBar bar;
+        private readonly SongProgressGraph graph;
         private readonly SongProgressInfo info;
 
         public Action<double> RequestSeek;
@@ -37,7 +39,7 @@ namespace Rhythmic.Screens.Play
         {
             set
             {
-                objects = value;
+                graph.Objects = objects = value;
 
                 info.StartTime = firstHitTime;
                 info.EndTime = lastHitTime;
@@ -58,11 +60,15 @@ namespace Rhythmic.Screens.Play
         {
             if (clock != null)
                 gameplayClock = clock;
+
+            graph.FillColour = bar.FillColour = RhythmicColors.FromHex("dff");
         }
 
         public SongProgress()
         {
-            Height = bottom_bar_height + handle_size.Y;
+            const float graph_height = SquareGraph.Column.WIDTH * 6;
+
+            Height = bottom_bar_height + graph_height + handle_size.Y;
             Y = bottom_bar_height;
 
             Children = new Drawable[]
@@ -73,9 +79,17 @@ namespace Rhythmic.Screens.Play
                     Anchor = Anchor.BottomLeft,
                     RelativeSizeAxes = Axes.X,
                     AutoSizeAxes = Axes.Y,
+                    Margin = new MarginPadding { Bottom = bottom_bar_height + graph_height },
+                },
+                graph = new SongProgressGraph
+                {
+                    RelativeSizeAxes = Axes.X,
+                    Origin = Anchor.BottomLeft,
+                    Anchor = Anchor.BottomLeft,
+                    Height = graph_height,
                     Margin = new MarginPadding { Bottom = bottom_bar_height },
                 },
-                bar = new SongProgressBar(bottom_bar_height, handle_size)
+                bar = new SongProgressBar(bottom_bar_height, graph_height, handle_size)
                 {
                     Alpha = 0,
                     Anchor = Anchor.BottomLeft,
@@ -139,6 +153,7 @@ namespace Rhythmic.Screens.Play
             double progress = Math.Min(1, (frameStableTime - firstHitTime) / (lastHitTime - firstHitTime));
 
             bar.CurrentTime = gameplayTime;
+            graph.Progress = (int)(graph.ColumnCount * progress);
         }
     }
 }

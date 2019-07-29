@@ -19,7 +19,7 @@ namespace Rhythmic.Beatmap.Drawables
         private Vector2 size = new Vector2(330, 150);
 
         public BeatmapMeta Beatmap;
-        private BufferedContainer main;
+        private readonly BufferedContainer main;
 
         public IEnumerable<string> FilterTerms => new[]
         {
@@ -93,14 +93,14 @@ namespace Rhythmic.Beatmap.Drawables
                                 new SpriteText
                                 {
                                     Text = beatmap.Metadata.Song.Author,
-                                   Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.Medium),
+                                   Font = RhythmicFont.GetFont(size: 20, weight: FontWeight.Light),
                                     Anchor = Anchor.BottomLeft,
                                     Origin = Anchor.BottomLeft
                                 },
                                 new SpriteText
                                 {
                                     Text = beatmap.Metadata.Song.Name,
-                                    Font = RhythmicFont.GetFont(size: 30, weight: FontWeight.Medium),
+                                    Font = RhythmicFont.GetFont(size: 30, weight: FontWeight.Regular),
                                     Anchor = Anchor.BottomLeft,
                                     Origin = Anchor.BottomLeft
                                 }

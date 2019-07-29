@@ -6,7 +6,7 @@ using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osuTK;
 using osuTK.Graphics;
-using Rhythmic.Graphics.Sprites;
+using Rhythmic.Graphics.Colors;
 
 namespace Rhythmic.Overlays.Toolbar
 {
@@ -16,7 +16,7 @@ namespace Rhythmic.Overlays.Toolbar
 
         public BindableInt NotificationCount = new BindableInt();
 
-        private readonly CountCircle countDisplay;
+        private readonly NotificationCircle countDisplay;
 
         public ToolbarNotificationButton()
         {
@@ -24,13 +24,14 @@ namespace Rhythmic.Overlays.Toolbar
             TooltipMain = "Notifications";
             TooltipSub = "Waiting for 'ya";
 
-            Add(countDisplay = new CountCircle
+            Add(countDisplay = new NotificationCircle
             {
                 Alpha = 0,
-                Height = 16,
-                RelativePositionAxes = Axes.Both,
-                Origin = Anchor.Centre,
-                Position = new Vector2(0.7f, 0.25f),
+                Width = 5,
+                Height = 5,
+                Origin = Anchor.BottomCentre,
+                Anchor = Anchor.BottomCentre,
+                Position = new Vector2(0, -2)
             });
         }
 
@@ -54,9 +55,9 @@ namespace Rhythmic.Overlays.Toolbar
             };
         }
 
-        private class CountCircle : CompositeDrawable
+        private class NotificationCircle : CompositeDrawable
         {
-            private readonly SpriteText countText;
+            private readonly Circle pulsatingCircle;
             private readonly Circle circle;
 
             private int count;
@@ -76,32 +77,35 @@ namespace Rhythmic.Overlays.Toolbar
                     }
 
                     count = value;
-                    countText.Text = value.ToString("#,0");
                 }
             }
 
-            public CountCircle()
+            public NotificationCircle()
             {
-                AutoSizeAxes = Axes.X;
-
                 InternalChildren = new Drawable[]
                 {
                     circle = new Circle
                     {
                         RelativeSizeAxes = Axes.Both,
-                        Colour = Color4.Red
+                        Colour = RhythmicColors.Red
                     },
-                    countText = new SpriteText
+                    pulsatingCircle = new Circle
                     {
                         Anchor = Anchor.Centre,
                         Origin = Anchor.Centre,
+                        RelativeSizeAxes = Axes.Both,
                         Y = -1,
-                        Font = RhythmicFont.GetFont(size: 14, weight: FontWeight.Bold),
-                        Padding = new MarginPadding(5),
-                        Colour = Color4.White,
-                        UseFullGlyphHeight = true,
+                        Scale = new Vector2(1),
+                        Colour = RhythmicColors.Red,
+                        Alpha = 0
                     }
                 };
+            }
+
+            [BackgroundDependencyLoader]
+            private void load()
+            {
+                pulsatingCircle.FadeIn().ScaleTo(1.1f, 500, Easing.OutExpo).FadeOut(500).Delay(500).ScaleTo(1f).Loop();
             }
         }
     }

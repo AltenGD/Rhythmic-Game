@@ -1,43 +1,17 @@
-﻿using osu.Framework;
-using osu.Framework.Allocation;
-using osu.Framework.Audio;
-using osu.Framework.Audio.Sample;
-using osu.Framework.Audio.Track;
+﻿using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Extensions.Color4Extensions;
-using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Effects;
-using osu.Framework.Graphics.Lines;
-using osu.Framework.Graphics.Shapes;
-using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
-using osu.Framework.Input.Bindings;
-using osu.Framework.Input.Events;
-using osu.Framework.Logging;
-using osu.Framework.MathUtils;
-using osu.Framework.Platform;
-using osu.Framework.Screens;
-using osu.Framework.Testing;
-using osu.Framework.Threading;
 using osuTK;
 using osuTK.Graphics;
-using osuTK.Input;
 using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties;
-using Rhythmic.Beatmap.Properties.Metadata;
-using Rhythmic.Graphics.Colors;
-using Rhythmic.Other;
-using Rhythmic.Overlays;
+using Rhythmic.Graphics.UserInterface;
 using Rhythmic.Screens.Backgrounds;
 using Rhythmic.Visualizers;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using static System.Environment;
 
 namespace Rhythmic.Screens
 {
@@ -45,11 +19,10 @@ namespace Rhythmic.Screens
     {
         protected override BackgroundScreen CreateBackground() => new BackgroundScreenBeatmap();
 
-        //TODO: Replace with OutlinedSprite
-        private BeatmapSprite beatmapSprite;
+        private OutlinedSprite beatmapSprite;
 
         [BackgroundDependencyLoader]
-        private void load(BeatmapCollection collection)
+        private void load(BeatmapCollection collection, TextureStore store)
         {
             collection.CurrentBeatmap.ValueChanged += OnBeatmapChanged;
 
@@ -90,31 +63,23 @@ namespace Rhythmic.Screens
                         Offset = new Vector2(0, 2),
                         Radius = 6,
                     },
-                    Child = beatmapSprite = new BeatmapSprite
+                    Child = beatmapSprite = new OutlinedSprite
                     {
                         RelativeSizeAxes = Axes.Both,
                         Anchor = Anchor.Centre,
                         Origin = Anchor.Centre,
                         FillMode = FillMode.Fill,
+                        BlurSigma = 10
                     }
                 },
             });
 
-            beatmapSprite.UpdateTexture(collection.CurrentBeatmap.Value);
+            beatmapSprite.Texture = collection.CurrentBeatmap.Value.Logo ?? collection.CurrentBeatmap.Value.Background ?? store.Get("Backgrounds/bg2.jpg");
         }
 
         private void OnBeatmapChanged(ValueChangedEvent<BeatmapMeta> obj)
         {
-            beatmapSprite.UpdateTexture(obj.NewValue);
-        }
-
-        private class BeatmapSprite : Sprite
-        {
-            public void UpdateTexture(BeatmapMeta beatmap)
-            {
-                if (beatmap.Background != null)
-                    Texture = beatmap.Background;
-            }
+            beatmapSprite.Texture = obj.NewValue.Logo ?? obj.NewValue.Background;
         }
     }
 }

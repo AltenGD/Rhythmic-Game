@@ -1,31 +1,26 @@
-﻿using osu.Framework.Allocation;
-using osu.Framework.Audio.Track;
-using osu.Framework.Graphics.Textures;
-using osu.Framework.Screens;
-using osu.Framework.Graphics;
-using Rhythmic.Beatmap;
-using Rhythmic.Screens.MainMenu.Components;
-using System.IO;
-using System.Text;
-using static System.Environment;
+﻿using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using Rhythmic.Screens.Select;
-using Rhythmic.Screens.Backgrounds;
-using Rhythmic.Other;
+using osu.Framework.Screens;
 using osuTK;
+using Rhythmic.Other;
+using Rhythmic.Screens.Backgrounds;
 using Rhythmic.Screens.Edit;
+using Rhythmic.Screens.MainMenu.Components;
+using Rhythmic.Screens.Select;
 
 namespace Rhythmic.Screens.MainMenu
 {
     public class MainMenu : RhythmicScreen
     {
-        private RhythmicLogo logo;
+        private readonly RhythmicLogo logo;
 
         public override bool AllowExternalScreenChange => true;
 
         protected override BackgroundScreen CreateBackground() => new BackgroundScreenDefault();
 
-        public MainMenu()
+        private Screen songSelect;
+
+        public MainMenu(BufferedContainer Screen)
         {
             AddRangeInternal(new Drawable[]
             {
@@ -51,17 +46,40 @@ namespace Rhythmic.Screens.MainMenu
                                 },
                             }
                         },
-                        new ButtonSystem
+                        new ButtonSystem(Screen)
                         {
                             Anchor = Anchor.BottomLeft,
                             Origin = Anchor.BottomLeft,
                             Margin = new MarginPadding(50),
-                            OnPlay = () => this.Push(new SongSelect()),
+                            OnPlay = onSolo,
                             OnEditor = () => this.Push(new Editor())
                         }
                     }
                 }
             });
+        }
+
+        protected override void LoadAsyncComplete()
+        {
+            base.LoadAsyncComplete();
+            preloadSongSelect();
+        }
+
+        private void preloadSongSelect()
+        {
+            if (songSelect == null)
+                LoadComponentAsync(songSelect = new PlaySongSelect());
+        }
+
+        public void LoadToSolo() => Schedule(onSolo);
+
+        private void onSolo() => this.Push(consumeSongSelect());
+
+        private Screen consumeSongSelect()
+        {
+            var s = songSelect;
+            songSelect = null;
+            return s;
         }
 
         public override void OnResuming(IScreen last)
@@ -71,6 +89,7 @@ namespace Rhythmic.Screens.MainMenu
             (Background as BackgroundScreenDefault)?.Next();
             logo.MoveToX(25).MoveToX(0, 1000, Easing.OutExpo);
             logo.FadeIn(1000, Easing.OutExpo);
+            preloadSongSelect();
         }
 
         public override void OnEntering(IScreen last)

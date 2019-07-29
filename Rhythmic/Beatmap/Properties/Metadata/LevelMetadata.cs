@@ -15,6 +15,9 @@ namespace Rhythmic.Beatmap.Properties.Metadata
 
         public string Source { get; set; }
 
+        //Most song have the average BPM of 120
+        public int BPM { get; set; } = 120;
+
         public List<string> Tags { get; set; }
 
         [JsonIgnore]

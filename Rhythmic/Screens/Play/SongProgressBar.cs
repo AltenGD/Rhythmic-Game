@@ -1,11 +1,11 @@
-﻿using System;
-using osuTK;
-using osuTK.Graphics;
+﻿using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.UserInterface;
 using osu.Framework.MathUtils;
+using osuTK;
+using osuTK.Graphics;
+using System;
 
 namespace Rhythmic.Screens.Play
 {
@@ -36,13 +36,13 @@ namespace Rhythmic.Screens.Play
             set => CurrentNumber.Value = value;
         }
 
-        public SongProgressBar(float barHeight, Vector2 handleSize)
+        public SongProgressBar(float barHeight, float handleBarHeight, Vector2 handleSize)
         {
             CurrentNumber.MinValue = 0;
             CurrentNumber.MaxValue = 1;
 
             RelativeSizeAxes = Axes.X;
-            Height = barHeight + handleSize.Y;
+            Height = barHeight + handleBarHeight + handleSize.Y;
 
             Children = new Drawable[]
             {
@@ -70,7 +70,7 @@ namespace Rhythmic.Screens.Play
                     Origin = Anchor.BottomLeft,
                     Anchor = Anchor.BottomLeft,
                     Width = 2,
-                    Height = barHeight,
+                    Height = barHeight + handleBarHeight,
                     Colour = Color4.White,
                     Position = new Vector2(2, 0),
                     Children = new Drawable[]

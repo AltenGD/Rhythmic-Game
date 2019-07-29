@@ -1,16 +1,16 @@
-﻿using osu.Framework.Allocation;
+﻿using osu.Framework;
+using osu.Framework.Allocation;
 using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
-using osu.Framework.Screens;
 using osu.Framework.Graphics;
-using Rhythmic.Screens.Backgrounds;
-using Rhythmic.Beatmap;
-using osu.Framework;
-using System;
-using Rhythmic.Other;
-using Rhythmic.Beatmap.Properties.Metadata;
 using osu.Framework.Graphics.Textures;
+using osu.Framework.Screens;
+using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Properties;
+using Rhythmic.Beatmap.Properties.Metadata;
+using Rhythmic.Other;
+using Rhythmic.Screens.Backgrounds;
+using System;
 
 namespace Rhythmic.Screens.MainMenu
 {
@@ -40,15 +40,18 @@ namespace Rhythmic.Screens.MainMenu
         {
             base.LoadComplete();
 
-            introBeatmap = new BeatmapMeta();
-
-            introBeatmap.Background = Texture.FromStream(game.Resources.GetStream(@"Tracks/Intro/bg.png"));
-            introBeatmap.Song = new TrackBass(game.Resources.GetStream(@"Tracks/Intro/song.mp3"));
-            introBeatmap.Metadata = new BeatmapMetadata();
-            introBeatmap.Metadata.Song = new SongMetadata
+            introBeatmap = new BeatmapMeta
             {
-                Author = "1788-L & Blanke",
-                Name = "hh"
+                Background = Texture.FromStream(game.Resources.GetStream(@"Tracks/Intro/bg.png")),
+                Song = new TrackBass(game.Resources.GetStream(@"Tracks/Intro/song.mp3")),
+                Metadata = new BeatmapMetadata
+                {
+                    Song = new SongMetadata
+                    {
+                        Author = "1788-L & Blanke",
+                        Name = "hh"
+                    }
+                }
             };
 
             track = introBeatmap.Song;
@@ -121,8 +124,11 @@ namespace Rhythmic.Screens.MainMenu
 
         private void restartTrack()
         {
-            audio.AddItem(collection.CurrentBeatmap.Value.Song);
-            collection.CurrentBeatmap.Value.Song.Start();
+            if (collection?.CurrentBeatmap?.Value?.Song != null)
+            {
+                audio.AddItem(collection.CurrentBeatmap.Value.Song);
+                collection.CurrentBeatmap.Value.Song.Start();
+            }
         }
     }
 }

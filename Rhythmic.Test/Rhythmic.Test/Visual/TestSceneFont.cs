@@ -11,8 +11,9 @@ namespace Rhythmic.Test.Visual
     {
         private FontWeight Weight = FontWeight.Regular;
         private Typeface TypeFace = Typeface.Purista;
+        private bool Italics = false;
 
-        private FillFlowContainer flow;
+        private readonly FillFlowContainer flow;
 
         public TestSceneFont()
         {
@@ -41,9 +42,27 @@ namespace Rhythmic.Test.Visual
                 Refresh();
             });
 
+            AddStep("Digitall", () =>
+            {
+                TypeFace = Typeface.Digitall;
+                Refresh();
+            });
+
+            AddStep("Audiowide", () =>
+            {
+                TypeFace = Typeface.Audiowide;
+                Refresh();
+            });
+
             AddStep("Bold", () =>
             {
                 Weight = FontWeight.Bold;
+                Refresh();
+            });
+
+            AddStep("SemiBold", () =>
+            {
+                Weight = FontWeight.SemiBold;
                 Refresh();
             });
 
@@ -53,9 +72,21 @@ namespace Rhythmic.Test.Visual
                 Refresh();
             });
 
-            AddStep("Medium", () =>
+            AddStep("Light", () =>
             {
-                Weight = FontWeight.Medium;
+                Weight = FontWeight.Light;
+                Refresh();
+            });
+
+            AddStep("Thin", () =>
+            {
+                Weight = FontWeight.Thin;
+                Refresh();
+            });
+
+            AddStep("Italics", () =>
+            {
+                Italics = !Italics;
                 Refresh();
             });
             #endregion
@@ -70,17 +101,17 @@ namespace Rhythmic.Test.Visual
             flow.Add(new SpriteText
             {
                 Text = @"the quick red fox jumps over the lazy brown dog",
-                Font = RhythmicFont.GetFont(TypeFace, 60, Weight)
+                Font = RhythmicFont.GetFont(TypeFace, 60, Weight, Italics)
             });
             flow.Add(new SpriteText
             {
                 Text = @"THE QUICK RED FOX JUMPS OVER THE LAZY BROWN DOG",
-                Font = RhythmicFont.GetFont(TypeFace, 60, Weight)
+                Font = RhythmicFont.GetFont(TypeFace, 60, Weight, Italics)
             });
             flow.Add(new SpriteText
             {
                 Text = @"0123456789!@#$%^&*()_-+-[]{}.,<>;'\",
-                Font = RhythmicFont.GetFont(TypeFace, 60, Weight)
+                Font = RhythmicFont.GetFont(TypeFace, 60, Weight, Italics)
             });
         }
     }

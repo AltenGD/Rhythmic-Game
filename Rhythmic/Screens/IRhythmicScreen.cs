@@ -1,10 +1,8 @@
-﻿using osu.Framework.Bindables;
-using osu.Framework.Screens;
-using Rhythmic.Overlays;
+﻿using Rhythmic.Overlays;
 
 namespace Rhythmic.Screens
 {
-    interface IRhythmicScreen
+    internal interface IRhythmicScreen
     {
         /// <summary>The amount of parallax to be applied while this screen is displayed.</summary>
         float BackgroundParallaxAmount { get; }

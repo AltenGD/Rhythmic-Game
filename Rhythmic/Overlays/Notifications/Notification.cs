@@ -1,17 +1,15 @@
-﻿using System;
-using osu.Framework.Allocation;
-using osu.Framework.Extensions.Color4Extensions;
+﻿using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Colour;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Effects;
-using osuTK;
-using osuTK.Graphics;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Events;
-using Rhythmic.Graphics.Containers;
+using osuTK;
+using osuTK.Graphics;
 using Rhythmic.Graphics.Colors;
+using Rhythmic.Graphics.Containers;
+using System;
 
 namespace Rhythmic.Overlays.Notifications
 {
@@ -29,7 +27,6 @@ namespace Rhythmic.Overlays.Notifications
         /// <summary>Should we show at the top of our section on display?</summary>
         public virtual bool DisplayOnTop => true;
 
-        protected NotificationLight Light;
         private readonly CloseButton closeButton;
         protected Container IconContent;
         private readonly Container content;
@@ -47,15 +44,8 @@ namespace Rhythmic.Overlays.Notifications
 
             AddRangeInternal(new Drawable[]
             {
-                Light = new NotificationLight
-                {
-                    Margin = new MarginPadding { Right = 5 },
-                    Anchor = Anchor.CentreLeft,
-                    Origin = Anchor.CentreRight,
-                },
                 NotificationContent = new Container
                 {
-                    CornerRadius = 8,
                     Masking = true,
                     RelativeSizeAxes = Axes.X,
                     AutoSizeAxes = Axes.Y,
@@ -63,15 +53,35 @@ namespace Rhythmic.Overlays.Notifications
                     AutoSizeEasing = Easing.OutQuint,
                     Children = new Drawable[]
                     {
-                        new Box
+                        new FillFlowContainer
                         {
                             RelativeSizeAxes = Axes.Both,
-                            Colour = Color4.White,
+                            Direction = FillDirection.Horizontal,
+                            Children = new Drawable[]
+                            {
+                                new Box
+                                {
+                                    RelativeSizeAxes = Axes.Both,
+                                    Width = 0.3f,
+                                    Alpha = 0.6f,
+                                },
+                                new Box
+                                {
+                                    RelativeSizeAxes = Axes.Both,
+                                    Width = 0.7f,
+                                    Colour = ColourInfo.GradientHorizontal(Color4.White, Color4.White.Opacity(0.2f)),
+                                    Alpha = 0.6f
+                                },
+                            }
                         },
                         new Container
                         {
                             RelativeSizeAxes = Axes.X,
-                            Padding = new MarginPadding(5),
+                            Padding = new MarginPadding
+                            {
+                                Horizontal = 20,
+                                Vertical = 5
+                            },
                             AutoSizeAxes = Axes.Y,
                             Children = new Drawable[]
                             {
@@ -156,7 +166,7 @@ namespace Rhythmic.Overlays.Notifications
 
             public CloseButton()
             {
-                Colour = RhythmicColors.Gray(0.2f);
+                Colour = RhythmicColors.Gray(1f).Opacity(0.5f);
                 AutoSizeAxes = Axes.Both;
 
                 Children = new[]
@@ -170,7 +180,7 @@ namespace Rhythmic.Overlays.Notifications
                     }
                 };
 
-                hoverColour = RhythmicColors.Orange;
+                hoverColour = RhythmicColors.Yellow.Opacity(0.7f);
             }
 
             protected override bool OnHover(HoverEvent e)
@@ -181,74 +191,8 @@ namespace Rhythmic.Overlays.Notifications
 
             protected override void OnHoverLost(HoverLostEvent e)
             {
-                this.FadeColour(RhythmicColors.Gray(0.2f), 200);
+                this.FadeColour(RhythmicColors.Gray(1f).Opacity(0.5f), 200);
                 base.OnHoverLost(e);
-            }
-        }
-
-        public class NotificationLight : Container
-        {
-            private bool pulsate;
-            private Container pulsateLayer;
-
-            public bool Pulsate
-            {
-                get => pulsate;
-                set
-                {
-                    if (pulsate == value) return;
-
-                    pulsate = value;
-
-                    pulsateLayer.ClearTransforms();
-                    pulsateLayer.Alpha = 1;
-
-                    if (pulsate)
-                    {
-                        const float length = 1000;
-                        pulsateLayer.Loop(length / 2,
-                            p => p.FadeTo(0.4f, length, Easing.In).Then().FadeTo(1, length, Easing.Out)
-                        );
-                    }
-                }
-            }
-
-            public new SRGBColour Colour
-            {
-                set
-                {
-                    base.Colour = value;
-                    pulsateLayer.EdgeEffect = new EdgeEffectParameters
-                    {
-                        Colour = ((Color4)value).Opacity(0.5f), //todo: avoid cast
-                        Type = EdgeEffectType.Glow,
-                        Radius = 12,
-                        Roundness = 12,
-                    };
-                }
-            }
-
-            public NotificationLight()
-            {
-                Size = new Vector2(6, 15);
-
-                Children = new[]
-                {
-                    pulsateLayer = new CircularContainer
-                    {
-                        Anchor = Anchor.CentreLeft,
-                        Origin = Anchor.CentreLeft,
-                        Masking = true,
-                        RelativeSizeAxes = Axes.Both,
-                        Children = new[]
-                        {
-                            new Box
-                            {
-                                RelativeSizeAxes = Axes.Both,
-                            }
-                        }
-                    }
-                };
             }
         }
     }

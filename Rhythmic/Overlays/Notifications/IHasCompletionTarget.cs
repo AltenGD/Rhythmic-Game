@@ -2,7 +2,7 @@
 
 namespace Rhythmic.Overlays.Notifications
 {
-    interface IHasCompletionTarget
+    internal interface IHasCompletionTarget
     {
         Action<Notification> CompletionTarget { get; set; }
     }

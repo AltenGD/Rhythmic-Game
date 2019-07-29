@@ -1,8 +1,4 @@
-﻿using osu.Framework.Graphics;
-using osu.Framework.Testing;
-using osuTK.Graphics;
-using Rhythmic.Screens;
-using Rhythmic.Screens.Backgrounds;
+﻿using osu.Framework.Testing;
 
 namespace Rhythmic.Test
 {

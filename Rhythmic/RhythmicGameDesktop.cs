@@ -1,8 +1,8 @@
-﻿using System.IO;
+﻿using osu.Framework.Platform;
+using osuTK.Input;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using osu.Framework.Platform;
-using osuTK.Input;
 
 namespace Rhythmic
 {
@@ -32,9 +32,9 @@ namespace Rhythmic
 
         private void fileDrop(object sender, FileDropEventArgs e)
         {
-            var filePaths = e.FileNames;
+            string[] filePaths = e.FileNames;
 
-            var firstExtension = Path.GetExtension(filePaths.First());
+            string firstExtension = Path.GetExtension(filePaths.First());
 
             if (filePaths.Any(f => Path.GetExtension(f) != firstExtension)) return;
 

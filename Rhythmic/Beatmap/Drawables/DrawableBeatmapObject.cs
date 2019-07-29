@@ -1,23 +1,22 @@
-﻿using Rhythmic.Beatmap.Properties.Level.Object;
-using osu.Framework.Graphics.Shapes;
+﻿using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osuTK.Graphics;
-using osuTK;
-using System.Linq;
-using Rhythmic.Screens.Play;
+using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.UserInterface;
-using osu.Framework.Bindables;
-using static osu.Framework.Graphics.UserInterface.CircularProgress;
+using osuTK;
+using osuTK.Graphics;
+using Rhythmic.Beatmap.Properties.Level.Object;
+using Rhythmic.Screens.Play;
+using System.Linq;
 using Object = Rhythmic.Beatmap.Properties.Level.Object.Object;
 
 namespace Rhythmic.Beatmap.Drawables
 {
     public class DrawableBeatmapObject : CompositeDrawable
     {
-        private Object obj;
+        private readonly Object obj;
 
-        private Player player;
+        private readonly Player player;
 
         public DrawableBeatmapObject(Object obj, Player player = null)
         {
@@ -72,11 +71,11 @@ namespace Rhythmic.Beatmap.Drawables
 
         private void CreateDrawable(Drawable drawable)
         {
-            var DelayTillExpire = 0f;
+            float DelayTillExpire = 0f;
 
             drawable.Name = obj?.Name ?? "";
             drawable.Colour = new Color4(obj?.Colour[0] ?? 255, obj?.Colour[1] ?? 255, obj?.Colour[2] ?? 255, obj.Helper ? obj?.Colour[3] ?? 1 : 1);
-            drawable.Size = new Vector2(obj?.Size[0] ?? 0, obj?.Size[1] ?? 0); 
+            drawable.Size = new Vector2(obj?.Size[0] ?? 0, obj?.Size[1] ?? 0);
             drawable.Anchor = obj?.Anchor ?? Anchor.TopLeft;
             drawable.Origin = obj?.Origin ?? Anchor.TopLeft;
             drawable.RelativeSizeAxes = obj?.RelativeSizeAxes ?? Axes.None;
@@ -128,7 +127,7 @@ namespace Rhythmic.Beatmap.Drawables
                     });
                 }
 
-                foreach (var children in obj.Childrens)
+                foreach (Object children in obj.Childrens)
                 {
                     container.Add(new DrawableBeatmapObject(children));
                 }
@@ -250,7 +249,7 @@ namespace Rhythmic.Beatmap.Drawables
         {
             base.Update();
 
-            if (player != null && 
+            if (player != null &&
                 drawable.ScreenSpaceDrawQuad.AABBFloat.IntersectsWith(
                     player.player.ScreenSpaceDrawQuad.AABBFloat) && !obj.Helper && !obj.Empty)
             {

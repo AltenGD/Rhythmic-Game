@@ -1,9 +1,9 @@
 ﻿using osu.Framework.Allocation;
 using osu.Framework.Graphics;
-using System;
 using Rhythmic.Database;
 using Rhythmic.Overlays;
 using Rhythmic.Overlays.Notifications;
+using System;
 
 namespace Rhythmic.Screens.Edit.Componets
 {
@@ -26,7 +26,8 @@ namespace Rhythmic.Screens.Edit.Componets
             notification.Post(new SimpleNotification
             {
                 Text = @"Would you like to import """ + System.IO.Path.GetFileNameWithoutExtension(paths[0]) + @"""",
-                Activated = ImportAsBeatmap
+                Activated = ImportAsBeatmap,
+                Important = true
             });
 
             bool ImportAsBeatmap()
