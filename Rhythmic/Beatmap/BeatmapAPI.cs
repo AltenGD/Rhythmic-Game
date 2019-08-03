@@ -25,11 +25,11 @@ namespace Rhythmic.Beatmap
             if (!ZipUtils.IsZipArchive(path))
                 return;
 
-            string directory = GetFolderPath(SpecialFolder.ApplicationData) + @"\Rhythmic\Database\Beatmaps\";
+            string directory = Path.Combine(GetFolderPath(SpecialFolder.ApplicationData), "Rhythmic", "Database", "Beatmaps");
             IArchive archive = ArchiveFactory.Open(path);
             foreach (IArchiveEntry entry in archive.Entries)
             {
-                if (!File.Exists(directory + entry.Key))
+                if (!File.Exists(Path.Combine(directory, entry.Key)))
                     entry.WriteToDirectory(directory, new ExtractionOptions
                     {
                         ExtractFullPath = true

@@ -61,55 +61,55 @@ namespace Rhythmic.Beatmap.Properties.Level.Object
             {
                 float time = 0f;
 
-                if (ColourKeyframes.Any())
+                if (ColourKeyframes?.Any() == true)
                     foreach (Keyframe<float[]> t in ColourKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
-                if (BorderColourKeyframes.Any())
+                if (BorderColourKeyframes?.Any() == true)
                     foreach (Keyframe<float[]> t in BorderColourKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
-                if (FillKeyframes.Any())
+                if (FillKeyframes?.Any() == true)
                     foreach (Keyframe<double> t in FillKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
-                if (InnerRadiusKeyframes.Any())
+                if (InnerRadiusKeyframes?.Any() == true)
                     foreach (Keyframe<float> t in InnerRadiusKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
-                if (ShearKeyframes.Any())
+                if (ShearKeyframes?.Any() == true)
                     foreach (Keyframe<float[]> t in ShearKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
-                if (MoveKeyframes.Any())
+                if (MoveKeyframes?.Any() == true)
                     foreach (Keyframe<double[]> t in MoveKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
-                if (RotationKeyframes.Any())
+                if (RotationKeyframes?.Any() == true)
                     foreach (Keyframe<double> t in RotationKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
-                if (ScaleKeyframes.Any())
+                if (ScaleKeyframes?.Any() == true)
                     foreach (Keyframe<double[]> t in ScaleKeyframes)
                     {
                         time += (float)t.Time;
                     }
 
-                if (BorderThicknessKeyframes.Any())
+                if (BorderThicknessKeyframes?.Any() == true)
                     foreach (Keyframe<double[]> t in BorderThicknessKeyframes)
                     {
                         time += (float)t.Time;
