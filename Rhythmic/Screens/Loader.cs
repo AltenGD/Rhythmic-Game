@@ -78,12 +78,12 @@ namespace Rhythmic.Screens
 
         private void LoadAllBeatmaps()
         {
-            string path = GetFolderPath(SpecialFolder.ApplicationData) + @"\Rhythmic\Database\Beatmaps\";
+            string path = Path.Combine(GetFolderPath(SpecialFolder.ApplicationData), "Rhythmic", "Database", "Beatmaps");
 
             foreach (string file in Directory.EnumerateDirectories(path))
             {
                 API.GetBeatmapFromZip(file);
-                BeatmapMeta level = API.ParseBeatmap(File.ReadAllText(file + @"\level.json"));
+                BeatmapMeta level = API.ParseBeatmap(File.ReadAllText(Path.Combine(file, "level.json")));
 
                 BeatmapMeta beatmap = new BeatmapMeta
                 {
@@ -93,20 +93,22 @@ namespace Rhythmic.Screens
                     SongUrl = level.SongUrl
                 };
 
-                if (!beatmap.SongUrl.StartsWith(@"\"))
-                    beatmap.SongUrl = Concat(@"\", beatmap.SongUrl);
+                if (beatmap.SongUrl?.StartsWith(Path.DirectorySeparatorChar) == false)
+                    beatmap.SongUrl = Path.DirectorySeparatorChar + beatmap.SongUrl;
 
-                if (!beatmap.Metadata.LogoURL.StartsWith(@"\"))
-                    beatmap.Metadata.LogoURL = Concat(@"\", beatmap.Metadata.LogoURL);
+                if (beatmap.Metadata?.LogoURL?.StartsWith(Path.DirectorySeparatorChar) == false)
+                    beatmap.Metadata.LogoURL = Path.DirectorySeparatorChar + beatmap.Metadata.LogoURL;
 
-                if (!beatmap.Metadata.BackgroundURL.StartsWith(@"\"))
-                    beatmap.Metadata.BackgroundURL = Concat(@"\", beatmap.Metadata.BackgroundURL);
+                if (!beatmap.Metadata?.BackgroundURL?.StartsWith(Path.DirectorySeparatorChar) == false)
+                    beatmap.Metadata.BackgroundURL = Path.DirectorySeparatorChar + beatmap.Metadata.BackgroundURL;
 
                 FileStream SongStream = File.OpenRead(file + beatmap.SongUrl);
 
                 beatmap.Song = new TrackBass(SongStream);
-                beatmap.Logo = Texture.FromStream(File.OpenRead(file + beatmap.Metadata.LogoURL));
-                beatmap.Background = Texture.FromStream(File.OpenRead(file + beatmap.Metadata.BackgroundURL));
+                if (beatmap.Metadata?.LogoURL != null)
+                    beatmap.Logo = Texture.FromStream(File.OpenRead(file + beatmap.Metadata.LogoURL));
+                if (beatmap.Metadata?.BackgroundURL != null)
+                    beatmap.Background = Texture.FromStream(File.OpenRead(file + beatmap.Metadata.BackgroundURL));
 
                 collection.Beatmaps.Add(beatmap);
             }

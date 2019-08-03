@@ -92,7 +92,7 @@ namespace Rhythmic
 
         private void CreateRequiredFiles()
         {
-            string path = GetFolderPath(SpecialFolder.ApplicationData) + @"\Rhythmic\Database\";
+            string path = Path.Combine(GetFolderPath(SpecialFolder.ApplicationData), "Rhythmic", "Database");
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
@@ -101,8 +101,9 @@ namespace Rhythmic
 
             foreach (string folder in pathList)
             {
-                if (!Directory.Exists(path + folder))
-                    Directory.CreateDirectory(path + folder);
+                string folderPath = Path.Combine(path, folder);
+                if (!Directory.Exists(folderPath))
+                    Directory.CreateDirectory(folderPath);
             }
         }
     }
