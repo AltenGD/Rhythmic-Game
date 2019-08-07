@@ -63,14 +63,15 @@ namespace Rhythmic.Overlays.Notifications
                                 {
                                     RelativeSizeAxes = Axes.Both,
                                     Width = 0.3f,
-                                    Alpha = 0.6f,
+                                    Alpha = 0.4f,
+                                    Colour = Color4.Black
                                 },
                                 new Box
                                 {
                                     RelativeSizeAxes = Axes.Both,
                                     Width = 0.7f,
-                                    Colour = ColourInfo.GradientHorizontal(Color4.White, Color4.White.Opacity(0.2f)),
-                                    Alpha = 0.6f
+                                    Colour = ColourInfo.GradientHorizontal(Color4.Black, Color4.Black.Opacity(0.0f)),
+                                    Alpha = 0.4f
                                 },
                             }
                         },
