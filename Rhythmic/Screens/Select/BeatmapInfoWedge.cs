@@ -137,7 +137,6 @@ namespace Rhythmic.Screens.Select
             {
                 var metadata = beatmap.Metadata ?? new BeatmapMetadata();
 
-                PixelSnapping = true;
                 CacheDrawnFrameBuffer = true;
                 RelativeSizeAxes = Axes.Both;
 
