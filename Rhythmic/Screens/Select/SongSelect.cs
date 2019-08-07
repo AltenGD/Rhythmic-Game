@@ -90,6 +90,27 @@ namespace Rhythmic.Screens.Select
                             BarWidth = 5,
                             Spacing = 5,
                         },
+                        new LinearVisualizer
+                        {
+                            Anchor = Anchor.BottomCentre,
+                            Origin = Anchor.BottomCentre,
+                            ValueMultiplier = 3500,
+                            IsReversed = true,
+                            BarsAmount = 200,
+                            Alpha = 0.1f,
+                            BarWidth = 5,
+                            Spacing = 5,
+                        },
+                        new LinearVisualizer
+                        {
+                            Anchor = Anchor.TopCentre,
+                            Origin = Anchor.TopCentre,
+                            ValueMultiplier = 3500,
+                            BarsAmount = 200,
+                            Alpha = 0.1f,
+                            BarWidth = 5,
+                            Spacing = 5,
+                        },
                     }
                 },
                 Carousel = new BeatmapCarousel
