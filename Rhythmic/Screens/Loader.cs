@@ -93,22 +93,14 @@ namespace Rhythmic.Screens
                     SongUrl = level.SongUrl
                 };
 
-                if (beatmap.SongUrl?.StartsWith(Path.DirectorySeparatorChar) == false)
-                    beatmap.SongUrl = Path.DirectorySeparatorChar + beatmap.SongUrl;
-
-                if (beatmap.Metadata?.LogoURL?.StartsWith(Path.DirectorySeparatorChar) == false)
-                    beatmap.Metadata.LogoURL = Path.DirectorySeparatorChar + beatmap.Metadata.LogoURL;
-
-                if (!beatmap.Metadata?.BackgroundURL?.StartsWith(Path.DirectorySeparatorChar) == false)
-                    beatmap.Metadata.BackgroundURL = Path.DirectorySeparatorChar + beatmap.Metadata.BackgroundURL;
-
-                FileStream SongStream = File.OpenRead(file + beatmap.SongUrl);
+                FileStream SongStream = File.OpenRead(Path.Combine(file, beatmap.SongUrl));
 
                 beatmap.Song = new TrackBass(SongStream);
+
                 if (beatmap.Metadata?.LogoURL != null)
-                    beatmap.Logo = Texture.FromStream(File.OpenRead(file + beatmap.Metadata.LogoURL));
+                    beatmap.Logo = Texture.FromStream(File.OpenRead(Path.Combine(file, beatmap.Metadata.LogoURL)));
                 if (beatmap.Metadata?.BackgroundURL != null)
-                    beatmap.Background = Texture.FromStream(File.OpenRead(file + beatmap.Metadata.BackgroundURL));
+                    beatmap.Background = Texture.FromStream(File.OpenRead(Path.Combine(file, beatmap.Metadata.BackgroundURL)));
 
                 collection.Beatmaps.Add(beatmap);
             }
