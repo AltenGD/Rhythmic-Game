@@ -25,7 +25,9 @@ namespace Rhythmic.Screens.Select.Carousel
     public class DrawableCarouselBeatmapSet : DrawableCarouselItem, IHasContextMenu
     {
         private Action<BeatmapMeta> viewDetails;
+        private Action<BeatmapMeta> editRequested;
 
+        private Action<BeatmapMeta> startRequested;
         private readonly BeatmapMeta beatmapSet;
 
         public DrawableCarouselBeatmapSet(CarouselBeatmapSet set)
@@ -35,8 +37,14 @@ namespace Rhythmic.Screens.Select.Carousel
         }
 
         [BackgroundDependencyLoader]
-        private void load()
+        private void load(SongSelect songSelect)
         {
+            if (songSelect != null)
+            {
+                startRequested = b => songSelect.FinaliseSelection(b);
+                editRequested = songSelect.Edit;
+            }
+
             Children = new Drawable[]
             {
                 new DelayedLoadUnloadWrapper(() =>
@@ -180,6 +188,9 @@ namespace Rhythmic.Screens.Select.Carousel
             get
             {
                 List<MenuItem> items = new List<MenuItem>();
+
+                items.Add(new RhythmicMenuItem("Play", MenuItemType.Highlighted, () => startRequested?.Invoke(beatmapSet)));
+                items.Add(new RhythmicMenuItem("Edit", MenuItemType.Standard, () => editRequested?.Invoke(beatmapSet)));
 
                 if (Item.State.Value == CarouselItemState.NotSelected)
                     items.Add(new RhythmicMenuItem("Expand", MenuItemType.Highlighted, () => Item.State.Value = CarouselItemState.Selected));

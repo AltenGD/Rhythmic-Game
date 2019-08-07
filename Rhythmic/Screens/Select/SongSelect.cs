@@ -15,6 +15,8 @@ using Rhythmic.Beatmap.Properties;
 using Rhythmic.Beatmap.Properties.Metadata;
 using Rhythmic.Graphics.Containers;
 using Rhythmic.Screens.Backgrounds;
+using Rhythmic.Screens.Edit;
+using Rhythmic.Visualizers;
 using System;
 using System.Collections.Generic;
 
@@ -49,7 +51,7 @@ namespace Rhythmic.Screens.Select
                 new ParallaxContainer
                 {
                     Masking = true,
-                    ParallaxAmount = 0.005f,
+                    ParallaxAmount = 0.001f,
                     RelativeSizeAxes = Axes.Both,
                     Children = new[]
                     {
@@ -58,6 +60,36 @@ namespace Rhythmic.Screens.Select
                             RelativeSizeAxes = Axes.Both,
                             Padding = new MarginPadding { Right = -150 },
                         }
+                    }
+                },
+                new ParallaxContainer
+                {
+                    Masking = true,
+                    ParallaxAmount = 0.005f,
+                    RelativeSizeAxes = Axes.Both,
+                    Children = new[]
+                    {
+                        new LinearVisualizer
+                        {
+                            Anchor = Anchor.BottomCentre,
+                            Origin = Anchor.BottomCentre,
+                            ValueMultiplier = 3500,
+                            BarsAmount = 200,
+                            Alpha = 0.1f,
+                            BarWidth = 5,
+                            Spacing = 5,
+                        },
+                        new LinearVisualizer
+                        {
+                            Anchor = Anchor.TopCentre,
+                            Origin = Anchor.TopCentre,
+                            ValueMultiplier = 3500,
+                            IsReversed = true,
+                            BarsAmount = 200,
+                            Alpha = 0.1f,
+                            BarWidth = 5,
+                            Spacing = 5,
+                        },
                     }
                 },
                 Carousel = new BeatmapCarousel
@@ -244,6 +276,12 @@ namespace Rhythmic.Screens.Select
                 beatmap.Song.Looping = true;
         }
 
+        public void Edit(BeatmapMeta beatmap = null)
+        {
+            collection.CurrentBeatmap.Value = beatmap ?? beatmapNoDebounce;
+            this.Push(new Editor());
+        }
+
         public override bool OnExiting(IScreen next)
         {
             if (base.OnExiting(next))
@@ -280,6 +318,16 @@ namespace Rhythmic.Screens.Select
         }
 
         public bool OnReleased(GlobalAction action) => action == GlobalAction.Select;
+
+        private DependencyContainer dependencies;
+
+        protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent)
+        {
+            dependencies = new DependencyContainer(base.CreateChildDependencies(parent));
+            dependencies.CacheAs(this);
+
+            return dependencies;
+        }
 
         private class ResetScrollContainer : Container
         {

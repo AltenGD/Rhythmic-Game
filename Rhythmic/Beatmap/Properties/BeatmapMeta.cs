@@ -9,7 +9,7 @@ using System;
 namespace Rhythmic.Beatmap.Properties
 {
     /// <summary>Contains information like: BG, <see cref="LevelMeta"/>, etc</summary>
-    public class BeatmapMeta
+    public class BeatmapMeta : IDisposable
     {
         public BeatmapMetadata Metadata { get; set; }
 
@@ -34,6 +34,11 @@ namespace Rhythmic.Beatmap.Properties
 
         [JsonIgnore]
         public int ID { get; set; }
+
+        public void Dispose()
+        {
+            Song.Reset();
+        }
 
         public override string ToString() => $"{Metadata?.Song?.Author} - {Metadata?.Song?.Name} ({Metadata?.Level?.CreatorName})";
     }

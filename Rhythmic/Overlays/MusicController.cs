@@ -520,5 +520,10 @@ namespace Rhythmic.Overlays
                 return base.OnDragEnd(e);
             }
         }
+
+        /// <summary>
+        /// Play the next random or playlist track.
+        /// </summary>
+        public void NextTrack() => next();
     }
 }

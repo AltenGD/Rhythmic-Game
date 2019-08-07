@@ -383,6 +383,27 @@ namespace Rhythmic
             });
         }
 
+        #region Beatmap jukebox progression
+
+        private void beatmapChanged(ValueChangedEvent<BeatmapMeta> beatmap)
+        {
+            var nextBeatmap = beatmap.NewValue;
+            if (nextBeatmap?.Song != null)
+                nextBeatmap.Song.Completed += currentTrackCompleted;
+
+            using (var oldBeatmap = beatmap.OldValue)
+                if (oldBeatmap?.Song != null)
+                    oldBeatmap.Song.Completed -= currentTrackCompleted;
+        }
+
+        private void currentTrackCompleted()
+        {
+            if (!beatmaps.CurrentBeatmap.Value.Song.Looping && !beatmaps.CurrentBeatmap.Disabled)
+                musicController.NextTrack();
+        }
+
+        #endregion
+
         private BufferedContainer topMostOverlayContent;
 
         private BufferedContainer rightFloatingOverlayContent;

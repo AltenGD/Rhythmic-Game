@@ -78,7 +78,7 @@ namespace Rhythmic.Screens.MainMenu
             Scheduler.AddDelayed(() =>
             {
                 audio.AddItem(track);
-                track.Seek(200000);
+                track.Seek(206500);
                 track.Start();
 
                 Scheduler.AddDelayed(() =>
