@@ -18,7 +18,7 @@ namespace Rhythmic.Screens.Play
 
         public override bool HideOverlaysOnEnter => true;
 
-        public override float BackgroundParallaxAmount => 0.1f;
+        public override float BackgroundParallaxAmount => 0.25f;
 
         public readonly SongProgress Progress;
 

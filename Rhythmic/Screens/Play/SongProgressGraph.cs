@@ -31,6 +31,10 @@ namespace Rhythmic.Screens.Play
 
                 foreach (var o in objects)
                 {
+                    // We want to ignore all helper objects as they do not harm the player
+                    if (o.Helper)
+                        continue;
+
                     var endTime = (o?.Time + o?.TotalTime) ?? o.Time;
 
                     Debug.Assert(endTime >= o.Time);

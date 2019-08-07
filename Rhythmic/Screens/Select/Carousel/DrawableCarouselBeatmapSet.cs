@@ -203,7 +203,7 @@ namespace Rhythmic.Screens.Select.Carousel
                         RelativeSizeAxes = Axes.Both,
                         Anchor = Anchor.Centre,
                         Origin = Anchor.Centre,
-                        BlurSigma = new Vector2(15),
+                        BlurSigma = new Vector2(20),
                         Children = new Drawable[]
                         {
                             new BeatmapBackgroundSprite(working)
@@ -215,16 +215,24 @@ namespace Rhythmic.Screens.Select.Carousel
                             },
                         }
                     },
+                    new Box
+                    {
+                       RelativeSizeAxes = Axes.Both,
+                        Anchor = Anchor.Centre,
+                        Origin = Anchor.Centre,
+                        Alpha = 0.2f
+                    },
                     new Container
                     {
                         RelativeSizeAxes = Axes.Both,
-                        Scale = new Vector2(0.9f),
+                        Scale = new Vector2(1f, 0.8f),
                         Anchor = Anchor.CentreLeft,
                         Origin = Anchor.CentreLeft,
+                        CornerRadius = 10,
                         Masking = true,
-                        Padding = new MarginPadding
+                        Margin = new MarginPadding
                         {
-                            Left = 5
+                            Left = 10
                         },
                         Children = new Drawable[]
                         {
