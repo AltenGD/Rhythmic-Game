@@ -30,6 +30,8 @@ namespace Rhythmic.Screens.Select.Carousel
         private Action<BeatmapMeta> startRequested;
         private readonly BeatmapMeta beatmapSet;
 
+        private FillFlowContainer content;
+
         public DrawableCarouselBeatmapSet(CarouselBeatmapSet set)
             : base(set)
         {
@@ -59,7 +61,7 @@ namespace Rhythmic.Screens.Select.Carousel
                         return background;
                     }, 300, 5000
                 ),
-                new FillFlowContainer
+                content = new FillFlowContainer
                 {
                     Direction = FillDirection.Horizontal,
                     Padding = new MarginPadding { Top = 10, Left = 18, Right = 10, Bottom = 10 },
@@ -69,15 +71,6 @@ namespace Rhythmic.Screens.Select.Carousel
                     Spacing = new Vector2(10, 0),
                     Children = new Drawable[]
                     {
-                        new OutlinedSprite
-                        {
-                            Anchor = Anchor.CentreLeft,
-                            Origin = Anchor.CentreLeft,
-                            Texture = beatmapSet.Logo ?? beatmapSet.Background,
-                            Size = new Vector2(70),
-                            BlurSigma = 10,
-                            Thickness = 5f
-                        },
                         new FillFlowContainer
                         {
                             Direction = FillDirection.Vertical,
@@ -181,6 +174,23 @@ namespace Rhythmic.Screens.Select.Carousel
                     }
                 }
             };
+
+            if (beatmapSet.Metadata.BackgroundURL != beatmapSet.Metadata.LogoURL)
+            {
+                var sprite = new OutlinedSprite
+                {
+                    Anchor = Anchor.CentreLeft,
+                    Origin = Anchor.CentreLeft,
+                    Texture = beatmapSet.Logo ?? beatmapSet.Background,
+                    Size = new Vector2(70),
+                    BlurSigma = 10,
+                    Thickness = 5f
+                };
+
+                content.Add(sprite);
+
+                content.SetLayoutPosition(sprite, -10);
+            }
         }
 
         public MenuItem[] ContextMenuItems
