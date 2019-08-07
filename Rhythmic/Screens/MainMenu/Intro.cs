@@ -48,8 +48,8 @@ namespace Rhythmic.Screens.MainMenu
                 {
                     Song = new SongMetadata
                     {
-                        Author = "1788-L & Blanke",
-                        Name = "hh"
+                        Author = "Kobaryo",
+                        Name = "Villain Virus ( feat. Camellia )"
                     }
                 }
             };
@@ -78,7 +78,7 @@ namespace Rhythmic.Screens.MainMenu
             Scheduler.AddDelayed(() =>
             {
                 audio.AddItem(track);
-                track.Seek(TimeSpan.FromSeconds(162.7).TotalMilliseconds);
+                track.Seek(200000);
                 track.Start();
 
                 Scheduler.AddDelayed(() =>
