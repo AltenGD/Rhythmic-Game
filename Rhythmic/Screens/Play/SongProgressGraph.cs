@@ -22,7 +22,7 @@ namespace Rhythmic.Screens.Play
                     return;
 
                 var firstObj = objects.First().Time;
-                var lastObj = objects.Max(o => (o?.Time + o?.TotalTime) ?? o.Time);
+                var lastObj = objects.Max(o => (o?.Time + o?.AbsoluteTotalTime) ?? o.Time);
 
                 if (lastObj == 0)
                     lastObj = objects.Last().Time;
@@ -35,7 +35,7 @@ namespace Rhythmic.Screens.Play
                     if (o.Helper)
                         continue;
 
-                    var endTime = (o?.Time + o?.TotalTime) ?? o.Time;
+                    var endTime = (o?.Time + o?.AbsoluteTotalTime) ?? o.Time;
 
                     Debug.Assert(endTime >= o.Time);
 

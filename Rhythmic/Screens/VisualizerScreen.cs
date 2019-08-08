@@ -29,6 +29,48 @@ namespace Rhythmic.Screens
             AddRangeInternal(new Drawable[]
             {
                 new SpaceParticlesContainer(),
+                new LinearVisualizer
+                {
+                    Anchor = Anchor.BottomCentre,
+                    Origin = Anchor.BottomCentre,
+                    ValueMultiplier = 3500,
+                    BarsAmount = 200,
+                    Alpha = 0.25f,
+                    BarWidth = 5,
+                    Spacing = 5,
+                },
+                new LinearVisualizer
+                {
+                    Anchor = Anchor.TopCentre,
+                    Origin = Anchor.TopCentre,
+                    ValueMultiplier = 3500,
+                    IsReversed = true,
+                    BarsAmount = 200,
+                    Alpha = 0.25f,
+                    BarWidth = 5,
+                    Spacing = 5,
+                },
+                new LinearVisualizer
+                {
+                    Anchor = Anchor.BottomCentre,
+                    Origin = Anchor.BottomCentre,
+                    ValueMultiplier = 3500,
+                    IsReversed = true,
+                    BarsAmount = 200,
+                    Alpha = 0.25f,
+                    BarWidth = 5,
+                    Spacing = 5,
+                },
+                new LinearVisualizer
+                {
+                    Anchor = Anchor.TopCentre,
+                    Origin = Anchor.TopCentre,
+                    ValueMultiplier = 3500,
+                    BarsAmount = 200,
+                    Alpha = 0.25f,
+                    BarWidth = 5,
+                    Spacing = 5,
+                },
                 new CircularVisualizer
                 {
                     Anchor = Anchor.Centre,
@@ -38,6 +80,7 @@ namespace Rhythmic.Screens
                     BarsAmount = 100,
                     CircleSize = 348,
                     BarWidth = 2,
+                    Alpha = 0.5f,
                 },
                 new CircularVisualizer
                 {
@@ -49,6 +92,32 @@ namespace Rhythmic.Screens
                     CircleSize = 348,
                     BarWidth = 2,
                     Rotation = 180,
+                    Alpha = 0.5f,
+                },
+                new CircularVisualizer
+                {
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    ValueMultiplier = 800,
+                    IsReversed = true,
+                    DegreeValue = 180,
+                    BarsAmount = 100,
+                    CircleSize = 348,
+                    BarWidth = 2,
+                    Alpha = 0.5f,
+                },
+                new CircularVisualizer
+                {
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    ValueMultiplier = 800,
+                    IsReversed = true,
+                    DegreeValue = 180,
+                    BarsAmount = 100,
+                    CircleSize = 348,
+                    BarWidth = 2,
+                    Rotation = 180,
+                    Alpha = 0.5f,
                 },
                 new CircularContainer
                 {

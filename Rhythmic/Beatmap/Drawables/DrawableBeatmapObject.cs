@@ -175,9 +175,6 @@ namespace Rhythmic.Beatmap.Drawables
                 }
             }
 
-            if (obj.Autokill)
-                Scheduler.AddDelayed(() => Expire(), DelayTillExpire);
-
             #region Transforms
             //Colour
             if (obj.ColourKeyframes != null && obj.ColourKeyframes.Any())
@@ -243,6 +240,11 @@ namespace Rhythmic.Beatmap.Drawables
                 });
             }
             #endregion
+
+            if (obj.Autokill)
+                Scheduler.AddDelayed(() => Expire(), DelayTillExpire);
+
+            System.Console.WriteLine("Calculated Time: " + DelayTillExpire.ToString());
         }
 
         protected override void Update()

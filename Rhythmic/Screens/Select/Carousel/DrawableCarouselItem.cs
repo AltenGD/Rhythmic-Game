@@ -13,7 +13,7 @@ namespace Rhythmic.Screens.Select.Carousel
 {
     public abstract class DrawableCarouselItem : Container
     {
-        public const float MAX_HEIGHT = 100;
+        public const float MAX_HEIGHT = 80;
 
         public override bool RemoveWhenNotAlive => false;
 
