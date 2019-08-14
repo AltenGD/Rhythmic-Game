@@ -71,8 +71,6 @@ namespace Rhythmic.Beatmap.Drawables
 
         private void CreateDrawable(Drawable drawable)
         {
-            float DelayTillExpire = 0f;
-
             drawable.Name = obj?.Name ?? "";
             drawable.Colour = new Color4(obj?.Colour[0] ?? 255, obj?.Colour[1] ?? 255, obj?.Colour[2] ?? 255, obj.Helper ? obj?.Colour[3] ?? 1 : 1);
             drawable.Size = new Vector2(obj?.Size[0] ?? 0, obj?.Size[1] ?? 0);
@@ -102,8 +100,6 @@ namespace Rhythmic.Beatmap.Drawables
                 {
                     obj.BorderColourKeyframes.ForEach(t =>
                     {
-                        DelayTillExpire += (float)t.Time;
-                        DelayTillExpire += (float)t.TimeUntilFinish;
                         container.Delay(obj.Time).Delay(t.Time).TransformTo(
                             nameof(container.BorderColour),
                             new Color4(t.Value[0], t.Value[1], t.Value[2], t.Value[3]),
@@ -117,8 +113,6 @@ namespace Rhythmic.Beatmap.Drawables
                 {
                     obj.BorderThicknessKeyframes.ForEach(t =>
                     {
-                        DelayTillExpire += (float)t.Time;
-                        DelayTillExpire += (float)t.TimeUntilFinish;
                         container.Delay(obj.Time).Delay(t.Time).TransformTo(
                             nameof(container.BorderThickness),
                             t.Value,
@@ -143,9 +137,6 @@ namespace Rhythmic.Beatmap.Drawables
                 {
                     obj.FillKeyframes.ForEach(t =>
                     {
-                        DelayTillExpire += (float)t.Time;
-                        DelayTillExpire += (float)t.TimeUntilFinish;
-
                         progress
                             .Delay(obj.Time)
                             .Delay(t.Time)
@@ -161,9 +152,6 @@ namespace Rhythmic.Beatmap.Drawables
                 {
                     obj.InnerRadiusKeyframes.ForEach(t =>
                     {
-                        DelayTillExpire += (float)t.Time;
-                        DelayTillExpire += (float)t.TimeUntilFinish;
-
                         progress
                             .Delay(obj.Time)
                             .Delay(t.Time)
@@ -181,8 +169,6 @@ namespace Rhythmic.Beatmap.Drawables
             {
                 obj.ColourKeyframes.ForEach(t =>
                 {
-                    DelayTillExpire += (float)t.Time;
-                    DelayTillExpire += (float)t.TimeUntilFinish;
                     drawable.Delay(obj.Time).Delay(t.Time).FadeColour(
                         new Color4(t.Value[0], t.Value[1], t.Value[2], 255),
                         t.TimeUntilFinish,
@@ -198,8 +184,6 @@ namespace Rhythmic.Beatmap.Drawables
             {
                 obj.MoveKeyframes.ForEach(t =>
                 {
-                    DelayTillExpire += (float)t.Time;
-                    DelayTillExpire += (float)t.TimeUntilFinish;
                     this.Delay(obj.Time).Delay(t.Time).MoveTo(
                         new Vector2((float)t.Value[0], (float)t.Value[1]),
                         t.TimeUntilFinish,
@@ -212,8 +196,6 @@ namespace Rhythmic.Beatmap.Drawables
             {
                 obj.ScaleKeyframes.ForEach(t =>
                 {
-                    DelayTillExpire += (float)t.Time;
-                    DelayTillExpire += (float)t.TimeUntilFinish;
                     drawable.Delay(obj.Time).Delay(t.Time).ResizeTo(
                         new Vector2((float)t.Value[0], (float)t.Value[1]),
                         t.TimeUntilFinish,
@@ -231,8 +213,6 @@ namespace Rhythmic.Beatmap.Drawables
             {
                 obj.RotationKeyframes.ForEach(t =>
                 {
-                    DelayTillExpire += (float)t.Time;
-                    DelayTillExpire += (float)t.TimeUntilFinish;
                     drawable.Delay(obj.Time).Delay(t.Time).RotateTo(
                         (float)t.Value,
                         t.TimeUntilFinish,
@@ -242,9 +222,9 @@ namespace Rhythmic.Beatmap.Drawables
             #endregion
 
             if (obj.Autokill)
-                Scheduler.AddDelayed(() => Expire(), DelayTillExpire);
+                Scheduler.AddDelayed(() => Expire(), obj.Time + obj.AbsoluteTotalTime);
 
-            System.Console.WriteLine("Calculated Time: " + DelayTillExpire.ToString());
+            System.Console.WriteLine($"{obj.Name}'s Calculated Time: {obj.AbsoluteTotalTime.ToString()}");
         }
 
         protected override void Update()

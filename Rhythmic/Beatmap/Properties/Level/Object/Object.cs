@@ -124,73 +124,101 @@ namespace Rhythmic.Beatmap.Properties.Level.Object
             get
             {
                 float time = 0f;
+                float timeTilFinish = 0f;
 
                 if (ColourKeyframes?.Any() == true)
                     foreach (Keyframe<float[]> t in ColourKeyframes)
                     {
-                        time += (float)t.Time;
-                        time += (float)t.TimeUntilFinish;
+                        if ((float)t.Time > time)
+                            time = (float)t.Time;
+
+                        if ((float)t.TimeUntilFinish > timeTilFinish)
+                            timeTilFinish = (float)t.TimeUntilFinish;
                     }
 
                 if (BorderColourKeyframes?.Any() == true)
                     foreach (Keyframe<float[]> t in BorderColourKeyframes)
                     {
-                        time += (float)t.Time;
-                        time += (float)t.TimeUntilFinish;
+                        if ((float)t.Time > time)
+                            time = (float)t.Time;
+
+                        if ((float)t.TimeUntilFinish > timeTilFinish)
+                            timeTilFinish = (float)t.TimeUntilFinish;
                     }
 
                 if (FillKeyframes?.Any() == true)
                     foreach (Keyframe<double> t in FillKeyframes)
                     {
-                        time += (float)t.Time;
-                        time += (float)t.TimeUntilFinish;
+                        if ((float)t.Time > time)
+                            time = (float)t.Time;
+
+                        if ((float)t.TimeUntilFinish > timeTilFinish)
+                            timeTilFinish = (float)t.TimeUntilFinish;
                     }
 
                 if (InnerRadiusKeyframes?.Any() == true)
                     foreach (Keyframe<float> t in InnerRadiusKeyframes)
                     {
-                        time += (float)t.Time;
-                        time += (float)t.TimeUntilFinish;
+                        if ((float)t.Time > time)
+                            time = (float)t.Time;
+
+                        if ((float)t.TimeUntilFinish > timeTilFinish)
+                            timeTilFinish = (float)t.TimeUntilFinish;
                     }
 
                 if (ShearKeyframes?.Any() == true)
                     foreach (Keyframe<float[]> t in ShearKeyframes)
                     {
-                        time += (float)t.Time;
-                        time += (float)t.TimeUntilFinish;
+                        if ((float)t.Time > time)
+                            time = (float)t.Time;
+
+                        if ((float)t.TimeUntilFinish > timeTilFinish)
+                            timeTilFinish = (float)t.TimeUntilFinish;
                     }
 
                 if (MoveKeyframes?.Any() == true)
                     foreach (Keyframe<double[]> t in MoveKeyframes)
                     {
-                        time += (float)t.Time;
-                        time += (float)t.TimeUntilFinish;
+                        if ((float)t.Time > time)
+                            time = (float)t.Time;
+
+                        if ((float)t.TimeUntilFinish > timeTilFinish)
+                            timeTilFinish = (float)t.TimeUntilFinish;
                     }
 
                 if (RotationKeyframes?.Any() == true)
                     foreach (Keyframe<double> t in RotationKeyframes)
                     {
-                        time += (float)t.Time;
-                        time += (float)t.TimeUntilFinish;
+                        if ((float)t.Time > time)
+                            time = (float)t.Time;
+
+                        if ((float)t.TimeUntilFinish > timeTilFinish)
+                            timeTilFinish = (float)t.TimeUntilFinish;
                     }
 
                 if (ScaleKeyframes?.Any() == true)
                     foreach (Keyframe<double[]> t in ScaleKeyframes)
                     {
-                        time += (float)t.Time;
-                        time += (float)t.TimeUntilFinish;
+                        if ((float)t.Time > time)
+                            time = (float)t.Time;
+
+                        if ((float)t.TimeUntilFinish > timeTilFinish)
+                            timeTilFinish = (float)t.TimeUntilFinish;
                     }
 
                 if (BorderThicknessKeyframes?.Any() == true)
                     foreach (Keyframe<double[]> t in BorderThicknessKeyframes)
                     {
-                        time += (float)t.Time;
-                        time += (float)t.TimeUntilFinish;
+                        if ((float)t.Time > time)
+                            time = (float)t.Time;
+
+                        if ((float)t.TimeUntilFinish > timeTilFinish)
+                            timeTilFinish = (float)t.TimeUntilFinish;
                     }
 
-                System.Console.WriteLine("Absolute Time: " + time.ToString());
+                System.Console.WriteLine("Absolute Time: " + (time + timeTilFinish).ToString());
 
-                return time;
+                return time + timeTilFinish;
             }
         }
 
