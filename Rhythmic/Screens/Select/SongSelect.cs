@@ -321,7 +321,22 @@ namespace Rhythmic.Screens.Select
         public override void OnResuming(IScreen last)
         {
             collection.CurrentBeatmap.Disabled = false;
+            collection.CurrentBeatmap.Value.Song.Looping = true;
+
+            this.FadeIn(250);
+
+            this.ScaleTo(1, 250, Easing.OutSine);
+
             base.OnResuming(last);
+        }
+
+        public override void OnSuspending(IScreen next)
+        {
+            base.OnSuspending(next);
+
+            this.ScaleTo(1.1f, 250, Easing.InSine);
+
+            this.FadeOut(250);
         }
 
         public virtual bool OnPressed(GlobalAction action)
@@ -332,6 +347,9 @@ namespace Rhythmic.Screens.Select
             {
                 case GlobalAction.Select:
                     FinaliseSelection();
+                    return true;
+                case GlobalAction.Exit:
+                    this.Exit();
                     return true;
             }
 
