@@ -216,8 +216,6 @@ namespace Rhythmic.Beatmap.Properties.Level.Object
                             timeTilFinish = (float)t.TimeUntilFinish;
                     }
 
-                System.Console.WriteLine("Absolute Time: " + (time + timeTilFinish).ToString());
-
                 return time + timeTilFinish;
             }
         }

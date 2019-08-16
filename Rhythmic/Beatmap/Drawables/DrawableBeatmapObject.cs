@@ -223,8 +223,6 @@ namespace Rhythmic.Beatmap.Drawables
 
             if (obj.Autokill)
                 Scheduler.AddDelayed(() => Expire(), obj.Time + obj.AbsoluteTotalTime);
-
-            System.Console.WriteLine($"{obj.Name}'s Calculated Time: {obj.AbsoluteTotalTime.ToString()}");
         }
 
         protected override void Update()

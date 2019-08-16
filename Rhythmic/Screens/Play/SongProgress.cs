@@ -29,7 +29,7 @@ namespace Rhythmic.Screens.Play
         public override bool HandleNonPositionalInput => AllowSeeking;
         public override bool HandlePositionalInput => AllowSeeking;
 
-        private double lastHitTime => objects.LastOrDefault().Time + objects.LastOrDefault().TotalTime + 1;
+        private double lastHitTime => objects.LastOrDefault().Time + objects.LastOrDefault().AbsoluteTotalTime + 1;
 
         private double firstHitTime => objects.FirstOrDefault().Time;
 

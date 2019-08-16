@@ -22,10 +22,10 @@ namespace Rhythmic.Screens.Play
                     return;
 
                 var firstObj = objects.First().Time;
-                var lastObj = objects.Max(o => (o?.Time + o?.AbsoluteTotalTime) ?? o.Time);
+                var lastObj = objects.Max(o => o.Time + o.AbsoluteTotalTime);
 
                 if (lastObj == 0)
-                    lastObj = objects.Last().Time;
+                    lastObj = objects.Last().Time + objects.Last().AbsoluteTotalTime;
 
                 var interval = (lastObj - firstObj + 1) / granularity;
 
@@ -35,14 +35,14 @@ namespace Rhythmic.Screens.Play
                     if (o.Helper)
                         continue;
 
-                    var endTime = (o?.Time + o?.AbsoluteTotalTime) ?? o.Time;
+                    var endTime = o.Time + o.AbsoluteTotalTime;
 
-                    Debug.Assert(endTime >= o.Time);
+                    Debug.Assert(endTime >= o.Time + o.AbsoluteTotalTime);
 
                     int startRange = (int)((o.Time - firstObj) / interval);
                     int endRange = (int)((endTime - firstObj) / interval);
 
-                    for (int i = startRange; i <= endRange; i++)
+                    for (int i = startRange; i < endRange; i++)
                         Values[i]++;
                 }
             }
