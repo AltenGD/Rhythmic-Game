@@ -21,11 +21,12 @@ namespace Rhythmic.Test.Visual.Graphics
         {
             Add(new OutlinedSprite
             {
-                Size = new Vector2(200),
+                Size = new Vector2(500),
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 BlurSigma = 10,
-                Texture = store.Get("https://cdn.discordapp.com/avatars/184061887212814336/5213e87197c1ff3e94b549afc1ebe5bf.png?size=1024")
+                Thickness = 20,
+                Texture = store.Get("https://i.pinimg.com/originals/47/a3/49/47a3492df66e172b6e68af79d3c8b7e2.jpg")
             });
         }
     }

@@ -1,4 +1,5 @@
-﻿using osu.Framework.Graphics;
+﻿using Newtonsoft.Json;
+using osu.Framework.Graphics;
 using Rhythmic.Beatmap.Properties.Level.Keyframe;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,8 +54,10 @@ namespace Rhythmic.Beatmap.Properties.Level.Object
 
         public bool Masking { get; set; } = false;
 
+        [JsonIgnore]
         public bool IsPartOfStoryBoard { get; set; } = false;
 
+        [JsonIgnore]
         public float TotalTime
         {
             get
@@ -119,6 +122,7 @@ namespace Rhythmic.Beatmap.Properties.Level.Object
             }
         }
 
+        [JsonIgnore]
         public float AbsoluteTotalTime
         {
             get

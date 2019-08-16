@@ -14,7 +14,6 @@ namespace Rhythmic.Test.Visual.Beatmaps
     {
         private BeatmapMeta TestLevel;
         private BeatmapAPI API;
-        private TrackBass track;
 
         [BackgroundDependencyLoader]
         private void load(Game game, AudioManager Audio)
@@ -23,32 +22,10 @@ namespace Rhythmic.Test.Visual.Beatmaps
 
             TestLevel = API.ParseBeatmap(File.ReadAllText("../../../../../Rhythmic.Resources/Beatmap/NULCTRL/level.json"));
 
-            track = new TrackBass(game.Resources.GetStream("Beatmap/NULCTRL/song.mp3"));
-            Audio.AddItem(track);
-
             AddStep("aa", null);
             AddStep("Restart", () =>
             {
                 Clear();
-
-                track.Stop();
-
-                foreach (Beatmap.Properties.Level.Object.Object o in TestLevel.Level.Level)
-                {
-                    Scheduler.AddDelayed(() =>
-                    {
-                        Add(new DrawableBeatmapObject(o));
-                    }, o.Time);
-                }
-            });
-
-            AddStep("Restart w/song", () =>
-            {
-                Clear();
-
-                track.Stop();
-                track.Seek(0);
-                track.Start();
 
                 foreach (Beatmap.Properties.Level.Object.Object o in TestLevel.Level.Level)
                 {
