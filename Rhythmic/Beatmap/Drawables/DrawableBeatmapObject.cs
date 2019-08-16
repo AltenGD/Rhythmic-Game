@@ -79,7 +79,8 @@ namespace Rhythmic.Beatmap.Drawables
             drawable.RelativeSizeAxes = obj?.RelativeSizeAxes ?? Axes.None;
             drawable.Shear = new Vector2(obj.Shear[0], obj.Shear[1]);
 
-            drawable
+            
+            this
                 .FadeOut()
                 .Then()
                 .Delay(obj.Time)
