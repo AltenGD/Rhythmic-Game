@@ -48,8 +48,15 @@ namespace Rhythmic
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Purista/Purista-SemiBoldItalic"));
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Purista/Purista-Bold"));
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Purista/Purista-BoldItalic"));
+
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Digitall/Digitall"));
+
             Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Audiowide/Audiowide"));
+
+            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Noto/Noto-Basic"));
+            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Noto/Noto-CJK-Basic"));
+            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Noto/Noto-CJK-Compatibility"));
+            Fonts.AddStore(new GlyphStore(Resources, @"Fonts/Noto/Noto-Hangul"));
 
             dependencies.Cache(this);
             dependencies.Cache(storage);
@@ -60,6 +67,7 @@ namespace Rhythmic
             Resources.AddStore(new DllResourceStore(mainResourceFile));
 
             frameworkConfig.Set(FrameworkSetting.FrameSync, FrameSync.Unlimited);
+            frameworkConfig.Set(FrameworkSetting.ShowUnicode, true);
 
             GlobalActionContainer container = new GlobalActionContainer(this)
             {
