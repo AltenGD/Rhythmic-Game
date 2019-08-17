@@ -3,6 +3,7 @@ using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Input.Events;
 using osu.Framework.Screens;
 using osu.Framework.Timing;
 using Rhythmic.Beatmap;
@@ -19,22 +20,40 @@ namespace Rhythmic.Screens.Play
 
         public override bool HideOverlaysOnEnter => true;
 
+        protected override bool AllowBackButton => false;
+
         public override float BackgroundParallaxAmount => 0.25f;
+
+        /// <summary>Whether gameplay should pause when the game window focus is lost.</summary>
+        protected virtual bool PauseOnFocusLost => true;
 
         public readonly SongProgress Progress;
 
         private FailOverlay failOverlay;
+        private PauseOverlay pauseOverlay;
+
+        private PlayableContainer container;
 
         [Resolved]
         private BeatmapCollection collection { get; set; }
 
         protected GameplayClockContainer GameplayClockContainer { get; private set; }
 
+        private readonly bool allowPause;
+        private readonly bool showResults;
+
+        /// <summary>Create a new player instance.</summary>
+        /// <param name="allowPause">Whether pausing should be allowed. If not allowed, attempting to pause will quit.</param>
+        /// <param name="showResults">Whether results screen should be pushed on completion.</param>
+        public Play(bool allowPause = true, bool showResults = true)
+        {
+            this.allowPause = allowPause;
+            this.showResults = showResults;
+        }
+
         protected override void LoadComplete()
         {
             collection.CurrentBeatmap.Value.Song.RestartPoint = 0;
-
-            PlayableContainer container;
 
             InternalChild = GameplayClockContainer = new GameplayClockContainer(collection.CurrentBeatmap.Value, 0);
 
@@ -54,26 +73,15 @@ namespace Rhythmic.Screens.Play
                 {
                     Depth = -100,
                     RelativeSizeAxes = Axes.Both,
-                    OnQuit = () => { this.Exit(); container.Expire(); collection.CurrentBeatmap.Value.Song.Restart(); },
+                    OnQuit = performUserRequestedExit,
                     //Currently doesnt work
-                    OnRetry = () =>
-                    {
-                        GameplayClockContainer.Start();
-                        GameplayClockContainer.Restart();
-                        container.Restart();
-
-                        container.player.Health.Value = collection.CurrentBeatmap.Value.Player.Health;
-                        collection.CurrentBeatmap.Value.Song.Reset();
-
-                        container.player.OnDeath = () =>
-                        {
-                            GameplayClockContainer.Stop();
-                            failOverlay.ToggleVisibility();
-                            collection.CurrentBeatmap.Value.Song.Stop();
-                        };
-
-                        failOverlay.Retries++;
-                    }
+                    OnRetry = Restart
+                },
+                pauseOverlay = new PauseOverlay
+                {
+                    OnResume = Resume,
+                    OnRetry = Restart,
+                    OnQuit = performUserRequestedExit,
                 },
                 new SongProgress(clock)
                 {
@@ -87,17 +95,60 @@ namespace Rhythmic.Screens.Play
             container.OnLoadComplete += delegate
             {
                 collection.CurrentBeatmap.Value.Song.Restart();
+                GameplayClockContainer.Start();
                 container.player.OnDeath = () =>
                 {
                     GameplayClockContainer.Stop();
                     failOverlay.ToggleVisibility();
-                    collection.CurrentBeatmap.Value.Song.Stop();
                 };
             };
 
-            GameplayClockContainer.Start();
-
             base.LoadComplete();
+        }
+
+        private void Restart()
+        {
+            GameplayClockContainer.Restart();
+            container.Restart();
+
+            container.player.Health.Value = collection.CurrentBeatmap.Value.Player.Health;
+            collection.CurrentBeatmap.Value.Song.Reset();
+            collection.CurrentBeatmap.Value.Song.Start();
+
+            container.player.OnDeath = () =>
+            {
+                GameplayClockContainer.Stop();
+                failOverlay.ToggleVisibility();
+            };
+
+            failOverlay.Retries++;
+        }
+
+        public void Resume()
+        {
+            pauseOverlay.Hide();
+
+            GameplayClockContainer.Start();
+        }
+
+        private void performUserRequestedExit()
+        {
+            if (!this.IsCurrentScreen()) return;
+
+            this.Exit();
+            container.Expire();
+            collection.CurrentBeatmap.Value.Song.Restart();
+        }
+
+        protected override bool OnKeyDown(KeyDownEvent e)
+        {
+            if (e.Key == osuTK.Input.Key.Escape)
+            {
+                pauseOverlay.Show();
+                GameplayClockContainer.Stop();
+            }
+
+            return base.OnKeyDown(e);
         }
 
         private class PlayableContainer : Container
