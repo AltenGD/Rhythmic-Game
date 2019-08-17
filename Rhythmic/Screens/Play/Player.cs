@@ -11,6 +11,7 @@ using osu.Framework.Timing;
 using osuTK;
 using osuTK.Graphics;
 using Rhythmic.Beatmap;
+using Rhythmic.Beatmap.Properties;
 using System;
 
 namespace Rhythmic.Screens.Play
@@ -25,6 +26,8 @@ namespace Rhythmic.Screens.Play
 
         [Resolved]
         private BeatmapCollection collection { get; set; }
+
+        private PlayerMeta playerMetadata => collection?.CurrentBeatmap?.Value?.Player;
 
         public BindableFloat Health = new BindableFloat();
 
@@ -59,7 +62,7 @@ namespace Rhythmic.Screens.Play
 
             lastPosition = e.ScreenSpaceMousePosition;
 
-            PlayerCircle.MoveTo(e.MousePosition, 500, Easing.OutExpo);
+            PlayerCircle.MoveTo(e.MousePosition, playerMetadata?.FollowLength ?? 300, Easing.OutExpo);
             healthIndicator.Position = e.MousePosition;
             return base.OnMouseMove(e);
         }
@@ -84,6 +87,8 @@ namespace Rhythmic.Screens.Play
             [Resolved]
             private BeatmapCollection collection { get; set; }
 
+            private PlayerMeta playerMetadata => collection?.CurrentBeatmap?.Value?.Player;
+
             [BackgroundDependencyLoader]
             private void load()
             {
@@ -93,8 +98,8 @@ namespace Rhythmic.Screens.Play
                 {
                     new Circle
                     {
-                        Size = new Vector2(collection?.CurrentBeatmap?.Value?.Player?.Size ?? 30),
-                        Colour = new Color4(collection?.CurrentBeatmap?.Value?.Player?.Colour[0] ?? 255, collection?.CurrentBeatmap?.Value?.Player?.Colour[1] ?? 255, collection?.CurrentBeatmap?.Value?.Player?.Colour[2] ?? 255, 255)
+                        Size = new Vector2(playerMetadata?.Size ?? 30),
+                        Colour = new Color4(playerMetadata?.Colour[0] ?? 255, playerMetadata?.Colour[1] ?? 255, playerMetadata?.Colour[2] ?? 255, 255)
                     }
                 };
             }
@@ -104,6 +109,8 @@ namespace Rhythmic.Screens.Play
         {
             [Resolved]
             private BeatmapCollection collection { get; set; }
+
+            private PlayerMeta playerMetadata => collection?.CurrentBeatmap?.Value?.Player;
 
             private readonly BindableFloat health = new BindableFloat();
 
@@ -124,23 +131,23 @@ namespace Rhythmic.Screens.Play
                 {
                     circle = new CircularProgress
                     {
-                        Size = new Vector2(collection?.CurrentBeatmap?.Value?.Player?.Size * 2.1f ?? 30 * 2.1f),
+                        Size = new Vector2(playerMetadata?.Size * 2.1f ?? 30 * 2.1f),
                         InnerRadius = 0.2f,
                         Alpha = 0.5f
                     },
                     circleBackdrop = new CircularProgress
                     {
-                        Size = new Vector2(collection?.CurrentBeatmap?.Value?.Player?.Size * 2.1f ?? 30 * 2.1f),
+                        Size = new Vector2(playerMetadata?.Size * 2.1f ?? 30 * 2.1f),
                         InnerRadius = 0.2f,
                         Alpha = 0.25f
                     },
                 };
 
-                health.Value = collection.CurrentBeatmap.Value.Player.Health;
+                health.Value = playerMetadata.Health;
 
                 health.ValueChanged += value =>
                 {
-                    circle.FillTo(value.NewValue / collection.CurrentBeatmap.Value.Player.Health, 1000, Easing.OutExpo);
+                    circle.FillTo(value.NewValue / playerMetadata.Health, 1000, Easing.OutExpo);
                 };
 
                 circle.Current.Value = 1;

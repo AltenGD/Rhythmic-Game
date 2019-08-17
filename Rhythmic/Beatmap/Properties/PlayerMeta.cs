@@ -8,6 +8,8 @@
 
         public double Cooldown { get; set; }
 
+        public int FollowLength { get; set; }
+
         public float[] Colour { get; set; }
     }
 }
