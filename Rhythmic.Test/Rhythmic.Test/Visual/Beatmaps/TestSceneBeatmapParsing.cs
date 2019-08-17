@@ -83,62 +83,6 @@ namespace Rhythmic.Test.Visual.Beatmaps
 
             TestLevel.Level.BackgroundColour = new float[] { 10, 10, 10, 10 };
 
-            API.AddPrefab(new Prefab
-            {
-                ID = 0,
-                Name = "Prefab 0",
-                Childrens = new List<Object>
-                {
-                    new Object
-                    {
-                        Name = "Object 1",
-                        Time = 0,
-                        Shape = Shape.Square,
-                        Colour = new float[] { 255, 255, 255, 255 },
-                        Position = new float[] { 0, 0 },
-                        Size = new float[] { 1, 1 },
-                        Rotation = 0,
-                        Anchor = Anchor.Centre,
-                        Origin = Anchor.Centre,
-                        Autokill = true,
-                        Masking = true,
-                        Empty = false,
-                        Helper = false,
-                        ImageUrl = "",
-                        MoveKeyframes = new List<Keyframe<double[]>>
-                        {
-                            new Keyframe<double[]>
-                            {
-                                Time = 0,
-                                Value = new double[] { 0, 0 },
-                                EaseType = Easing.None
-                            },
-                            new Keyframe<double[]>
-                            {
-                                Time = 1,
-                                Value = new double[] { 0, -20 },
-                                EaseType = Easing.InExpo
-                            }
-                        },
-                        ScaleKeyframes = new List<Keyframe<double[]>>
-                        {
-                            new Keyframe<double[]>
-                            {
-                                Time = 0,
-                                Value = new double[] { 0, 0 },
-                                EaseType = Easing.None
-                            },
-                            new Keyframe<double[]>
-                            {
-                                Time = 0.3,
-                                Value = new double[] { 1, 1 },
-                                EaseType = Easing.OutExpo
-                            }
-                        }
-                    }
-                }
-            }, TestLevel);
-
             API.AddObject(new Object
             {
                 Name = "Object 2",

@@ -220,6 +220,19 @@ namespace Rhythmic.Beatmap.Drawables
                         t.EaseType);
                 });
             }
+
+            //Shear
+            if (obj.ShearKeyframes != null && obj.ShearKeyframes.Any())
+            {
+                obj.ShearKeyframes.ForEach(t =>
+                {
+                    drawable.Delay(obj.Time).Delay(t.Time).TransformTo(
+                        nameof(drawable.Shear),
+                        new Vector2((float)t.Value[0], (float)t.Value[1]),
+                        t.TimeUntilFinish,
+                        t.EaseType);
+                });
+            }
             #endregion
 
             if (obj.Autokill)
