@@ -108,6 +108,7 @@ namespace Rhythmic.Screens.Play
             private readonly BindableFloat health = new BindableFloat();
 
             private CircularProgress circle;
+            private CircularProgress circleBackdrop;
 
             public healthIndicatorCircle(BindableFloat Health)
             {
@@ -126,7 +127,13 @@ namespace Rhythmic.Screens.Play
                         Size = new Vector2(collection?.CurrentBeatmap?.Value?.Player?.Size * 2.1f ?? 30 * 2.1f),
                         InnerRadius = 0.2f,
                         Alpha = 0.5f
-                    }
+                    },
+                    circleBackdrop = new CircularProgress
+                    {
+                        Size = new Vector2(collection?.CurrentBeatmap?.Value?.Player?.Size * 2.1f ?? 30 * 2.1f),
+                        InnerRadius = 0.2f,
+                        Alpha = 0.25f
+                    },
                 };
 
                 health.Value = collection.CurrentBeatmap.Value.Player.Health;
@@ -137,6 +144,7 @@ namespace Rhythmic.Screens.Play
                 };
 
                 circle.Current.Value = 1;
+                circleBackdrop.Current.Value = 1;
             }
         }
 
