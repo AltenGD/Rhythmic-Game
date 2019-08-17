@@ -74,6 +74,8 @@ namespace Rhythmic.Screens.Play
                     OnDeath?.Invoke();
 
                 clock.Restart();
+
+                AddExplosion(PlayerCircle.Position);
             }
         }
 
@@ -132,11 +134,27 @@ namespace Rhythmic.Screens.Play
                 health.ValueChanged += value =>
                 {
                     circle.FillTo(value.NewValue / collection.CurrentBeatmap.Value.Player.Health, 1000, Easing.OutExpo);
-                    circle.FlashColour(Color4.Red, 500, Easing.Out);
                 };
 
                 circle.Current.Value = 1;
             }
+        }
+
+        private void AddExplosion(Vector2 Position)
+        {
+            CircularProgress explosionCirc;
+            Add(explosionCirc = new CircularProgress
+            {
+                Size = new Vector2(0),
+                Position = Position,
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                Current = new Bindable<double>(1),
+                Alpha = 0.5f
+            });
+
+            explosionCirc.TransformTo(nameof(explosionCirc.InnerRadius), 0f, 1000, Easing.OutExpo);
+            explosionCirc.ResizeTo(new Vector2(50f * (float)(collection?.CurrentBeatmap?.Value?.Player?.Size / 10)), 1000, Easing.OutExpo);
         }
     }
 }
