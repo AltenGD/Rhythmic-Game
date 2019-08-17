@@ -58,7 +58,6 @@ namespace Rhythmic.Beatmap
                 Level = new LevelMeta
                 {
                     Level = new List<Object>(),
-                    Prefabs = new List<Prefab>()
                 },
                 Metadata = new BeatmapMetadata
                 {
@@ -77,8 +76,5 @@ namespace Rhythmic.Beatmap
 
         public void AddObject(Object obj, BeatmapMeta meta)
             => meta.Level.Level.Add(obj);
-
-        public void AddPrefab(Prefab pre, BeatmapMeta meta)
-            => meta.Level.Prefabs.Add(pre);
     }
 }
