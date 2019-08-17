@@ -226,9 +226,9 @@ namespace Rhythmic.Beatmap.Drawables
             {
                 obj.ShearKeyframes.ForEach(t =>
                 {
-                    drawable.Delay(obj.Time).Delay(t.Time).TransformTo(
+                    this.Delay(obj.Time).Delay(t.Time).TransformTo(
                         nameof(drawable.Shear),
-                        new Vector2((float)t.Value[0], (float)t.Value[1]),
+                        new Vector2(t.Value[0], t.Value[1]),
                         t.TimeUntilFinish,
                         t.EaseType);
                 });
