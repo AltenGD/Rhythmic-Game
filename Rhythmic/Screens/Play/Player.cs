@@ -66,7 +66,7 @@ namespace Rhythmic.Screens.Play
 
         public void TakeDamage()
         {
-            if (clock.ElapsedMilliseconds > TimeSpan.FromSeconds(collection.CurrentBeatmap.Value.Player?.Cooldown ?? 5).TotalMilliseconds)
+            if ((clock.ElapsedMilliseconds * Clock.Rate) > TimeSpan.FromSeconds(collection.CurrentBeatmap.Value.Player?.Cooldown ?? 5).TotalMilliseconds)
             {
                 Health.Value -= 1;
 
@@ -150,7 +150,7 @@ namespace Rhythmic.Screens.Play
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 Current = new Bindable<double>(1),
-                Alpha = 0.5f
+                Alpha = 0.5f,
             });
 
             explosionCirc.TransformTo(nameof(explosionCirc.InnerRadius), 0f, 1000, Easing.OutExpo);

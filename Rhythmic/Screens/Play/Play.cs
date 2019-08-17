@@ -4,6 +4,7 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Screens;
+using osu.Framework.Timing;
 using Rhythmic.Beatmap;
 using Rhythmic.Beatmap.Drawables;
 using Rhythmic.Graphics.Sprites;
@@ -39,11 +40,13 @@ namespace Rhythmic.Screens.Play
 
             GameplayClockContainer.UserPlaybackRate = new Bindable<double>(1);
 
+            var clock = new DecoupleableInterpolatingFramedClock();
+            clock.ChangeSource(GameplayClockContainer.sourceClock);
+
             GameplayClockContainer.Children = new Drawable[]
             {
-                container = new PlayableContainer
+                container = new PlayableContainer(clock)
                 {
-                    Clock = GameplayClockContainer.GameplayClock,
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                 },
@@ -72,7 +75,7 @@ namespace Rhythmic.Screens.Play
                         failOverlay.Retries++;
                     }
                 },
-                new SongProgress
+                new SongProgress(clock)
                 {
                     Anchor = Anchor.BottomLeft,
                     Origin = Anchor.BottomLeft,
@@ -80,8 +83,6 @@ namespace Rhythmic.Screens.Play
                     Objects = collection.CurrentBeatmap.Value.Level.Level,
                 }
             };
-
-            GameplayClockContainer.Start();
 
             container.OnLoadComplete += delegate
             {
@@ -94,6 +95,8 @@ namespace Rhythmic.Screens.Play
                 };
             };
 
+            GameplayClockContainer.Start();
+
             base.LoadComplete();
         }
 
@@ -104,6 +107,13 @@ namespace Rhythmic.Screens.Play
 
             public Player player;
 
+            private DecoupleableInterpolatingFramedClock clock;
+
+            public PlayableContainer(DecoupleableInterpolatingFramedClock clock)
+            {
+                this.clock = clock;
+            }
+
             protected override void LoadComplete()
             {
                 AddInternal(player = new Player
@@ -111,11 +121,12 @@ namespace Rhythmic.Screens.Play
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                     RelativeSizeAxes = Axes.Both,
+                    Clock = clock
                 });
 
                 foreach (Beatmap.Properties.Level.Object.Object obj in collection.CurrentBeatmap.Value.Level.Level)
                 {
-                    AddInternal(new DrawableBeatmapObject(obj, player) { Depth = obj.Depth });
+                    AddInternal(new DrawableBeatmapObject(obj, player) { Depth = obj.Depth, Clock = clock });
                 }
 
                 base.LoadComplete();

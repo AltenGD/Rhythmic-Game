@@ -6,6 +6,7 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Timing;
 using Rhythmic.Beatmap.Properties;
+using System;
 using System.Threading.Tasks;
 
 namespace Rhythmic.Screens.Play
@@ -15,8 +16,8 @@ namespace Rhythmic.Screens.Play
     {
         private readonly BeatmapMeta beatmap;
 
-        /// <summary>The original source (usually a <see cref="DatabasedBeatmap"/>'s track).</summary>
-        private readonly IAdjustableClock sourceClock;
+        /// <summary>The original source (usually a <see cref="BeatmapMeta"/>'s track).</summary>
+        public readonly IAdjustableClock sourceClock;
 
         public readonly BindableBool IsPaused = new BindableBool();
 
@@ -49,6 +50,7 @@ namespace Rhythmic.Screens.Play
             RelativeSizeAxes = Axes.Both;
 
             sourceClock = (IAdjustableClock)beatmap.Song ?? new StopwatchClock();
+            (sourceClock as IAdjustableAudioComponent)?.AddAdjustment(AdjustableProperty.Frequency, pauseFreqAdjust);
 
             adjustableClock = new DecoupleableInterpolatingFramedClock { IsCoupled = false };
 
@@ -61,11 +63,19 @@ namespace Rhythmic.Screens.Play
             GameplayClock = new GameplayClock(userOffsetClock);
 
             GameplayClock.IsPaused.BindTo(IsPaused);
-
-            Seek(gameplayStartTime);
         }
 
         private double totalOffset => userOffsetClock.Offset + platformOffsetClock.Offset;
+
+        private readonly BindableDouble pauseFreqAdjust = new BindableDouble(1);
+
+        [BackgroundDependencyLoader]
+        private void load()
+        {
+            UserPlaybackRate.ValueChanged += _ => updateRate();
+
+            Seek(gameplayStartTime);
+        }
 
         public void Restart()
         {
@@ -86,9 +96,13 @@ namespace Rhythmic.Screens.Play
 
         public void Start()
         {
+            // Seeking the decoupled clock to its current time ensures that its source clock will be seeked to the same time
+            // This accounts for the audio clock source potentially taking time to enter a completely stopped state
             Seek(GameplayClock.CurrentTime);
             adjustableClock.Start();
             IsPaused.Value = false;
+
+            this.TransformBindableTo(pauseFreqAdjust, 1, 200, Easing.In);
         }
 
         /// <summary>Seek to a specific time in gameplay.
@@ -107,7 +121,8 @@ namespace Rhythmic.Screens.Play
 
         public void Stop()
         {
-            adjustableClock.Stop();
+            this.TransformBindableTo(pauseFreqAdjust, 0, 200, Easing.Out).OnComplete(_ => adjustableClock.Stop());
+
             IsPaused.Value = true;
         }
 
@@ -135,6 +150,12 @@ namespace Rhythmic.Screens.Play
                 tempo.TempoAdjust = UserPlaybackRate.Value;
             else
                 sourceClock.Rate = UserPlaybackRate.Value;
+        }
+
+        protected override void Dispose(bool isDisposing)
+        {
+            base.Dispose(isDisposing);
+            (sourceClock as IAdjustableAudioComponent)?.RemoveAdjustment(AdjustableProperty.Frequency, pauseFreqAdjust);
         }
     }
 }

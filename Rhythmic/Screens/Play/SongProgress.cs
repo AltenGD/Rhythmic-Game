@@ -56,16 +56,16 @@ namespace Rhythmic.Screens.Play
         private IClock gameplayClock;
 
         [BackgroundDependencyLoader(true)]
-        private void load(GameplayClock clock)
+        private void load()
+        {
+            graph.FillColour = bar.FillColour = RhythmicColors.FromHex("dff");
+        }
+
+        public SongProgress(DecoupleableInterpolatingFramedClock clock)
         {
             if (clock != null)
                 gameplayClock = clock;
 
-            graph.FillColour = bar.FillColour = RhythmicColors.FromHex("dff");
-        }
-
-        public SongProgress()
-        {
             const float graph_height = SquareGraph.Column.WIDTH * 6;
 
             Height = bottom_bar_height + graph_height + handle_size.Y;
