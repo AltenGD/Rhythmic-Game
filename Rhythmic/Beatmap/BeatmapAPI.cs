@@ -45,7 +45,10 @@ namespace Rhythmic.Beatmap
             => JsonConvert.DeserializeObject<BeatmapMeta>(json);
 
         public string ParseBeatmap(BeatmapMeta meta)
-            => JsonConvert.SerializeObject(meta, Formatting.Indented);
+            => JsonConvert.SerializeObject(meta, Formatting.Indented, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Include
+            });
 
         public Stream GetTrack(BeatmapMeta meta)
             => game.Resources.GetStream("Tracks/" + meta.Metadata.Level.LevelName + "/" + meta.SongUrl);
