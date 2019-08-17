@@ -17,7 +17,7 @@ namespace Rhythmic.Screens.Play
 {
     public class Player : Container, IRequireHighFrequencyMousePosition
     {
-        public playerCircle player;
+        public playerCircle PlayerCircle;
 
         private healthIndicatorCircle healthIndicator;
 
@@ -33,7 +33,7 @@ namespace Rhythmic.Screens.Play
         [BackgroundDependencyLoader]
         private void load()
         {
-            Add(player = new playerCircle
+            Add(PlayerCircle = new playerCircle
             {
                 Origin = Anchor.Centre
             });
@@ -59,8 +59,8 @@ namespace Rhythmic.Screens.Play
 
             lastPosition = e.ScreenSpaceMousePosition;
 
-            player.MoveTo(e.MousePosition, 300, Easing.OutExpo);
-            healthIndicator.MoveTo(e.MousePosition, 0);
+            PlayerCircle.MoveTo(e.MousePosition, 500, Easing.OutExpo);
+            healthIndicator.Position = e.MousePosition;
             return base.OnMouseMove(e);
         }
 
@@ -131,7 +131,8 @@ namespace Rhythmic.Screens.Play
 
                 health.ValueChanged += value =>
                 {
-                    circle.Current.Value = value.NewValue / collection.CurrentBeatmap.Value.Player.Health;
+                    circle.FillTo(value.NewValue / collection.CurrentBeatmap.Value.Player.Health, 1000, Easing.OutExpo);
+                    circle.FlashColour(Color4.Red, 500, Easing.Out);
                 };
 
                 circle.Current.Value = 1;

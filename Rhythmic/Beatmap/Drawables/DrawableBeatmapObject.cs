@@ -232,7 +232,7 @@ namespace Rhythmic.Beatmap.Drawables
 
             if (player != null &&
                 drawable.ScreenSpaceDrawQuad.AABBFloat.IntersectsWith(
-                    player.player.ScreenSpaceDrawQuad.AABBFloat) && !obj.Helper && !obj.Empty && IsPresent)
+                    player.PlayerCircle.ScreenSpaceDrawQuad.AABBFloat) && !obj.Helper && !obj.Empty && IsPresent)
             {
                 player.TakeDamage();
             }
