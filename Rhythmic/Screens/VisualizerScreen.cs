@@ -17,7 +17,8 @@ namespace Rhythmic.Screens
 {
     public class VisualizerScreen : RhythmicScreen
     {
-        protected override BackgroundScreen CreateBackground() => new BackgroundScreenBeatmap();
+        private BackgroundScreenBeatmap background;
+        protected override BackgroundScreen CreateBackground() => background = new BackgroundScreenBeatmap();
 
         private OutlinedSprite beatmapSprite;
 
@@ -149,6 +150,14 @@ namespace Rhythmic.Screens
         private void OnBeatmapChanged(ValueChangedEvent<BeatmapMeta> obj)
         {
             beatmapSprite.Texture = obj.NewValue.Logo ?? obj.NewValue.Background;
+        }
+
+        protected override void LoadComplete()
+        {
+            base.LoadComplete();
+            background.EnableUserDim.Value = false;
+            background.BlurAmount.Value = 0;
+            background.FadeColour(Color4.DimGray, 250);
         }
     }
 }

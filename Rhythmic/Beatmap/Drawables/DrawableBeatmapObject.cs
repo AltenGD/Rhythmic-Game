@@ -1,12 +1,15 @@
 ﻿using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Primitives;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.UserInterface;
 using osuTK;
 using osuTK.Graphics;
 using Rhythmic.Beatmap.Properties.Level.Object;
 using Rhythmic.Screens.Play;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Object = Rhythmic.Beatmap.Properties.Level.Object.Object;
 
@@ -47,7 +50,7 @@ namespace Rhythmic.Beatmap.Drawables
                     CreateDrawable(drawable = new Circle());
                     break;
                 case Shape.Triangle:
-                    CreateDrawable(drawable = new Triangle());
+                    CreateDrawable(drawable = new osu.Framework.Graphics.Shapes.Triangle());
                     break;
                 case Shape.EquilateralTriangle:
                     CreateDrawable(drawable = new EquilateralTriangle());
@@ -237,15 +240,117 @@ namespace Rhythmic.Beatmap.Drawables
 
             if (obj.Autokill)
                 Scheduler.AddDelayed(() => Expire(), obj.Time + obj.AbsoluteTotalTime);
+
+            UpdateVertices();
         }
 
         protected override void Update()
         {
             base.Update();
 
-            if (player != null &&
-                drawable.ScreenSpaceDrawQuad.AABBFloat.IntersectsWith(
-                    player.PlayerCircle.ScreenSpaceDrawQuad.AABBFloat) && !obj.Helper && !obj.Empty && IsPresent)
+            UpdateVertices();
+            CheckAndHandleCollisionWith();
+        }
+
+        protected List<Vector2> Vertices = new List<Vector2>();
+
+        protected List<Vector2> Normals = new List<Vector2>();
+
+        protected virtual void UpdateVertices()
+        {
+            Vertices.Clear();
+            Normals.Clear();
+
+            float cornerRadius = CornerRadius;
+
+            // Sides
+            RectangleF rect = drawable.DrawRectangle;
+            Vector2[] corners = { rect.TopLeft, rect.TopRight, rect.BottomRight, rect.BottomLeft };
+            const int amount_side_steps = 2;
+
+            for (int i = 0; i < 4; ++i)
+            {
+                Vector2 a = corners[i];
+                Vector2 b = corners[(i + 1) % 4];
+                Vector2 diff = b - a;
+                float length = diff.Length;
+                Vector2 dir = diff / length;
+
+                float usableLength = Math.Max(length - 2 * cornerRadius, 0);
+
+                Vector2 normal = (b - a).PerpendicularRight.Normalized();
+
+                for (int j = 0; j < amount_side_steps; ++j)
+                {
+                    Vertices.Add(a + dir * (cornerRadius + j * usableLength / (amount_side_steps - 1)));
+                    Normals.Add(normal);
+                }
+            }
+
+            const int amount_corner_steps = 10;
+
+            if (cornerRadius > 0)
+            {
+                // Rounded corners
+                Vector2[] offsets =
+                {
+                    new Vector2(cornerRadius, cornerRadius),
+                    new Vector2(-cornerRadius, cornerRadius),
+                    new Vector2(-cornerRadius, -cornerRadius),
+                    new Vector2(cornerRadius, -cornerRadius),
+                };
+
+                for (int i = 0; i < 4; ++i)
+                {
+                    Vector2 a = corners[i];
+
+                    float startTheta = (i - 1) * (float)Math.PI / 2;
+
+                    for (int j = 0; j < amount_corner_steps; ++j)
+                    {
+                        float theta = startTheta + j * (float)Math.PI / (2 * (amount_corner_steps - 1));
+
+                        Vector2 normal = new Vector2((float)Math.Sin(theta), (float)Math.Cos(theta));
+                        Vertices.Add(a + offsets[i] + normal * cornerRadius);
+                        Normals.Add(normal);
+                    }
+                }
+            }
+
+            // To simulation space
+            Matrix3 mat = drawable.DrawInfo.Matrix * drawable.DrawInfo.MatrixInverse;
+            Matrix3 normMat = mat.Inverted();
+            normMat.Transpose();
+
+            // Remove translation
+            normMat.M31 = normMat.M32 = normMat.M13 = normMat.M23 = 0;
+            Vector2 translation = Vector2Extensions.Transform(Vector2.Zero, normMat);
+
+            for (int i = 0; i < Vertices.Count; ++i)
+            {
+                Vertices[i] = Vector2Extensions.Transform(Vertices[i], mat);
+                Normals[i] = (Vector2Extensions.Transform(Normals[i], normMat) - translation).Normalized();
+            }
+        }
+
+        private void CheckAndHandleCollisionWith()
+        {
+            if (player == null ||
+                !player.PlayerCircle.ScreenSpaceDrawQuad.AABBFloat.IntersectsWith(
+                    drawable.ScreenSpaceDrawQuad.AABBFloat) || obj.Helper || obj.Empty || !IsPresent)
+                return;
+
+            bool didCollide = false;
+
+            for (int i = 0; i < Vertices.Count; i++)
+            {
+                if (player.PlayerCircle.ScreenSpaceDrawQuad.Contains(Vector2Extensions.Transform(Vertices[i], drawable.DrawInfo.Matrix)))
+                {
+                    didCollide = true;
+                }
+            }
+
+            if (didCollide)
             {
                 player.TakeDamage();
             }
